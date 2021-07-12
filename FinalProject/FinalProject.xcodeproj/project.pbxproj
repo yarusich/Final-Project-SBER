@@ -8,12 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		84133A892687F04500EACD6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84133A882687F04500EACD6A /* AppDelegate.swift */; };
-		84133A8D2687F04500EACD6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84133A8C2687F04500EACD6A /* ViewController.swift */; };
 		84133A932687F04500EACD6A /* FinalProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84133A912687F04500EACD6A /* FinalProject.xcdatamodeld */; };
 		84133A952687F04900EACD6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84133A942687F04900EACD6A /* Assets.xcassets */; };
 		84133A982687F04900EACD6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84133A962687F04900EACD6A /* LaunchScreen.storyboard */; };
 		84133AA32687F04900EACD6A /* FinalProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84133AA22687F04900EACD6A /* FinalProjectTests.swift */; };
 		84133AAE2687F04900EACD6A /* FinalProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84133AAD2687F04900EACD6A /* FinalProjectUITests.swift */; };
+		84DD68862695F198007842CD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68852695F198007842CD /* MainViewController.swift */; };
+		84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688A2695F255007842CD /* MainViewDelegate.swift */; };
+		84DD68902695F9A2007842CD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688F2695F9A2007842CD /* MainView.swift */; };
+		84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68A52696EA87007842CD /* PhotoCellView.swift */; };
+		84DD68AE2696F13E007842CD /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68AD2696F13E007842CD /* PhotoModel.swift */; };
+		84DD68B626979117007842CD /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68B526979117007842CD /* CustomLayout.swift */; };
+		84DD6990269BD155007842CD /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD698F269BD155007842CD /* PhotoViewController.swift */; };
+		84DD6995269BD3C0007842CD /* DConstans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6994269BD3C0007842CD /* DConstans.swift */; };
+		84DD699A269C0882007842CD /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6999269C0882007842CD /* PhotoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +44,6 @@
 /* Begin PBXFileReference section */
 		84133A852687F04500EACD6A /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84133A882687F04500EACD6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84133A8C2687F04500EACD6A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84133A922687F04500EACD6A /* FinalProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FinalProject.xcdatamodel; sourceTree = "<group>"; };
 		84133A942687F04900EACD6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84133A972687F04900EACD6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +54,15 @@
 		84133AA92687F04900EACD6A /* FinalProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinalProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84133AAD2687F04900EACD6A /* FinalProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalProjectUITests.swift; sourceTree = "<group>"; };
 		84133AAF2687F04900EACD6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84DD68852695F198007842CD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		84DD688A2695F255007842CD /* MainViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewDelegate.swift; sourceTree = "<group>"; };
+		84DD688F2695F9A2007842CD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		84DD68A52696EA87007842CD /* PhotoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellView.swift; sourceTree = "<group>"; };
+		84DD68AD2696F13E007842CD /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		84DD68B526979117007842CD /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
+		84DD698F269BD155007842CD /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		84DD6994269BD3C0007842CD /* DConstans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DConstans.swift; sourceTree = "<group>"; };
+		84DD6999269C0882007842CD /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +117,6 @@
 				84133AC62687F20C00EACD6A /* View */,
 				84133AC72687F21400EACD6A /* Controller */,
 				84133A882687F04500EACD6A /* AppDelegate.swift */,
-				84133A8C2687F04500EACD6A /* ViewController.swift */,
 				84133A942687F04900EACD6A /* Assets.xcassets */,
 				84133A962687F04900EACD6A /* LaunchScreen.storyboard */,
 				84133A992687F04900EACD6A /* Info.plist */,
@@ -131,6 +146,9 @@
 		84133AC52687F20600EACD6A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				84DD688A2695F255007842CD /* MainViewDelegate.swift */,
+				84DD68AD2696F13E007842CD /* PhotoModel.swift */,
+				84DD6994269BD3C0007842CD /* DConstans.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -138,6 +156,10 @@
 		84133AC62687F20C00EACD6A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84DD688F2695F9A2007842CD /* MainView.swift */,
+				84DD68A52696EA87007842CD /* PhotoCellView.swift */,
+				84DD68B526979117007842CD /* CustomLayout.swift */,
+				84DD6999269C0882007842CD /* PhotoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -145,6 +167,8 @@
 		84133AC72687F21400EACD6A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				84DD68852695F198007842CD /* MainViewController.swift */,
+				84DD698F269BD155007842CD /* PhotoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -278,9 +302,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84133A8D2687F04500EACD6A /* ViewController.swift in Sources */,
+				84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */,
+				84DD68902695F9A2007842CD /* MainView.swift in Sources */,
 				84133A892687F04500EACD6A /* AppDelegate.swift in Sources */,
 				84133A932687F04500EACD6A /* FinalProject.xcdatamodeld in Sources */,
+				84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */,
+				84DD699A269C0882007842CD /* PhotoView.swift in Sources */,
+				84DD6995269BD3C0007842CD /* DConstans.swift in Sources */,
+				84DD6990269BD155007842CD /* PhotoViewController.swift in Sources */,
+				84DD68AE2696F13E007842CD /* PhotoModel.swift in Sources */,
+				84DD68B626979117007842CD /* CustomLayout.swift in Sources */,
+				84DD68862695F198007842CD /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

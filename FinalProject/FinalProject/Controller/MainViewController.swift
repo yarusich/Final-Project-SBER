@@ -9,21 +9,30 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-
-    
     
     private var photoModel = PhotoModel()
     
-    var photos = PhotoModel().photos
-    
-    private var mainView = MainView()
+    private var photos = PhotoModel().photos
         
     private let photoSearchController = UISearchController(searchResultsController: nil)
     
-    override func loadView() {
-        self.view = mainView
-    }
-    
+    private lazy var collectionPhotoView: UICollectionView = {
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .vertical
+//        layout.minimumLineSpacing = 0
+        let layout = CustomLayout()
+//        MARK: Размеры ячейки, надо переделать
+//        layout.itemSize = CGSize(width: 200, height: 200)
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(PhotoCellView.self, forCellWithReuseIdentifier: PhotoCellView.id)
+        cv.delegate = self
+        cv.dataSource = self
+        cv.backgroundColor = .red
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        return cv
+    }()
+        
 //    MARK: В МОДЕЛЬ!
     private var filteredPhotos = [UIImage]()
     private var searchBarIsEmpty: Bool {
@@ -36,16 +45,16 @@ final class MainViewController: UIViewController {
         return photoSearchController.isActive && !searchBarIsEmpty
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .orange
         
-        setupPhotoSearchController()
-        
-        mainView.setupView()
-        mainView.delegate = self
         photoModel.delegate = self
+        
+        setupPhotoSearchController()
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,11 +70,55 @@ final class MainViewController: UIViewController {
         navigationItem.searchController = photoSearchController
         definesPresentationContext = true
     }
+}
+
+extension MainViewController: ViewProtocol {
+    
+    func setupView() {
+        view.addSubview(collectionPhotoView)
+        NSLayoutConstraint.activate([
+            collectionPhotoView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionPhotoView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionPhotoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionPhotoView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+}
+
+extension MainViewController: UICollectionViewDelegate {
+//    MARK: Выбрали ячейку
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selected(at: indexPath)
+    }
+    
+}
+//  MARK: UICollectionViewDataSource
+extension MainViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath) as! PhotoCellView
+        
+        cell.configView(with: photos[indexPath.item].image)
+        cell.backgroundColor = .yellow
+        return cell
+    }
     
 }
 
+extension MainViewController: UIScrollViewDelegate {
+//    MARK: Для скрытия верхнего бара
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+}
+
 //  MARK: VIEW
-extension MainViewController: MainViewDelegate {
+extension MainViewController {
     
     func selected(at index: IndexPath) {
         navigationController?.pushViewController(PhotoViewController(with: photoModel.defoltPhotos[index.item], at: index), animated: true)

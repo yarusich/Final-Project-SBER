@@ -9,7 +9,7 @@ import UIKit
 
 final class MainView: UIView {
     
-    private let photos = PhotoModel.photos
+    private var photos = PhotoModel().defoltPhotos
     
     weak var delegate: MainViewDelegate?
     
@@ -47,6 +47,11 @@ final class MainView: UIView {
         return cv
     }()
     
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//    }
+
+    
     @objc func settingsButtonTapped() {
         delegate?.settingsTapped()
     }
@@ -58,23 +63,24 @@ extension MainView: ViewProtocol {
     
     func setupView() {
         addSubview(collectionPhotoView)
-        addSubview(searchView)
-        addSubview(settingsButton)
+//        addSubview(searchView)
+//        addSubview(settingsButton)
         
         NSLayoutConstraint.activate([
-            collectionPhotoView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+//            collectionPhotoView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+            collectionPhotoView.topAnchor.constraint(equalTo: topAnchor),
             collectionPhotoView.bottomAnchor.constraint(equalTo: bottomAnchor),
             collectionPhotoView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionPhotoView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionPhotoView.trailingAnchor.constraint(equalTo: trailingAnchor)
             
-            searchView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            searchView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            searchView.trailingAnchor.constraint(equalTo: settingsButton.leadingAnchor, constant: -10),
-            
-            settingsButton.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            settingsButton.bottomAnchor.constraint(equalTo: collectionPhotoView.topAnchor, constant: -10),
-            settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor, constant: 0),
-            settingsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+//            searchView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+//            searchView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+//            searchView.trailingAnchor.constraint(equalTo: settingsButton.leadingAnchor, constant: -10),
+//
+//            settingsButton.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+//            settingsButton.bottomAnchor.constraint(equalTo: collectionPhotoView.topAnchor, constant: -10),
+//            settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor, constant: 0),
+//            settingsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
 }
@@ -95,7 +101,7 @@ extension MainView: UICollectionViewDataSource {
 //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PhotoModel.photos.count
+        return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,6 +109,7 @@ extension MainView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath) as! PhotoCellView
         //        cell.configView(with: delegate.)
         
+//        cell.configView(with: photos[indexPath.item].image)
         cell.configView(with: photos[indexPath.item])
         cell.backgroundColor = .yellow
         return cell

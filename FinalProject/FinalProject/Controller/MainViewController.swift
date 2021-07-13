@@ -12,8 +12,6 @@ final class MainViewController: UIViewController {
     private var mainView = MainView()
     
     override func loadView() {
-        super.loadView()
-        
         self.view = mainView
     }
     
@@ -21,6 +19,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .orange
+        
         mainView.setupView()
         mainView.delegate = self
     }
@@ -37,5 +36,9 @@ extension MainViewController: MainViewDelegate {
     
     func selected(at index: IndexPath) {
         navigationController?.pushViewController(PhotoViewController(with: PhotoModel.photos[index.item], at: index), animated: true)
+    }
+//    MARK: Будет выводить лист настроек
+    func settingsTapped() {
+        print("settings tapped")
     }
 }

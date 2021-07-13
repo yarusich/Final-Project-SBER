@@ -17,6 +17,7 @@ protocol MainViewDelegate: AnyObject {
 //    func didTap(at index: IndexPath)
 //    func didTapNewDrawingButton()
     func selected(at index: IndexPath)
+    func settingsTapped()
 }
 
 //MARK: протокол для установки вью, подумать куда впиихнуть

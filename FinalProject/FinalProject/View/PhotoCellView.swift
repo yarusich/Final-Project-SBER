@@ -8,9 +8,7 @@
 import UIKit
 
 final class PhotoCellView: UICollectionViewCell {
-//    static let id = "some"
 //    static let id = "id"
-//    MARK: Это что вообще?
     static let id = String(describing: self)
     
      private lazy var imageView: UIImageView = {

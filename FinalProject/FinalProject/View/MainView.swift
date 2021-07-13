@@ -9,15 +9,32 @@ import UIKit
 
 final class MainView: UIView {
     
+    private let photos = PhotoModel.photos
+    
     weak var delegate: MainViewDelegate?
     
-
+    
+    private lazy var searchView: UISearchBar = {
+        let sv = UISearchBar()
+        
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        return sv
+    }()
+    
+    private lazy var settingsButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.backgroundColor = .blue
+        btm.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
     private lazy var collectionPhotoView: UICollectionView = {
 //        let layout = UICollectionViewFlowLayout()
 //        layout.scrollDirection = .vertical
 //        layout.minimumLineSpacing = 0
         let layout = CustomLayout()
-//        MARK: Размеры ячейки по сути, надо придумать что-то
+//        MARK: Размеры ячейки, надо переделать
 //        layout.itemSize = CGSize(width: 200, height: 200)
         
         
@@ -29,18 +46,35 @@ final class MainView: UIView {
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
+    
+    @objc func settingsButtonTapped() {
+        delegate?.settingsTapped()
+    }
+    
+    
 }
 
 extension MainView: ViewProtocol {
     
     func setupView() {
         addSubview(collectionPhotoView)
+        addSubview(searchView)
+        addSubview(settingsButton)
         
         NSLayoutConstraint.activate([
-            collectionPhotoView.topAnchor.constraint(equalTo: topAnchor),
+            collectionPhotoView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
             collectionPhotoView.bottomAnchor.constraint(equalTo: bottomAnchor),
             collectionPhotoView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionPhotoView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            collectionPhotoView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            searchView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            searchView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            searchView.trailingAnchor.constraint(equalTo: settingsButton.leadingAnchor, constant: -10),
+            
+            settingsButton.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            settingsButton.bottomAnchor.constraint(equalTo: collectionPhotoView.topAnchor, constant: -10),
+            settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor, constant: 0),
+            settingsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
 }
@@ -50,6 +84,8 @@ extension MainView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.selected(at: indexPath)
     }
+    
+    
 }
 
 extension MainView: UICollectionViewDataSource {
@@ -63,16 +99,15 @@ extension MainView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        MARK: Передать сюда нашу переиспользуемую ячейку
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath) as! PhotoCellView
-//        MARK: Сложная штука с протоколом, сделать
         //        cell.configView(with: delegate.)
         
-//        let item = PhotoModel.photos[indexPath.item]
-        cell.configView(with: PhotoModel.photos[indexPath.item])
+        cell.configView(with: photos[indexPath.item])
         cell.backgroundColor = .yellow
         return cell
     }
+    
 }
 
 extension MainView: UIScrollViewDelegate {

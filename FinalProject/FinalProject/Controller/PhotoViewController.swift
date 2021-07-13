@@ -15,7 +15,7 @@ final class PhotoViewController: UIViewController {
     private lazy var imageView: UIImageView = {
         let iv = UIImageView()
 //        MARK: Перенести куда-то
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv

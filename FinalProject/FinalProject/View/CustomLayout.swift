@@ -8,7 +8,6 @@
 import UIKit
 
 final class CustomLayout: UICollectionViewLayout {
-//    MARK: Что это?
     private let section = 0
     private let lineSpacing: CGFloat = 10
 //    MARK: Задаём размер элемента из вне (убрать 31)
@@ -92,7 +91,7 @@ class CustomePhotoLayoutCache {
         return defaultFrame
     }
     
-//    MARK: ACCESS
+
     func visibleRows(in frame: CGRect) -> [Int] {
         return defaultFrames
             .enumerated()   //index to frame relation

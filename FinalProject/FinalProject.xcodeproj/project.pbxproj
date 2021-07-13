@@ -22,6 +22,7 @@
 		84DD6990269BD155007842CD /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD698F269BD155007842CD /* PhotoViewController.swift */; };
 		84DD6995269BD3C0007842CD /* DConstans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6994269BD3C0007842CD /* DConstans.swift */; };
 		84DD699A269C0882007842CD /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6999269C0882007842CD /* PhotoView.swift */; };
+		84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD69A9269D37ED007842CD /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		84DD698F269BD155007842CD /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		84DD6994269BD3C0007842CD /* DConstans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DConstans.swift; sourceTree = "<group>"; };
 		84DD6999269C0882007842CD /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		84DD69A9269D37ED007842CD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 		84133A872687F04500EACD6A /* FinalProject */ = {
 			isa = PBXGroup;
 			children = (
+				84DD69A4269C9FFE007842CD /* Network */,
 				84133AC52687F20600EACD6A /* Model */,
 				84133AC62687F20C00EACD6A /* View */,
 				84133AC72687F21400EACD6A /* Controller */,
@@ -171,6 +174,14 @@
 				84DD698F269BD155007842CD /* PhotoViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		84DD69A4269C9FFE007842CD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				84DD69A9269D37ED007842CD /* NetworkService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,6 +323,7 @@
 				84DD6990269BD155007842CD /* PhotoViewController.swift in Sources */,
 				84DD68AE2696F13E007842CD /* PhotoModel.swift in Sources */,
 				84DD68B626979117007842CD /* CustomLayout.swift in Sources */,
+				84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */,
 				84DD68862695F198007842CD /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

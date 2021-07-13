@@ -23,6 +23,7 @@
 		84DD6995269BD3C0007842CD /* DConstans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6994269BD3C0007842CD /* DConstans.swift */; };
 		84DD699A269C0882007842CD /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6999269C0882007842CD /* PhotoView.swift */; };
 		84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD69A9269D37ED007842CD /* NetworkService.swift */; };
+		84DD69B7269E0912007842CD /* PhotoSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD69B6269E0912007842CD /* PhotoSearchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		84DD6994269BD3C0007842CD /* DConstans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DConstans.swift; sourceTree = "<group>"; };
 		84DD6999269C0882007842CD /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		84DD69A9269D37ED007842CD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		84DD69B6269E0912007842CD /* PhotoSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				84DD68852695F198007842CD /* MainViewController.swift */,
+				84DD69B6269E0912007842CD /* PhotoSearchController.swift */,
 				84DD698F269BD155007842CD /* PhotoViewController.swift */,
 			);
 			path = Controller;
@@ -319,6 +322,7 @@
 				84133A932687F04500EACD6A /* FinalProject.xcdatamodeld in Sources */,
 				84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */,
 				84DD699A269C0882007842CD /* PhotoView.swift in Sources */,
+				84DD69B7269E0912007842CD /* PhotoSearchController.swift in Sources */,
 				84DD6995269BD3C0007842CD /* DConstans.swift in Sources */,
 				84DD6990269BD155007842CD /* PhotoViewController.swift in Sources */,
 				84DD68AE2696F13E007842CD /* PhotoModel.swift in Sources */,

@@ -9,6 +9,9 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    private var cursor: Cursor?
+    
+    private var dataSource = [GetPhotosDataResponse]()
     
     private var photoModel = PhotoModel()
     
@@ -61,6 +64,9 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
 //        MARK: Скрыли наш нав бар
         navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.backgroundColor = UIColor.clear
+        navigationController?.navigationBar.barTintColor = .red
+        
     }
     
     private func setupPhotoSearchController() {
@@ -96,14 +102,16 @@ extension MainViewController: UICollectionViewDelegate {
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+//        return photos.count
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath) as! PhotoCellView
         
-        cell.configView(with: photos[indexPath.item].image)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath) as? cellPhotoCellView
+        
+//        cell.configView(with: photos[indexPath.item].image)
+        
         cell.backgroundColor = .yellow
         return cell
     }
@@ -113,7 +121,9 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UIScrollViewDelegate {
 //    MARK: Для скрытия верхнего бара
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+//        if scrollView.isTracking {
+//        navigationController?.navigationBar.isHidden = true
+//        }
     }
 }
 

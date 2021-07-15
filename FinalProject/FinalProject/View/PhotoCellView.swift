@@ -40,6 +40,9 @@ final class PhotoCellView: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
     }
+    func configure(with model: GetPhotosDataResponse) {
+        
+    }
 }
 
 extension PhotoCellView {

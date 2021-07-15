@@ -17,8 +17,15 @@ final class PhotoViewController: UIViewController {
 //        MARK: Перенести куда-то
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
+//        iv.addGestureRecognizer(<#T##gestureRecognizer: UIGestureRecognizer##UIGestureRecognizer#>)
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
+    }()
+    
+    lazy var doubleTapGesture: UITapGestureRecognizer = {
+        let recognizer = UITapGestureRecognizer()
+        recognizer.addTarget(self, action: #selector(viewDoubleTap))
+        return recognizer
     }()
     
     init(with photo: UIImage, at index: IndexPath) {
@@ -43,11 +50,16 @@ final class PhotoViewController: UIViewController {
         view.backgroundColor = .green
         setupView()
     }
+    
+    @objc func viewDoubleTap() {
+        print("тапнули по коту")
+    }
 }
 
 extension PhotoViewController: ViewProtocol {
     func setupView() {
         view.addSubview(imageView)
+        imageView.addGestureRecognizer(doubleTapGesture)
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

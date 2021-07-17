@@ -15,6 +15,7 @@ final class PhotoCellView: UICollectionViewCell {
     
     private lazy var imageView: UIImageView = {
         let iv = UIImageView(frame: .init(x: contentView.bounds.origin.x, y: contentView.bounds.origin.y, width: contentView.bounds.width, height: contentView.bounds.height))
+        iv.image = UIImage()
 //        iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -49,15 +50,18 @@ extension PhotoCellView {
     func configure(with model: GetPhotosDataResponse) {
 //       MARK: получаем отсюда ссылку и качаем картинку
         loadPhotoData(str: model.urls.regular)
+//        imageView.image = UIImage(named: "cat2")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
     }
     
+    
     private func loadPhotoData(str: String) {
-        networkService.loadPhoto(imageUrl: str) { data in
+        networkService.loadPhotoTrue(imageUrl: str) { data in
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     self.imageView.image = image
+//                    self.imageView.image = UIImage(named: "cat2")
                 }
             }
         }

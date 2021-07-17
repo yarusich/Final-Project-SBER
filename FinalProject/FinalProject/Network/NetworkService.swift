@@ -62,10 +62,10 @@ extension NetworkService: PhotoNetworkServiceProtocol {
 //  MARK: LOAD PHOTO
     func loadPhoto(imageUrl: String, complition: @escaping (Data?) -> Void) {
         guard let url = URL(string: imageUrl) else { complition(nil); return }
-        
+
 //        MARK: КЭШИРОВАНИЕ!
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
-        
+
 //        MARK: PHOTO HANDLER
         let handler: CompletionHandler = { rawData, response, taskError in
             do {
@@ -75,11 +75,15 @@ extension NetworkService: PhotoNetworkServiceProtocol {
                 complition(nil)
             }
         }
+    
+
+    
+    
         
 //        MARK: PHOTO CALL
-        let dataTask = session.dataTask(with: request, completionHandler: handler)
-        dataTask.resume()
-    }
+//        let dataTask = session.dataTask(with: request, completionHandler: handler)
+//        dataTask.resume()
+//    }
     
     private func httpResponse(data: Data?, response: URLResponse?) throws -> Data {
         guard let httpResponse = response as? HTTPURLResponse,

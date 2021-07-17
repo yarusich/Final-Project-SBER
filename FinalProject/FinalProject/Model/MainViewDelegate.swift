@@ -20,6 +20,10 @@ protocol MainViewDelegate: AnyObject {
     func settingsTapped()
 }
 
+protocol PhotoModelDelegate {
+    
+}
+
 //MARK: протокол для установки вью, подумать куда впиихнуть
 protocol ViewProtocol: class {
     func setupView()

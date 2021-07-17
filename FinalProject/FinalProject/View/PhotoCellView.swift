@@ -8,10 +8,12 @@
 import UIKit
 
 final class PhotoCellView: UICollectionViewCell {
-//    static let id = "id"
+    
     static let id = String(describing: self)
     
-     private lazy var imageView: UIImageView = {
+    private let networkService = NetworkService()
+    
+    private lazy var imageView: UIImageView = {
         let iv = UIImageView(frame: .init(x: contentView.bounds.origin.x, y: contentView.bounds.origin.y, width: contentView.bounds.width, height: contentView.bounds.height))
 //        iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
@@ -40,12 +42,28 @@ final class PhotoCellView: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
     }
+    func configure(with model: GetPhotosDataResponse) {
+//       MARK: получаем отсюда ссылку и качаем картинку
+        loadPhotoData(str: model.urls.regular)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+    }
+    
+    private func loadPhotoData(str: String) {
+        networkService.loadPhoto(imageUrl: str) { data in
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                }
+            }
+        }
+    }
 }
 
 extension PhotoCellView {
     func configView(with model: UIImage) {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = model
+//        imageView.image = model
     }
 }

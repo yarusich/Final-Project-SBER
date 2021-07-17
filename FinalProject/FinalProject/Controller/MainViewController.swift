@@ -9,6 +9,8 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    private var searhingQuery = "cats"
+    
     private let networkService: PhotoNetworkServiceProtocol
     
     private var cursor = Cursor()
@@ -38,9 +40,7 @@ final class MainViewController: UIViewController {
     }()
     
     init(networkService: PhotoNetworkServiceProtocol) {
-
         self.networkService = networkService
-//        MARK: ДЛЯ ЧЕГО ЭТО?
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,7 +56,7 @@ final class MainViewController: UIViewController {
         setupPhotoSearchController()
         setupView()
         
-        loadData()
+        loadData(with: searhingQuery)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +69,6 @@ final class MainViewController: UIViewController {
     }
     
     private func setupPhotoSearchController() {
-//        photoSearchController.searchResultsUpdater = self
         photoSearchController.obscuresBackgroundDuringPresentation = false
         photoSearchController.searchBar.placeholder = "поиск котиков"
         navigationItem.searchController = photoSearchController
@@ -77,17 +76,15 @@ final class MainViewController: UIViewController {
     }
     
 //    MARK: LOAD DATA
-    private func loadData() {
+    private func loadData(with query: String) {
         let page = cursor.nextPage()
-        networkService.searchPhotos(currentPage: page, searching: "") { self.process($0) }   //after починить
+        networkService.searchPhotos(currentPage: page, searching: query) { self.process($0) }
     }
     
     private func process(_ response: GetPhotosAPIResponse) {
         DispatchQueue.main.async {
             switch response {
             case .success(let data):
-//                self.cursor?.page =   починить курсор
-//                MARK: Видимо кэшируем нужные данные?
                 self.dataSource.append(contentsOf: data.results)
                 self.collectionPhotoView.reloadData()
             case .failure(let error):
@@ -140,9 +137,9 @@ extension MainViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let rowCount = 5
+        let rowCount = 1
         if indexPath.item == dataSource.count - rowCount {
-            loadData()
+            loadData(with: searhingQuery)
         }
     }
     
@@ -151,20 +148,17 @@ extension MainViewController: UICollectionViewDelegate {
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return photos.count
         return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        MARK: Переделать вот так, чтобы сразу уходило в ячейку, так лучше
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath) (cell as? PhotoCellView)?.configure(with: dataSource[indexPath.item])
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         
         guard let photoCell = cell as? PhotoCellView else { return cell }
-//        MARK: Загрузку по урлу лучше сделать здесь (перенести, если получится)
+//        MARK: Загрузку по урлу лучше сделать здесь?
         photoCell.configure(with: dataSource[indexPath.item])
-//        cell.configView(with: photos[indexPath.item].image)
+
         
         photoCell.backgroundColor = .yellow
         
@@ -189,7 +183,7 @@ extension MainViewController {
         navigationController?.pushViewController(PhotoViewController(photo: dataSource[index.item], at: index), animated: true)
     }
 //    MARK: Будет выводить лист настроек
-    func settingsTapped() {
+    @objc func settingsTapped() {
         print("settings tapped")
     }
 }

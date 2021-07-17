@@ -42,6 +42,10 @@ final class PhotoCellView: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
     }
+
+}
+
+extension PhotoCellView {
     func configure(with model: GetPhotosDataResponse) {
 //       MARK: получаем отсюда ссылку и качаем картинку
         loadPhotoData(str: model.urls.regular)
@@ -57,13 +61,5 @@ final class PhotoCellView: UICollectionViewCell {
                 }
             }
         }
-    }
-}
-
-extension PhotoCellView {
-    func configView(with model: UIImage) {
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-//        imageView.image = model
     }
 }

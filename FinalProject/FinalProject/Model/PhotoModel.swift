@@ -14,3 +14,12 @@ class PhotoModel {
 
 }
 
+//struct PModel {
+//    let id: String
+//    let urls: [PhotoURLs]
+//    let image: UIImage
+//    
+//    init(id: String, urls: [PhotoURLs], image:) {
+//        <#statements#>
+//    }
+//}

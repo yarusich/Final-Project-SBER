@@ -26,9 +26,9 @@ extension NetworkService: PhotoNetworkServiceProtocol {
     func searchPhotos(currentPage page: String, searching query: String, complition: @escaping (GetPhotosAPIResponse) -> Void) {
         
 //        MARK: Курсор и запрос, принимать из вне. Курсор видимо переписать, используя объект Cursor
-        let query = "cats"
+//        let query = "cats"
 //        let page = String(cursor)
-        let perPage = String(20)
+        let perPage = String(3)
 //        MARK: Сконфигурировали запрос
         var components = URLComponents(string: NetworkConstants.baseURLString)
         components?.queryItems = [

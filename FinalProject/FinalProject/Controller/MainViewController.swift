@@ -9,15 +9,15 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    private var cursor: Cursor?
+    private let networkService: PhotoNetworkServiceProtocol
+    
+    private var cursor = Cursor()
     
     private var dataSource = [GetPhotosDataResponse]()
-    
-    private var photoModel = PhotoModel()
-    
-    private var photos = PhotoModel().photos
-        
+            
     private let photoSearchController = UISearchController(searchResultsController: nil)
+    
+//    private lazy var photoSearchBar: UISearchBar = {}()
     
     private lazy var collectionPhotoView: UICollectionView = {
 //        let layout = UICollectionViewFlowLayout()
@@ -32,32 +32,31 @@ final class MainViewController: UIViewController {
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = .red
+        cv.showsVerticalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
-        
-//    MARK: В МОДЕЛЬ!
-    private var filteredPhotos = [UIImage]()
-    private var searchBarIsEmpty: Bool {
-        guard let text = photoSearchController.searchBar.text else { return false }
-        return text.isEmpty
-    }
-//    - - - - - - - -
     
-    private var isFiltering: Bool {
-        return photoSearchController.isActive && !searchBarIsEmpty
+    init(networkService: PhotoNetworkServiceProtocol) {
+
+        self.networkService = networkService
+//        MARK: ДЛЯ ЧЕГО ЭТО?
+        super.init(nibName: nil, bundle: nil)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .orange
         
-        photoModel.delegate = self
-        
         setupPhotoSearchController()
         setupView()
+        
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,11 +69,54 @@ final class MainViewController: UIViewController {
     }
     
     private func setupPhotoSearchController() {
-        photoSearchController.searchResultsUpdater = self
+//        photoSearchController.searchResultsUpdater = self
         photoSearchController.obscuresBackgroundDuringPresentation = false
         photoSearchController.searchBar.placeholder = "поиск котиков"
         navigationItem.searchController = photoSearchController
         definesPresentationContext = true
+    }
+    
+//    MARK: LOAD DATA
+    private func loadData() {
+        let page = cursor.nextPage()
+        networkService.searchPhotos(currentPage: page, searching: "") { self.process($0) }   //after починить
+    }
+    
+    private func process(_ response: GetPhotosAPIResponse) {
+        DispatchQueue.main.async {
+            switch response {
+            case .success(let data):
+//                self.cursor?.page =   починить курсор
+//                MARK: Видимо кэшируем нужные данные?
+                self.dataSource.append(contentsOf: data.results)
+                self.collectionPhotoView.reloadData()
+            case .failure(let error):
+                self.showAlert(for: error)
+            }
+        }
+    }
+    
+//    MARK: ALERT об ошибке
+    private func showAlert(for error: NetworkServiceError) {
+        let alert = UIAlertController(title: "Что-то пошло не так",
+                                      message: message(for: error),
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+    
+//    MARK: сообщение об ошибке
+    private func message(for error: NetworkServiceError) -> String {
+        switch error {
+        case .network:
+            return "Запрос упал"
+        case .decodable:
+            return "Не смогли распарсить"
+        case .buildingURL:
+            return "Вы не авторизованы"
+        case .unknown:
+            return "Что-то неизвестное"
+        }
     }
 }
 
@@ -97,6 +139,13 @@ extension MainViewController: UICollectionViewDelegate {
         selected(at: indexPath)
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let rowCount = 5
+        if indexPath.item == dataSource.count - rowCount {
+            loadData()
+        }
+    }
+    
 }
 //  MARK: UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
@@ -107,13 +156,19 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        MARK: Переделать вот так, чтобы сразу уходило в ячейку, так лучше
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath) (cell as? PhotoCellView)?.configure(with: dataSource[indexPath.item])
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath) as? cellPhotoCellView
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         
+        guard let photoCell = cell as? PhotoCellView else { return cell }
+//        MARK: Загрузку по урлу лучше сделать здесь (перенести, если получится)
+        photoCell.configure(with: dataSource[indexPath.item])
 //        cell.configView(with: photos[indexPath.item].image)
         
-        cell.backgroundColor = .yellow
-        return cell
+        photoCell.backgroundColor = .yellow
+        
+        return photoCell
     }
     
 }
@@ -131,7 +186,7 @@ extension MainViewController: UIScrollViewDelegate {
 extension MainViewController {
     
     func selected(at index: IndexPath) {
-        navigationController?.pushViewController(PhotoViewController(with: photoModel.defoltPhotos[index.item], at: index), animated: true)
+        navigationController?.pushViewController(PhotoViewController(photo: dataSource[index.item], at: index), animated: true)
     }
 //    MARK: Будет выводить лист настроек
     func settingsTapped() {
@@ -144,18 +199,3 @@ extension MainViewController: PhotoModelDelegate {
     
 }
 
-extension MainViewController: UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else { return }
-        filterContentForSearchText(searchText)
-    }
-//    MARK: Фильтрация контента
-    private func filterContentForSearchText(_ searhText: String) {
-        let searchingPhoto = photoModel.getPhotos(searhText)
-        filteredPhotos = searchingPhoto.map { $0.image }
-        
-        
-        
-    }
-}

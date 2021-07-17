@@ -8,7 +8,7 @@
 import Foundation
 
 enum NetworkServiceError: Error {
-    case unauthorize
+    case buildingURL
     case network
     case decodable
     case unknown

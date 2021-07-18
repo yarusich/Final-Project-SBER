@@ -15,6 +15,6 @@ struct NetworkConstants {
 //    static let baseURLString = "https://api.unsplash.com/photos/?client_id="
     static let sizeImageURLString = "regular"  //small = 400, regular = 1080
 //    MARK: Запрос
-    static var query: String = ""
+    static var query: String?
     
 }

@@ -9,17 +9,40 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    var filteredPhotos = [GetPhotosDataResponse]()
+    var searchBarIsEmpty: Bool {
+        guard let text = photoSearchController.searchBar.text else { return false}
+        return text.isEmpty
+    }
+    var isFiltering: Bool {
+        return photoSearchController.isActive && !searchBarIsEmpty
+    }
+    
     private var searhingQuery = "cats"
     
     private let networkService: PhotoNetworkServiceProtocol
     
     private var cursor = Cursor()
+    private var cursorS = Cursor()
     
     private var dataSource = [GetPhotosDataResponse]()
             
-    private let photoSearchController = UISearchController(searchResultsController: nil)
+    private let photoSearchController: UISearchController = {
+        let sc = UISearchController(searchResultsController: nil)
+//        sc.delegate = self
+        sc.obscuresBackgroundDuringPresentation = false
+        sc.hidesNavigationBarDuringPresentation = false
+//        sc.searchBar.delegate = self
+        sc.searchBar.placeholder = "Поиск котиков"
+        sc.searchBar.autocapitalizationType = .none
+        return sc
+    }()
     
-//    private lazy var photoSearchBar: UISearchBar = {}()
+    private lazy var photoSearchBar: UISearchBar = {
+        let sb = UISearchBar()
+        
+        return sb
+    }()
     
     private lazy var collectionPhotoView: UICollectionView = {
 //        let layout = UICollectionViewFlowLayout()
@@ -55,6 +78,7 @@ final class MainViewController: UIViewController {
         
         setupPhotoSearchController()
         setupView()
+        setupNavigationBar()
         
         loadData(with: searhingQuery)
     }
@@ -68,11 +92,20 @@ final class MainViewController: UIViewController {
         
     }
     
+    private func setupNavigationBar() {
+
+    }
+    
     private func setupPhotoSearchController() {
-        photoSearchController.obscuresBackgroundDuringPresentation = false
-        photoSearchController.searchBar.placeholder = "поиск котиков"
+//        photoSearchController.searchResultsUpdater = self
+//        photoSearchController.obscuresBackgroundDuringPresentation = false
+//        photoSearchController.searchBar.placeholder = "поиск котиков"
+        let currentQuery = NetworkConstants.query?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let query = currentQuery, query.isEmpty == false { return }
         navigationItem.searchController = photoSearchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        extendedLayoutIncludesOpaqueBars = true
     }
     
 //    MARK: LOAD DATA
@@ -191,5 +224,9 @@ extension MainViewController {
 extension MainViewController: PhotoModelDelegate {
     
     
+}
+
+extension MainViewController: UISearchControllerDelegate {
+    //
 }
 

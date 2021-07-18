@@ -92,15 +92,3 @@ extension NetworkService: PhotoNetworkServiceProtocol {
 }
 
 
-
-//  MARK: Размеры изображений
-enum ImageSizeUrls {
-    case raw
-    case full
-    case regular
-    case small
-    case thumb
-}
-
-//  MARK: Парсим
-//struct

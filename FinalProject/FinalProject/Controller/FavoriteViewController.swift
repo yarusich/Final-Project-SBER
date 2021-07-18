@@ -9,7 +9,7 @@ import UIKit
 
 final class FavoriteViewController: UIViewController {
     
-//    collection view 
+//   collection view
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,3 +17,5 @@ final class FavoriteViewController: UIViewController {
         view.backgroundColor = .magenta
     }
 }
+
+

@@ -20,8 +20,17 @@ protocol MainViewDelegate: AnyObject {
     func settingsTapped()
 }
 
-protocol PhotoModelDelegate {
-    
+protocol PhotoViewDelegate {
+    func photoAddInFavorite(photo: GetPhotosDataResponse) 
+}
+
+protocol FavoritePhotosModelDelegate {
+    func addFavoritePhotos(photo: GetPhotosDataResponse)
+    func putStoredPhotos() -> [GetPhotosDataResponse]
+}
+
+protocol ButtonTappedDelegate {
+    func buttonIsTaped()
 }
 
 //MARK: протокол для установки вью, подумать куда впиихнуть

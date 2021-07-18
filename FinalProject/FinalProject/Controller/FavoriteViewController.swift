@@ -9,7 +9,9 @@ import UIKit
 
 final class FavoriteViewController: UIViewController {
     
-//    collection view 
+    private let photos: [GetPhotosDataResponse] = FavoriteStor.shared.putStoredPhotos()
+    
+//   collection view
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,3 +19,5 @@ final class FavoriteViewController: UIViewController {
         view.backgroundColor = .magenta
     }
 }
+
+

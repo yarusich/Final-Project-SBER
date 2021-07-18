@@ -10,13 +10,24 @@ import UIKit
 final class PhotoViewController: UIViewController {
     
     
-    private let networkService = NetworkService()
+    
     private var index: IndexPath
     private var photo: GetPhotosDataResponse
 //  MARK:    private let photoItem: GetPhotosDataResponse  //ВНИЗУ УЖЕ ЕСТЬ ВСЕ ЗАГОТОВКИ МЕТОДОВ
     
-    private lazy var imageView: UIImageView = {
-        let iv = UIImageView()
+    
+    private lazy var likeButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("like", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .red
+        btm.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
+    private lazy var imageView: PhotoView = {
+        let iv = PhotoView()
 //        MARK: Перенести куда-то
 //        iv.addGestureRecognizer(<#T##gestureRecognizer: UIGestureRecognizer##UIGestureRecognizer#>)
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -53,22 +64,10 @@ final class PhotoViewController: UIViewController {
     }
     
     private func configImage(with model: GetPhotosDataResponse) {
-//       MARK: получаем отсюда ссылку и качаем картинку
-        loadPhotoData(str: model.urls.regular)
+        imageView.setupImage(str: model.urls.regular)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
     }
-    
-    private func loadPhotoData(str: String) {
-        networkService.loadPhoto(imageUrl: str) { data in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self.imageView.image = image
-                }
-            }
-        }
-    }
-    
     
     @objc func viewDoubleTap() {
 //        MARK: двойной тап приближает и отдаляет, одинарный - скрывает интерфейс
@@ -83,8 +82,9 @@ final class PhotoViewController: UIViewController {
 //        MARK: Шарим фотку
     }
     
-    @objc func tapLikeButton() {
+    @objc func likeButtonTapped() {
 //        MARK: сохраняем фотку в раздел фоток (урл или файл)
+        FavoriteStor.shared.addFavoritePhotos(photo: photo)
     }
     
     @objc func tapSaveButton() {
@@ -94,6 +94,7 @@ final class PhotoViewController: UIViewController {
 
 extension PhotoViewController: ViewProtocol {
     func setupView() {
+        view.addSubview(likeButton)
         view.addSubview(imageView)
         imageView.addGestureRecognizer(doubleTapGesture)
         
@@ -101,9 +102,16 @@ extension PhotoViewController: ViewProtocol {
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.topAnchor.constraint(equalTo: view.topAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            likeButton.heightAnchor.constraint(equalToConstant: 40),
+            likeButton.widthAnchor.constraint(equalToConstant: 60),
+            likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
         ])
     }
     
     
 }
+
+

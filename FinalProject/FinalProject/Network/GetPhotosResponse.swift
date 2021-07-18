@@ -26,11 +26,11 @@ struct GetPhotosDataResponse: Decodable {
 
 
 struct PhotoURLs: Decodable {
-    let raw: String
-    let full: String
+//    let raw: String
+//    let full: String
     let regular: String    //самое нужное
-    let small: String
-    let thumb: String
+//    let small: String
+//    let thumb: String
 }
 
 //  MARK: Вложить в структуру, для которой написано

@@ -9,6 +9,8 @@ import UIKit
 
 final class FavoriteViewController: UIViewController {
     
+    private let photos: [GetPhotosDataResponse] = FavoriteStor.shared.putStoredPhotos()
+    
 //   collection view
     
     override func viewDidLoad() {

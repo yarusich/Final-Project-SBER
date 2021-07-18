@@ -9,7 +9,7 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    var filteredPhotos = [GetPhotosDataResponse]()
+    
     var searchBarIsEmpty: Bool {
         guard let text = photoSearchController.searchBar.text else { return false}
         return text.isEmpty
@@ -18,12 +18,11 @@ final class MainViewController: UIViewController {
         return photoSearchController.isActive && !searchBarIsEmpty
     }
     
-    private var searhingQuery = "cats"
+    private var query = "cats"
     
     private let networkService: PhotoNetworkServiceProtocol
     
     private var cursor = Cursor()
-    private var cursorS = Cursor()
     
     private var dataSource = [GetPhotosDataResponse]()
             
@@ -80,7 +79,7 @@ final class MainViewController: UIViewController {
         setupView()
         setupNavigationBar()
         
-        loadData(with: searhingQuery)
+        loadData(with: query)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -172,7 +171,7 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let rowCount = 1
         if indexPath.item == dataSource.count - rowCount {
-            loadData(with: searhingQuery)
+            loadData(with: query)
         }
     }
     
@@ -220,11 +219,7 @@ extension MainViewController {
         print("settings tapped")
     }
 }
-//  MARK: MODEL
-extension MainViewController: PhotoModelDelegate {
-    
-    
-}
+
 
 extension MainViewController: UISearchControllerDelegate {
     //

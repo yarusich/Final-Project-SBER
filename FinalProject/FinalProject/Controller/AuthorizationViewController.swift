@@ -120,10 +120,7 @@ final class AuthorizationViewController: UIViewController {
             authorizationTextLabel.textColor = .red
         }
     }
-    
-    
 
-    
     deinit {
         print("deinit AuthorizationViewController")
     }

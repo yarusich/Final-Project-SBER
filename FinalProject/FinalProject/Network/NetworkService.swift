@@ -75,15 +75,11 @@ extension NetworkService: PhotoNetworkServiceProtocol {
                 complition(nil)
             }
         }
-    
-
-    
-    
         
 //        MARK: PHOTO CALL
-//        let dataTask = session.dataTask(with: request, completionHandler: handler)
-//        dataTask.resume()
-//    }
+        let dataTask = session.dataTask(with: request, completionHandler: handler)
+        dataTask.resume()
+    }
     
     private func httpResponse(data: Data?, response: URLResponse?) throws -> Data {
         guard let httpResponse = response as? HTTPURLResponse,

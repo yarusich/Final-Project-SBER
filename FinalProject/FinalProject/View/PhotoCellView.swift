@@ -48,7 +48,6 @@ final class PhotoCellView: UICollectionViewCell {
 
 extension PhotoCellView {
     func configure(with model: GetPhotosDataResponse) {
-//       MARK: получаем отсюда ссылку и качаем картинку
         imageView.setupImage(str: model.urls.regular)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true

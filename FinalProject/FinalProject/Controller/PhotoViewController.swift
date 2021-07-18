@@ -9,14 +9,12 @@ import UIKit
 
 final class PhotoViewController: UIViewController {
     
-    
-    private let networkService = NetworkService()
     private var index: IndexPath
     private var photo: GetPhotosDataResponse
 //  MARK:    private let photoItem: GetPhotosDataResponse  //ВНИЗУ УЖЕ ЕСТЬ ВСЕ ЗАГОТОВКИ МЕТОДОВ
     
-    private lazy var imageView: UIImageView = {
-        let iv = UIImageView()
+    private lazy var imageView: PhotoView = {
+        let iv = PhotoView()
 //        MARK: Перенести куда-то
 //        iv.addGestureRecognizer(<#T##gestureRecognizer: UIGestureRecognizer##UIGestureRecognizer#>)
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -53,22 +51,10 @@ final class PhotoViewController: UIViewController {
     }
     
     private func configImage(with model: GetPhotosDataResponse) {
-//       MARK: получаем отсюда ссылку и качаем картинку
-        loadPhotoData(str: model.urls.regular)
+        imageView.setupImage(str: model.urls.regular)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
     }
-    
-    private func loadPhotoData(str: String) {
-        networkService.loadPhoto(imageUrl: str) { data in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self.imageView.image = image
-                }
-            }
-        }
-    }
-    
     
     @objc func viewDoubleTap() {
 //        MARK: двойной тап приближает и отдаляет, одинарный - скрывает интерфейс

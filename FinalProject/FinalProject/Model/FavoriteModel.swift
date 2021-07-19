@@ -24,7 +24,6 @@ final class FavoriteStor {
     private init() { }
     
     func addFavoritePhotos(photo: GetPhotosDataResponse) {
-        print(storePhotos)
         for item in storePhotos {
             if item.id == photo.id {
                 return
@@ -38,13 +37,13 @@ final class FavoriteStor {
     }
 
     func deletePhoto(photo: GetPhotosDataResponse) {
-//        for item in storePhotos {
-//            if item.id == photo.id {
-//                storePhotos.remove(at: )
-//            }
-//        }
+        for i in storePhotos.indices {
+            if storePhotos[i].id == photo.id {
+                storePhotos.remove(at: i)
+                print("Фото с индексом \(i) удалено")
+            }
+        }
     }
-    
 }
 
 extension FavoriteStor: NSCopying {

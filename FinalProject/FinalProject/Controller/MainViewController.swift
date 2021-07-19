@@ -9,7 +9,6 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    
     var searchBarIsEmpty: Bool {
         guard let text = photoSearchController.searchBar.text else { return false}
         return text.isEmpty
@@ -18,7 +17,6 @@ final class MainViewController: UIViewController {
         return photoSearchController.isActive && !searchBarIsEmpty
     }
     
-    private var query = "cats"
     
     private let networkService: PhotoNetworkServiceProtocol
     
@@ -73,13 +71,14 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NetworkConstants.query = "cats"
         view.backgroundColor = .orange
         
         setupPhotoSearchController()
         setupView()
         setupNavigationBar()
         
-        loadData(with: query)
+        loadData(with: NetworkConstants.query)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,7 +107,8 @@ final class MainViewController: UIViewController {
     }
     
 //    MARK: LOAD DATA
-    private func loadData(with query: String) {
+    private func loadData(with query: String?) {
+        guard let query = query else { return }
         let page = cursor.nextPage()
         networkService.searchPhotos(currentPage: page, searching: query) { self.process($0) }
     }
@@ -171,7 +171,7 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let rowCount = 1
         if indexPath.item == dataSource.count - rowCount {
-            loadData(with: query)
+            loadData(with: NetworkConstants.query)
         }
     }
     

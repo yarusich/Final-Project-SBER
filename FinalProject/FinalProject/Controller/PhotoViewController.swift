@@ -16,6 +16,26 @@ final class PhotoViewController: UIViewController {
 //  MARK:    private let photoItem: GetPhotosDataResponse  //ВНИЗУ УЖЕ ЕСТЬ ВСЕ ЗАГОТОВКИ МЕТОДОВ
     
     
+    private lazy var shareButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("share", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .red
+        btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
+    private lazy var saveButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("save", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .red
+        btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
     private lazy var likeButton: UIButton = {
         let btm = UIButton(type: .system)
         btm.setTitle("like", for: .normal)
@@ -26,6 +46,17 @@ final class PhotoViewController: UIViewController {
         return btm
     }()
     
+    private lazy var infoButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("info", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .red
+        btm.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
+    
     private lazy var imageView: PhotoView = {
         let iv = PhotoView()
 //        MARK: Перенести куда-то
@@ -34,11 +65,11 @@ final class PhotoViewController: UIViewController {
         return iv
     }()
     
-    lazy var doubleTapGesture: UITapGestureRecognizer = {
-        let recognizer = UITapGestureRecognizer()
-        recognizer.addTarget(self, action: #selector(viewDoubleTap))
-        return recognizer
-    }()
+//    lazy var doubleTapGesture: UITapGestureRecognizer = {
+//        let recognizer = UITapGestureRecognizer()
+//        recognizer.addTarget(self, action: #selector(viewDoubleTap))
+//        return recognizer
+//    }()
     
     init(photo: GetPhotosDataResponse, at index: IndexPath) {
         self.photo = photo
@@ -66,37 +97,69 @@ final class PhotoViewController: UIViewController {
     private func configImage(with model: GetPhotosDataResponse) {
         imageView.setupImage(str: model.urls.regular)
         imageView.contentMode = .scaleAspectFit
+//        MARK: Посмотреть оба вариант клипа
         imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
     }
     
-    @objc func viewDoubleTap() {
-//        MARK: двойной тап приближает и отдаляет, одинарный - скрывает интерфейс
-        print("тапнули по коту")
+    @objc func viewDoubleTapped() {
+//        MARK: двойной тап приближает и отдаляет
+        print("тапнули по коту два раза")
     }
     
-    @objc func tapInfoButton() {
-//        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
+    @objc func viewTapped() {
+//        MARK: одинарный тап - скрывает интерфейс
+        print("тапнули по коту один раз")
+        hideInterface()
     }
     
-    @objc func tapShareButton() {
+    @objc private func shareButtonTapped() {
 //        MARK: Шарим фотку
+        print("Шарим кота")
     }
     
-    @objc func likeButtonTapped() {
+    @objc private func saveButtonTapped() {
+//        MARK: сохраняем фотку в галерею
+        print("Сохраняем кота в галерею")
+    }
+    
+    @objc private func likeButtonTapped() {
 //        MARK: сохраняем фотку в раздел фоток (урл или файл)
+        print("Сохраняем кота в фаворит")
         FavoriteStor.shared.addFavoritePhotos(photo: photo)
     }
     
-    @objc func tapSaveButton() {
-//        MARK: сохраняем фотку в галерею
+    @objc private func infoButtonTapped() {
+//        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
+        print("Смотрим инфу про кота")
+    }
+    
+    private func saveToGallery() {
+        guard let image = imageView.image else { return }
+//        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    private func hideInterface() {
+//        MARK: Скрыть всё
+        shareButton.isHidden = !shareButton.isHidden
+        saveButton.isHidden = !saveButton.isHidden
+        likeButton.isHidden = !likeButton.isHidden
+        infoButton.isHidden = !infoButton.isHidden
+        
+        if let nv = navigationController {
+            nv.navigationBar.isHidden = !nv.navigationBar.isHidden
+        }
     }
 }
 
 extension PhotoViewController: ViewProtocol {
     func setupView() {
-        view.addSubview(likeButton)
         view.addSubview(imageView)
-        imageView.addGestureRecognizer(doubleTapGesture)
+        view.addSubview(shareButton)
+        view.addSubview(saveButton)
+        view.addSubview(likeButton)
+        view.addSubview(infoButton)
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -104,10 +167,25 @@ extension PhotoViewController: ViewProtocol {
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            likeButton.heightAnchor.constraint(equalToConstant: 40),
-            likeButton.widthAnchor.constraint(equalToConstant: 60),
-            likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
+            shareButton.heightAnchor.constraint(equalToConstant: 50),
+            shareButton.widthAnchor.constraint(equalToConstant: 50),
+            shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
+            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            
+            saveButton.heightAnchor.constraint(equalToConstant: 50),
+            saveButton.widthAnchor.constraint(equalToConstant: 50),
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40),
+            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            
+            likeButton.heightAnchor.constraint(equalToConstant: 50),
+            likeButton.widthAnchor.constraint(equalToConstant: 50),
+            likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
+            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            
+            infoButton.heightAnchor.constraint(equalToConstant: 50),
+            infoButton.widthAnchor.constraint(equalToConstant: 50),
+            infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
+            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
     }
     

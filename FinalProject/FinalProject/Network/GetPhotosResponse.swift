@@ -7,19 +7,6 @@
 
 import Foundation
 
-//struct PhotoModel {
-//    let id: String
-//    let width: Int
-//    let height: Int
-//
-//    let description: String
-//
-//    let author: String
-//
-//    let url: String
-//
-//}
-
 struct GetPhotosResponse: Decodable {
     let results: [PhotoModel]
 }
@@ -49,7 +36,6 @@ struct PhotoModel {
 }
 
 struct PhotoURLs: Decodable {
-//    let full: String
     let regular: String
 
 }

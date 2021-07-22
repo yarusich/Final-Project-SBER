@@ -19,11 +19,11 @@ final class FavoriteStor {
     
     static let shared = FavoriteStor()
     
-    private var storePhotos = [GetPhotosDataResponse]()
+    private var storePhotos = [PhotoModel]()
     
     private init() { }
     
-    func addFavoritePhotos(photo: GetPhotosDataResponse) {
+    func addFavoritePhotos(photo: PhotoModel) {
         for item in storePhotos {
             if item.id == photo.id {
                 return
@@ -32,11 +32,11 @@ final class FavoriteStor {
         storePhotos.append(photo)
     }
 
-    func putStoredPhotos() -> [GetPhotosDataResponse] {
+    func putStoredPhotos() -> [PhotoModel] {
         return storePhotos
     }
 
-    func deletePhoto(photo: GetPhotosDataResponse) {
+    func deletePhoto(photo: PhotoModel) {
         for i in storePhotos.indices {
             if storePhotos[i].id == photo.id {
                 storePhotos.remove(at: i)

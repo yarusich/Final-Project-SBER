@@ -21,12 +21,12 @@ protocol MainViewDelegate: AnyObject {
 }
 
 protocol PhotoViewDelegate {
-    func photoAddInFavorite(photo: GetPhotosDataResponse) 
+    func photoAddInFavorite(photo: PhotoModel) 
 }
 
 protocol FavoritePhotosModelDelegate {
-    func addFavoritePhotos(photo: GetPhotosDataResponse)
-    func putStoredPhotos() -> [GetPhotosDataResponse]
+    func addFavoritePhotos(photo: PhotoModel)
+    func putStoredPhotos() -> [PhotoModel]
 }
 
 protocol ButtonTappedDelegate {

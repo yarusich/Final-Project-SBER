@@ -22,7 +22,7 @@ final class MainViewController: UIViewController {
     
     private var cursor = Cursor()
     
-    private var dataSource = [GetPhotosDataResponse]()
+    private var dataSource = [PhotoModel]()
             
     private let photoSearchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)

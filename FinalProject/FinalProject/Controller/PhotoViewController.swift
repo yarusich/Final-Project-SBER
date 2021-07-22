@@ -12,7 +12,7 @@ final class PhotoViewController: UIViewController {
     
     
     private var index: IndexPath
-    private var photo: GetPhotosDataResponse
+    private var photo: PhotoModel
 //  MARK:    private let photoItem: GetPhotosDataResponse  //ВНИЗУ УЖЕ ЕСТЬ ВСЕ ЗАГОТОВКИ МЕТОДОВ
     
     
@@ -71,7 +71,7 @@ final class PhotoViewController: UIViewController {
 //        return recognizer
 //    }()
     
-    init(photo: GetPhotosDataResponse, at index: IndexPath) {
+    init(photo: PhotoModel, at index: IndexPath) {
         self.photo = photo
         self.index = index
         super.init(nibName: nil, bundle: nil)
@@ -94,8 +94,8 @@ final class PhotoViewController: UIViewController {
         setupView()
     }
     
-    private func configImage(with model: GetPhotosDataResponse) {
-        imageView.setupImage(str: model.urls.regular)
+    private func configImage(with model: PhotoModel) {
+        imageView.setupImage(str: model.url)
         imageView.contentMode = .scaleAspectFit
 //        MARK: Посмотреть оба вариант клипа
         imageView.clipsToBounds = true
@@ -135,6 +135,8 @@ final class PhotoViewController: UIViewController {
         print("Смотрим инфу про кота")
         print(photo.description)
         print("\(photo.width) x \(photo.height)")
+        print(photo.url)
+        print(photo.author)
     }
     
     private func saveToGallery() {

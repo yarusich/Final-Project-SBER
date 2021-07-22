@@ -9,7 +9,7 @@ import UIKit
 
 final class FavoriteViewController: UIViewController {
     
-    private let photos: [GetPhotosDataResponse] = FavoriteStor.shared.putStoredPhotos()
+    private let photos: [PhotoModel] = FavoriteStor.shared.putStoredPhotos()
     
 //   collection view
     

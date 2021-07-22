@@ -7,39 +7,46 @@
 
 import Foundation
 
+struct PhotoModel {
+    let id: String
+    let width: Int
+    let height: Int
+    let description: String
+    let author: String
+    let url: String
+}
+
 struct GetPhotosResponse: Decodable {
     let results: [GetPhotosDataResponse]
 }
 
-
+//GetPhotosDataResponse
 
 struct GetPhotosDataResponse: Decodable {
     let id: String
-//    let created_at: Date
-//    let width: Int
-//    let height: Int
-//    let color: UIColor?
-//    let description: String
+    let width: Int
+    let height: Int
+    let description: String
+    let user: User
     let urls: PhotoURLs
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case width
+        case height
+        case description = "alt_description"
+        case user
+        case urls
+    }
 }
-
-
 
 struct PhotoURLs: Decodable {
-//    let raw: String
 //    let full: String
-    let regular: String    //самое нужное
-//    let small: String
-//    let thumb: String
+    let regular: String
+
 }
 
-//  MARK: Вложить в структуру, для которой написано
-//enum CodingKeys: String, CodingKey {
-//    case id
-//    case createdAt = "created_at"     //можно сделать декодер из снейк кейса в кэмел кейс
-//    case width
-//    case height
-//    case color
-//    case description
-//    case urls
-//}
+struct User: Decodable {
+    let name: String
+}
+

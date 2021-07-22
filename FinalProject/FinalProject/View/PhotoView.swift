@@ -18,11 +18,8 @@ class PhotoView: UIImageView {
                     self.image = image
                 }
             }
-            
         }
     }
-    
-    
 }
 
 

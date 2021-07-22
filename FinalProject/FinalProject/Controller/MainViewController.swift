@@ -72,6 +72,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         NetworkConstants.query = "cats"
+        
         view.backgroundColor = .orange
         
         setupPhotoSearchController()
@@ -87,7 +88,6 @@ final class MainViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.backgroundColor = UIColor.clear
         navigationController?.navigationBar.barTintColor = .red
-        
     }
     
     private func setupNavigationBar() {

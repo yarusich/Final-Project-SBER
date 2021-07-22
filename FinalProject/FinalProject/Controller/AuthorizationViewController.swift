@@ -8,6 +8,7 @@
 import UIKit
 
 final class AuthorizationViewController: UIViewController {
+//    MARK: в этом vc будем создавать таб бар контроллер
     
     private let authorizationModel = AuthorizationModel()
     
@@ -97,20 +98,28 @@ final class AuthorizationViewController: UIViewController {
         ])
     }
     
+    private func correctText(_ name: String?) -> String? {
+        guard let name = authorizationTextField.text else { return nil }
+        return name
+    }
+    
     @objc private func signInButtonTapped() {
-        if authorizationModel.checkUser(authorizationTextField.text!) {
+        guard let name = correctText(authorizationTextField.text) else { return }
+        if authorizationModel.checkUser(name) {
             authorizationTextLabel.text = "Пользователь не найден"
             authorizationTextLabel.textColor = .red
         } else {
             authorizationTextLabel.text = "Введите имя пользователя:"
             authorizationTextLabel.textColor = .black
+            authorizationModel.addCurrentUser(name)
             navigationController?.pushViewController(MainViewController(networkService: NetworkService()), animated: true)
+//            navigationController?.pushViewController(ProfileViewController(), animated: true)
         }
 
     }
     
     @objc private func signUpButtonTapped() {
-        let name = authorizationTextField.text!
+        guard let name = correctText(authorizationTextField.text) else { return }
         if authorizationModel.checkUser(name) {
             authorizationModel.appendNewUser(name)
             authorizationTextLabel.text = "Пользователь добавлен"

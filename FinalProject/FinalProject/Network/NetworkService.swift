@@ -23,7 +23,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
     typealias CompletionHandler = (Data?, URLResponse?, Error?) -> Void
     
 //    MARK: SEARCH PHOTOS
-    func searchPhotos(currentPage page: String, searching query: String, complition: @escaping (GetPhotosAPIResponse) -> Void) {
+    func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (GetPhotosAPIResponse) -> Void) {
         
 //        MARK: Курсор и запрос, принимать из вне. Курсор видимо переписать, используя объект Cursor
 //        let query = "cats"
@@ -37,7 +37,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
             URLQueryItem(name: "page", value: page),
             URLQueryItem(name: "per_page", value: perPage)
         ]
-        guard let url = components?.url else { complition(.failure(.buildingURL)); return }
+        guard let url = components?.url else { completion(.failure(.buildingURL)); return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -47,11 +47,11 @@ extension NetworkService: PhotoNetworkServiceProtocol {
             do {
                 let data = try self.httpResponse(data: rawData, response: response)
                 let response = try self.decoder.decode(GetPhotosResponse.self, from: data)
-                complition(.success(response))
+                completion(.success(response))
             } catch let error as NetworkServiceError {
-                complition(.failure(error))
+                completion(.failure(error))
             } catch {
-                complition(.failure(.unknown))
+                completion(.failure(.unknown))
             }
         }
 //        MARK: CALL
@@ -60,19 +60,18 @@ extension NetworkService: PhotoNetworkServiceProtocol {
     }
     
 //  MARK: LOAD PHOTO
-    func loadPhoto(imageUrl: String, complition: @escaping (Data?) -> Void) {
-        guard let url = URL(string: imageUrl) else { complition(nil); return }
+    func loadPhoto(imageUrl: String, completion: @escaping (Data?) -> Void) {
+        guard let url = URL(string: imageUrl) else { completion(nil); return }
 
-//        MARK: КЭШИРОВАНИЕ!
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
 
 //        MARK: PHOTO HANDLER
         let handler: CompletionHandler = { rawData, response, taskError in
             do {
                 let data = try self.httpResponse(data: rawData, response: response)
-                complition(data)
+                completion(data)
             } catch {
-                complition(nil)
+                completion(nil)
             }
         }
         

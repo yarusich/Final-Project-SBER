@@ -10,7 +10,7 @@ import Foundation
 typealias GetPhotosAPIResponse = Result<GetPhotosResponse, NetworkServiceError>
 
 protocol PhotoNetworkServiceProtocol {
-    func searchPhotos(currentPage page: String, searching query: String, complition: @escaping (GetPhotosAPIResponse) -> Void) 
+    func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (GetPhotosAPIResponse) -> Void) 
 //    func getRandomPhotos(current page: String, complition: @escaping (GetPhotosAPIResponse) -> Void)
-    func loadPhoto(imageUrl: String, complition: @escaping (Data?) -> Void)
+    func loadPhoto(imageUrl: String, completion: @escaping (Data?) -> Void)
 }

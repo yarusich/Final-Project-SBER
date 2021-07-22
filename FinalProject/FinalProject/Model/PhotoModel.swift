@@ -5,21 +5,16 @@
 //  Created by Антон Сафронов on 08.07.2021.
 //
 
-// MARK: Надо убрать отсюда uikit, да?
-import UIKit
+import Foundation
 
-
-
-class PhotoModel {
-
-}
-
-//struct PModel {
+//struct PhotoModel {
+//
 //    let id: String
-//    let urls: [PhotoURLs]
-//    let image: UIImage
-//    
-//    init(id: String, urls: [PhotoURLs], image:) {
-//        <#statements#>
-//    }
+//    let width: Int
+//    let height: Int
+//    let description: String
+//    let author: String
+//    let url: String
 //}
+
+

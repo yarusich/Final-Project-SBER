@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        let rootVC = ProfileViewController()
+//        let rootVC = AuthorizationViewController()
         let networkService = NetworkService()
         let rootVC = MainViewController(networkService: networkService)
 

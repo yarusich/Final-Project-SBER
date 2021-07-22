@@ -40,6 +40,7 @@ final class ProfileViewController: UIViewController {
     private func setView() {
         view.addSubview(profileTextLabel)
         view.addSubview(changeProfileButton)
+        profileTextLabel.text = UserDefaults.standard.string(forKey: "currentUser")
         
         NSLayoutConstraint.activate([
             profileTextLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -54,7 +55,8 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func changeProfileButtonTapped() {
-        navigationController?.pushViewController(AuthorizationViewController(), animated: true)
+//        navigationController?.pushViewController(AuthorizationViewController(), animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
 }

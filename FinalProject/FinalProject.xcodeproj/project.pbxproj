@@ -23,6 +23,8 @@
 		84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */; };
 		84AD844826A3BEC300CAF493 /* FavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD844726A3BEC300CAF493 /* FavoriteModel.swift */; };
 		84AD844D26A404AB00CAF493 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD844C26A404AB00CAF493 /* AuthorizationModel.swift */; };
+		84AD845926A68FF100CAF493 /* UsersStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD845826A68FF100CAF493 /* UsersStorageService.swift */; };
+		84AD845E26A6948900CAF493 /* UsersProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD845D26A6948900CAF493 /* UsersProfiles.swift */; };
 		84DD68862695F198007842CD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68852695F198007842CD /* MainViewController.swift */; };
 		84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688A2695F255007842CD /* MainViewDelegate.swift */; };
 		84DD68902695F9A2007842CD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688F2695F9A2007842CD /* MainView.swift */; };
@@ -76,6 +78,8 @@
 		84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		84AD844726A3BEC300CAF493 /* FavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteModel.swift; sourceTree = "<group>"; };
 		84AD844C26A404AB00CAF493 /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
+		84AD845826A68FF100CAF493 /* UsersStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersStorageService.swift; sourceTree = "<group>"; };
+		84AD845D26A6948900CAF493 /* UsersProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfiles.swift; sourceTree = "<group>"; };
 		84DD68852695F198007842CD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		84DD688A2695F255007842CD /* MainViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewDelegate.swift; sourceTree = "<group>"; };
 		84DD688F2695F9A2007842CD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -176,6 +180,8 @@
 				84DD6994269BD3C0007842CD /* DConstans.swift */,
 				84AD844726A3BEC300CAF493 /* FavoriteModel.swift */,
 				84AD844C26A404AB00CAF493 /* AuthorizationModel.swift */,
+				84AD845826A68FF100CAF493 /* UsersStorageService.swift */,
+				84AD845D26A6948900CAF493 /* UsersProfiles.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -287,7 +293,6 @@
 					};
 					84133A9D2687F04900EACD6A = {
 						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 84133A842687F04500EACD6A;
 					};
 					84133AA82687F04900EACD6A = {
 						CreatedOnToolsVersion = 12.4;
@@ -366,6 +371,8 @@
 				84DD68AE2696F13E007842CD /* PhotoModel.swift in Sources */,
 				84DD68B626979117007842CD /* CustomLayout.swift in Sources */,
 				84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */,
+				84AD845926A68FF100CAF493 /* UsersStorageService.swift in Sources */,
+				84AD845E26A6948900CAF493 /* UsersProfiles.swift in Sources */,
 				84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */,
 				84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */,
 				84DD68862695F198007842CD /* MainViewController.swift in Sources */,
@@ -575,7 +582,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CGDWWS583F;
 				INFOPLIST_FILE = FinalProjectTests/Info.plist;
@@ -589,7 +595,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinalProject.app/FinalProject";
 			};
 			name = Debug;
 		};
@@ -597,7 +602,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CGDWWS583F;
 				INFOPLIST_FILE = FinalProjectTests/Info.plist;
@@ -611,7 +615,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinalProject.app/FinalProject";
 			};
 			name = Release;
 		};

@@ -133,6 +133,8 @@ final class PhotoViewController: UIViewController {
     @objc private func infoButtonTapped() {
 //        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
         print("Смотрим инфу про кота")
+        print(photo.description)
+        print("\(photo.width) x \(photo.height)")
     }
     
     private func saveToGallery() {

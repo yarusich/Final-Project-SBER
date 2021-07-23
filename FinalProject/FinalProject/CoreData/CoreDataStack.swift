@@ -9,11 +9,12 @@ import Foundation
 import CoreData
 
 final class CoreDataStack {
+    
     let mainContext: NSManagedObjectContext
     let backgroundContext: NSManagedObjectContext
     
     private let objectModel: NSManagedObjectModel = {
-        guard let url = Bundle.main.url(forResource: "CoreDataFRC", withExtension: "momd") else {
+        guard let url = Bundle.main.url(forResource: "FinalProject", withExtension: "momd") else {
             fatalError("CoreData MOMD is nil")
         }
         guard let model = NSManagedObjectModel(contentsOf: url) else {
@@ -25,11 +26,11 @@ final class CoreDataStack {
     private let coordinator: NSPersistentStoreCoordinator
     
     init() {
-        guard let documentPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory,
-                                                                     .userDomainMask, true).first else {
+        
+        guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
             fatalError("Documents is nil")
         }
-        let url = URL(fileURLWithPath: documentPath).appendingPathComponent("CoreDataFRC.sqlite")
+        let url = URL(fileURLWithPath: documentsPath).appendingPathComponent("FinalProject.sqlite")
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel)
         
         do {
@@ -61,4 +62,5 @@ final class CoreDataStack {
         }
     }
 }
+
 

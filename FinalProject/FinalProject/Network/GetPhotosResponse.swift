@@ -13,8 +13,8 @@ struct GetPhotosResponse: Decodable {
 
 struct PhotoModel {
     let id: String
-    let width: Int
-    let height: Int
+    let width: Int16
+    let height: Int16
     let descript: String
     let author: String
     let url: String
@@ -49,8 +49,8 @@ extension PhotoModel: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
-        width = try container.decode(Int.self, forKey: .width)
-        height = try container.decode(Int.self, forKey: .height)
+        width = try container.decode(Int16.self, forKey: .width)
+        height = try container.decode(Int16.self, forKey: .height)
         descript = try container.decode(String.self, forKey: .descript)
         
         let authorContainer = try container.nestedContainer(keyedBy: NameCodingKeys.self, forKey: .user)

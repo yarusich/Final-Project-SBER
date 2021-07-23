@@ -14,16 +14,16 @@ final class FavoriteViewController: UIViewController {
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Photo> = {
         let request = NSFetchRequest<Photo>(entityName: "Photo")
-        request.sortDescriptors = [.init(key: "", ascending: true)]
+        request.sortDescriptors = [.init(key: "id", ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: request,
-                                             managedObjectContext: Container.shared.coreDataStack.mainContext,
+                                             managedObjectContext: coreDataStack.mainContext,
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         frc.delegate = self
         return frc
     }()
     
-    private var photos: [PhotoModel] = [PhotoModel]()
+//    private var photos: [PhotoModel] = [PhotoModel]()
     
     private lazy var deleteAllButton: UIButton = {
         let btm = UIButton(type: .system)
@@ -75,7 +75,7 @@ final class FavoriteViewController: UIViewController {
     }
     
     @objc func deleteAllButtonTapped() {
-        
+        deleteAllPhotos()
     }
 }
 
@@ -104,9 +104,12 @@ extension FavoriteViewController: ViewProtocol {
 
 extension FavoriteViewController: UICollectionViewDelegate {
 //    MARK: Выбрали ячейку
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selected(at: indexPath)
-        print(indexPath)
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        selected(at: indexPath)
+//        print(indexPath)
+//    }
+    func deleteAllPhotos() {
+        coreDataStack.deleteAll()
     }
     
 }
@@ -114,14 +117,15 @@ extension FavoriteViewController: UICollectionViewDelegate {
 extension FavoriteViewController: UICollectionViewDataSource {
 //    MARK: Не надо
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = fetchedResultsController.sections else { return 0 }
-        return sections[section].numberOfObjects
+//        guard let sections = fetchedResultsController.sections else { return 0 }
+//        return sections[section].numberOfObjects
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         let photo = fetchedResultsController.object(at: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
+        
         guard let photoCell = cell as? PhotoCellView else { return cell }
         let photoModel = PhotoModel(id: photo.id,
                                     width: photo.width,
@@ -129,9 +133,8 @@ extension FavoriteViewController: UICollectionViewDataSource {
                                     descript: photo.descript,
                                     author: photo.author,
                                     url: photo.url)
-        photoCell.configure(with: photoModel)
-
         
+        photoCell.configure(with: photoModel)
         photoCell.backgroundColor = .yellow
         
         return photoCell
@@ -139,31 +142,32 @@ extension FavoriteViewController: UICollectionViewDataSource {
     
 }
 
-extension FavoriteViewController: UIScrollViewDelegate {
-//    MARK: Для скрытия верхнего бара
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView.isTracking {
-//        navigationController?.navigationBar.isHidden = true
-//        }
-    }
-}
+//extension FavoriteViewController: UIScrollViewDelegate {
+////    MARK: Для скрытия верхнего бара
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+////        if scrollView.isTracking {
+////        navigationController?.navigationBar.isHidden = true
+////        }
+//    }
+//}
 
 //  MARK: VIEW
-extension FavoriteViewController {
-    
-    func selected(at index: IndexPath) {
-        let photoViewController = PhotoViewController(photo: photos[index.item], at: index)
-        navigationController?.pushViewController(photoViewController, animated: true)
-    }
-//    MARK: Будет выводить лист настроек
-    @objc func settingsTapped() {
-        print("settings tapped")
-    }
-}
+//extension FavoriteViewController {
+//
+////    func selected(at index: IndexPath) {
+////        let photoViewController = PhotoViewController(photo: photos[index.item], at: index)
+////        navigationController?.pushViewController(photoViewController, animated: true)
+////    }
+////    MARK: Будет выводить лист настроек
+//    @objc func settingsTapped() {
+//        print("settings tapped")
+//    }
+//}
 
 extension FavoriteViewController: NSFetchedResultsControllerDelegate {
-    
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         collectionPhotoView.reloadData()
     }
 }
+

@@ -123,8 +123,13 @@ extension FavoriteViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         let photo = fetchedResultsController.object(at: indexPath)
         guard let photoCell = cell as? PhotoCellView else { return cell }
-        
-        photoCell.configure(with: photo)
+        let photoModel = PhotoModel(id: photo.id,
+                                    width: photo.width,
+                                    height: photo.height,
+                                    descript: photo.descript,
+                                    author: photo.author,
+                                    url: photo.url)
+        photoCell.configure(with: photoModel)
 
         
         photoCell.backgroundColor = .yellow

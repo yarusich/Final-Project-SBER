@@ -28,7 +28,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
 //        MARK: Курсор и запрос, принимать из вне. Курсор видимо переписать, используя объект Cursor
 //        let query = "cats"
 //        let page = String(cursor)
-        let perPage = String(3)
+        let perPage = String(25)
 //        MARK: Сконфигурировали запрос
         var components = URLComponents(string: NetworkConstants.baseURLString)
         components?.queryItems = [

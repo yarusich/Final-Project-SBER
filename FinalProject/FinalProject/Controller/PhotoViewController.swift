@@ -9,11 +9,13 @@ import UIKit
 
 final class PhotoViewController: UIViewController {
     
-    
+    private let currentUserKey = "currentUser"
+    private let coreDataStack = Container.shared.coreDataStack
     
     private var index: IndexPath
     private var photo: PhotoModel
-
+    
+    
     
     
     private lazy var shareButton: UIButton = {
@@ -125,9 +127,22 @@ final class PhotoViewController: UIViewController {
     }
     
     @objc private func likeButtonTapped() {
-//        MARK: сохраняем фотку в раздел фоток (урл или файл)
-        print("Сохраняем кота в фаворит")
-        FavoriteStor.shared.addFavoritePhotos(photo: photo)
+//        MARK: сохраняем фотку в раздел фоток
+        print("Сохраняем кота в фаворит(кор дату)")
+//        MARK: backgroundContext видимо долго слишком
+        let context = coreDataStack.mainContext
+        context.performAndWait {
+            let photoData = Photo(context: context)
+            photoData.author = photo.author
+            photoData.descript = photo.descript
+            photoData.height = photo.height
+            photoData.width = photo.width
+            photoData.id = photo.id
+            photoData.url = photo.url
+//            photoData.user = UserDefaults.standard.string(forKey: currentUserKey)
+            photoData.user = "Richard"
+        }
+        try? context.save()
     }
     
     @objc private func infoButtonTapped() {

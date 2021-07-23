@@ -117,15 +117,14 @@ extension FavoriteViewController: UICollectionViewDelegate {
 extension FavoriteViewController: UICollectionViewDataSource {
 //    MARK: Не надо
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        guard let sections = fetchedResultsController.sections else { return 0 }
-//        return sections[section].numberOfObjects
-        return 0
+        guard let sections = fetchedResultsController.sections else { return 0 }
+        return sections[section].numberOfObjects
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let photo = fetchedResultsController.object(at: indexPath)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
+        let photo = fetchedResultsController.object(at: indexPath)
         guard let photoCell = cell as? PhotoCellView else { return cell }
         let photoModel = PhotoModel(id: photo.id,
                                     width: photo.width,

@@ -14,45 +14,44 @@ import UIKit
 ////    func deletePhoto(index: Int)
 //}
 
-//  MARK: SINGLTON
-final class FavoriteStor {
-    
-    static let shared = FavoriteStor()
-    
-    private var storePhotos = [PhotoModel]()
-    
-    private init() { }
-    
-    func addFavoritePhotos(photo: PhotoModel) {
-        for item in storePhotos {
-            if item.id == photo.id {
-                print("уже есть \(storePhotos.count)")
-                return
-            }
-        }
-        storePhotos.append(photo)
-        print("фотка добавлена \(storePhotos.count)")
-    }
-
-    func putStoredPhotos() -> [PhotoModel] {
-        return storePhotos
-    }
-
-    func deletePhoto(photo: PhotoModel) {
-        for i in storePhotos.indices {
-            if storePhotos[i].id == photo.id {
-                storePhotos.remove(at: i)
-                print("Фото с индексом \(i) удалено")
-            }
-        }
-    }
-}
-
-extension FavoriteStor: NSCopying {
-    func copy(with zone: NSZone? = nil) -> Any {
-        return self
-    }
-}
+//final class FavoriteStor {
+//    
+//    static let shared = FavoriteStor()
+//    
+//    private var storePhotos = [PhotoModel]()
+//    
+//    private init() { }
+//    
+//    func addFavoritePhotos(photo: PhotoModel) {
+//        for item in storePhotos {
+//            if item.id == photo.id {
+//                print("уже есть \(storePhotos.count)")
+//                return
+//            }
+//        }
+//        storePhotos.append(photo)
+//        print("фотка добавлена \(storePhotos.count)")
+//    }
+//
+//    func putStoredPhotos() -> [PhotoModel] {
+//        return storePhotos
+//    }
+//
+//    func deletePhoto(photo: PhotoModel) {
+//        for i in storePhotos.indices {
+//            if storePhotos[i].id == photo.id {
+//                storePhotos.remove(at: i)
+//                print("Фото с индексом \(i) удалено")
+//            }
+//        }
+//    }
+//}
+//
+//extension FavoriteStor: NSCopying {
+//    func copy(with zone: NSZone? = nil) -> Any {
+//        return self
+//    }
+//}
 
 //final class FavoritePhotosModel: FavoritePhotosModelDelegate {
 //

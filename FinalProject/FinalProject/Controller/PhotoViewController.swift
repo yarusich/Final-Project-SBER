@@ -13,7 +13,7 @@ final class PhotoViewController: UIViewController {
     
     private var index: IndexPath
     private var photo: PhotoModel
-//  MARK:    private let photoItem: GetPhotosDataResponse  //ВНИЗУ УЖЕ ЕСТЬ ВСЕ ЗАГОТОВКИ МЕТОДОВ
+
     
     
     private lazy var shareButton: UIButton = {
@@ -133,7 +133,7 @@ final class PhotoViewController: UIViewController {
     @objc private func infoButtonTapped() {
 //        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
         print("Смотрим инфу про кота")
-        print(photo.description)
+        print(photo.descript)
         print("\(photo.width) x \(photo.height)")
         print(photo.url)
         print(photo.author)
@@ -174,22 +174,22 @@ extension PhotoViewController: ViewProtocol {
             shareButton.heightAnchor.constraint(equalToConstant: 50),
             shareButton.widthAnchor.constraint(equalToConstant: 50),
             shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
-            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
             
             saveButton.heightAnchor.constraint(equalToConstant: 50),
             saveButton.widthAnchor.constraint(equalToConstant: 50),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40),
-            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
             
             likeButton.heightAnchor.constraint(equalToConstant: 50),
             likeButton.widthAnchor.constraint(equalToConstant: 50),
             likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
-            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
             
             infoButton.heightAnchor.constraint(equalToConstant: 50),
             infoButton.widthAnchor.constraint(equalToConstant: 50),
             infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
-            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
         ])
     }
     

@@ -15,7 +15,7 @@ struct PhotoModel {
     let id: String
     let width: Int
     let height: Int
-    let description: String
+    let descript: String
     let author: String
     let url: String
     
@@ -23,7 +23,7 @@ struct PhotoModel {
         case id
         case width
         case height
-        case description = "alt_description"
+        case descript = "alt_description"
         case user
         case urls
     }
@@ -51,7 +51,7 @@ extension PhotoModel: Decodable {
         id = try container.decode(String.self, forKey: .id)
         width = try container.decode(Int.self, forKey: .width)
         height = try container.decode(Int.self, forKey: .height)
-        description = try container.decode(String.self, forKey: .description)
+        descript = try container.decode(String.self, forKey: .descript)
         
         let authorContainer = try container.nestedContainer(keyedBy: NameCodingKeys.self, forKey: .user)
         self.author = try authorContainer.decode(String.self, forKey: .author)

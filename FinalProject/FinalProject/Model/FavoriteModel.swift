@@ -26,10 +26,12 @@ final class FavoriteStor {
     func addFavoritePhotos(photo: PhotoModel) {
         for item in storePhotos {
             if item.id == photo.id {
+                print("уже есть \(storePhotos.count)")
                 return
             }
         }
         storePhotos.append(photo)
+        print("фотка добавлена \(storePhotos.count)")
     }
 
     func putStoredPhotos() -> [PhotoModel] {

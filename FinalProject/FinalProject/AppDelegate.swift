@@ -14,15 +14,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        MARK: Вынести отсюда
+        
+        
+        let item1 = UITabBarItem.init(tabBarSystemItem: .search, tag: 1)
+        let item2 = UITabBarItem.init(tabBarSystemItem: .favorites, tag: 1)
+        let item3 = UITabBarItem.init(tabBarSystemItem: .downloads, tag: 1)
         
         let rootVC = FavoriteViewController()
         let networkService = NetworkService()
 //        let rootVC = MainViewController(networkService: networkService)
-
-        let navigationController = UINavigationController(rootViewController: rootVC)
+        
+        let tabBarController = UITabBarController()
+        
+        let mainViewController = MainViewController(networkService: networkService)
+        var favoriteViewController = FavoriteViewController()
+        let profileViewController = ProfileViewController()
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        
+        navigationController.tabBarItem = item1
+        favoriteViewController.tabBarItem = item2
+        profileViewController.tabBarItem = item3
+        tabBarController.viewControllers = [navigationController, favoriteViewController, profileViewController]
+        
+        
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
         if let statusBarFrame = window?.windowScene?.statusBarManager?.statusBarFrame {

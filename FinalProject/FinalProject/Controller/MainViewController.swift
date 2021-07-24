@@ -70,7 +70,6 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         NetworkConstants.query = "cats"
         
         view.backgroundColor = .orange
@@ -224,4 +223,8 @@ extension MainViewController {
 extension MainViewController: UISearchControllerDelegate {
     //
 }
+
+
+    
+    
 

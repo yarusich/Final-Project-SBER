@@ -7,14 +7,13 @@
 
 import UIKit
 
+
+
 final class PhotoViewController: UIViewController {
     
     private let currentUserKey = "currentUser"
     private let coreDataStack = Container.shared.coreDataStack
     private let photo: PhotoModel
-    
-    
-    
     
     private lazy var shareButton: UIButton = {
         let btm = UIButton(type: .system)
@@ -146,15 +145,17 @@ final class PhotoViewController: UIViewController {
         print("тапнули по коту один раз")
         hideInterface()
     }
-    
-    @objc private func shareButtonTapped() {
 //        MARK: Шарим фотку
+    @objc private func shareButtonTapped() {
         print("Шарим кота")
+        
     }
     
-    @objc private func saveButtonTapped() {
 //        MARK: сохраняем фотку в галерею
+    @objc private func saveButtonTapped() {
         print("Сохраняем кота в галерею")
+        guard let image = imageView.image else { return }
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveImageAlert(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     @objc private func likeButtonTapped() {
@@ -173,7 +174,13 @@ final class PhotoViewController: UIViewController {
 //            photoData.user = UserDefaults.standard.string(forKey: currentUserKey)
             photoData.user = "Richard"
         }
-        try? context.save()
+//        try? context.save()
+        do {
+            try context.save()
+            print("context.save")
+        } catch(let error) {
+            print(error.localizedDescription)
+        }
     }
     
     @objc private func infoButtonTapped() {
@@ -183,11 +190,6 @@ final class PhotoViewController: UIViewController {
         print("\(photo.width) x \(photo.height)")
         print(photo.url)
         print(photo.author)
-    }
-    
-    private func saveToGallery() {
-        guard let image = imageView.image else { return }
-//        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     private func hideInterface() {
@@ -201,6 +203,17 @@ final class PhotoViewController: UIViewController {
             nv.navigationBar.isHidden = !nv.navigationBar.isHidden
         }
     }
+    
+    @objc private func saveImageAlert(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+            if let error = error {
+                print("Ошибка: \(error)")
+            }
+            else {
+                let alert = UIAlertController(title: "Успешно", message: "Фото было сохраненно в галерею", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+            }
+        }
 }
 
 extension PhotoViewController: ViewProtocol {

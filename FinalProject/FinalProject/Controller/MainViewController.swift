@@ -85,7 +85,7 @@ final class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        MARK: Скрыли наш нав бар
-        navigationController?.navigationBar.isHidden = false
+//        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.backgroundColor = UIColor.clear
         navigationController?.navigationBar.barTintColor = .red
     }
@@ -212,7 +212,7 @@ extension MainViewController: UIScrollViewDelegate {
 extension MainViewController {
     
     func selected(at index: IndexPath) {
-        navigationController?.pushViewController(PhotoViewController(photo: dataSource[index.item], at: index), animated: true)
+        navigationController?.pushViewController(PhotoViewController(photo: dataSource[index.item]), animated: true)
     }
 //    MARK: Будет выводить лист настроек
     @objc func settingsTapped() {

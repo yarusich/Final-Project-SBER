@@ -13,6 +13,8 @@ final class CoreDataStack {
     let mainContext: NSManagedObjectContext
     let backgroundContext: NSManagedObjectContext
     
+    private let coordinator: NSPersistentStoreCoordinator
+    
     private let objectModel: NSManagedObjectModel = {
         guard let url = Bundle.main.url(forResource: "FinalProject", withExtension: "momd") else {
             fatalError("CoreData MOMD is nil")
@@ -23,7 +25,7 @@ final class CoreDataStack {
         return model
     }()
     
-    private let coordinator: NSPersistentStoreCoordinator
+    
     
     init() {
         
@@ -53,12 +55,12 @@ final class CoreDataStack {
     
     func deleteAll() {
         let fetchRequest = NSFetchRequest<Photo>(entityName: "Photo")
-        backgroundContext.performAndWait {
+        mainContext.performAndWait {
             let photos = try? fetchRequest.execute()
             photos?.forEach {
-                backgroundContext.delete($0)
+                mainContext.delete($0)
             }
-            try? backgroundContext.save()
+            try? mainContext.save()
         }
     }
 }

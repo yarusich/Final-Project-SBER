@@ -11,9 +11,7 @@ final class PhotoViewController: UIViewController {
     
     private let currentUserKey = "currentUser"
     private let coreDataStack = Container.shared.coreDataStack
-    
-    private var index: IndexPath
-    private var photo: PhotoModel
+    private let photo: PhotoModel
     
     
     
@@ -73,9 +71,8 @@ final class PhotoViewController: UIViewController {
 //        return recognizer
 //    }()
     
-    init(photo: PhotoModel, at index: IndexPath) {
+    init(photo: PhotoModel) {
         self.photo = photo
-        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -83,17 +80,31 @@ final class PhotoViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .green
+        
         configImage(with: photo)
         setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        
+        if parent == nil {
+            tabBarController?.tabBar.isHidden = false
+        }
     }
     
     private func configImage(with model: PhotoModel) {
@@ -103,14 +114,34 @@ final class PhotoViewController: UIViewController {
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
+        imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(viewPinched(_:))))
+        imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:))))
+    }
+/// ТАЩИМ
+    @objc private func viewPanned(_ recognizer: UIPanGestureRecognizer) {
+        print("тащим кота")
+        let translation = recognizer.translation(in: self.view)
+        if let view = recognizer.view {
+            view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
+        }
+        recognizer.setTranslation(CGPoint.zero, in: self.view)
     }
     
-    @objc func viewDoubleTapped() {
+/// ЩИПОК
+    @objc private func viewPinched(_ recognizer: UIPinchGestureRecognizer) {
+        print("щиплем кота")
+        if let view = recognizer.view {
+            view.transform = view.transform.scaledBy(x: recognizer.scale, y: recognizer.scale)
+            recognizer.scale = 1
+        }
+    }
+/// ДАБЛ ТАП
+    @objc private func viewDoubleTapped() {
 //        MARK: двойной тап приближает и отдаляет
         print("тапнули по коту два раза")
     }
-    
-    @objc func viewTapped() {
+/// ОДИНАРНЫЙ ТАП
+    @objc private func viewTapped() {
 //        MARK: одинарный тап - скрывает интерфейс
         print("тапнули по коту один раз")
         hideInterface()
@@ -189,22 +220,22 @@ extension PhotoViewController: ViewProtocol {
             shareButton.heightAnchor.constraint(equalToConstant: 50),
             shareButton.widthAnchor.constraint(equalToConstant: 50),
             shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
-            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
             saveButton.heightAnchor.constraint(equalToConstant: 50),
             saveButton.widthAnchor.constraint(equalToConstant: 50),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40),
-            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
             likeButton.heightAnchor.constraint(equalToConstant: 50),
             likeButton.widthAnchor.constraint(equalToConstant: 50),
             likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
-            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
             infoButton.heightAnchor.constraint(equalToConstant: 50),
             infoButton.widthAnchor.constraint(equalToConstant: 50),
             infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
-            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
     }
     

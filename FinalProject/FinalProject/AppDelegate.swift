@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let item2 = UITabBarItem.init(tabBarSystemItem: .favorites, tag: 1)
         let item3 = UITabBarItem.init(tabBarSystemItem: .downloads, tag: 1)
         
-        let rootVC = FavoriteViewController()
+        let rootVC = AuthorizationModel()
         let networkService = NetworkService()
 //        let rootVC = MainViewController(networkService: networkService)
         

@@ -7,20 +7,21 @@
 
 import UIKit
 
-//protocol PhotoViewControllerDelegate: AnyObject {
-//    func deletePhotoFromCoreData(_ photoId: String)
-//}
+protocol FavoritePhotoViewControllerDelegate: AnyObject {
+    func deletePhotoFromCoreData(_ photo: Photo)
+}
 
 final class FavoritePhotoViewController: UIViewController {
     
-    var closure: ((String) -> ())?
-//    weak var delegate: PhotoViewControllerDelegate?
+    
+    var closure: ((Photo) -> ())?
+    weak var delegate: FavoritePhotoViewControllerDelegate?
     
     private let networkService = NetworkService()
     
     private let currentUserKey = "currentUser"
     private let coreDataStack = Container.shared.coreDataStack
-    private let photo: PhotoModel
+    private let photo: Photo
     
 //    MARK: INFO VIEW
     private lazy var infoView: UIView = {
@@ -151,7 +152,7 @@ final class FavoritePhotoViewController: UIViewController {
 //        return recognizer
 //    }()
     
-    init(photo: PhotoModel) {
+    init(photo: Photo) {
         self.photo = photo
         super.init(nibName: nil, bundle: nil)
     }
@@ -164,6 +165,7 @@ final class FavoritePhotoViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .blue
+        
         
         configImage(with: photo)
         setupView()
@@ -204,8 +206,8 @@ final class FavoritePhotoViewController: UIViewController {
        }
    }
     
-    private func configImage(with model: PhotoModel) {
-//        imageView.setupImage(str: model.url)
+    private func configImage(with model: Photo) {
+
         setupImage(str: photo.url)
         imageView.contentMode = .scaleAspectFit
 //        MARK: Посмотреть оба вариант клипа
@@ -262,7 +264,8 @@ final class FavoritePhotoViewController: UIViewController {
     }
     
     @objc private func deleteButtonTapped() {
-        closure?(photo.id)
+//        closure?(photo)
+        delegate?.deletePhotoFromCoreData(photo)
     }
 
     

@@ -10,12 +10,9 @@ import CoreData
 
 final class FavoriteViewController: UIViewController {
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destination = segue.destination as? FavoritePhotoViewController else { return }
-        destination.closure = { [weak self] id in
-        
-        }
-    }
+    
+    private var favoritePhotoViewController = FavoritePhotoViewController(photo: Photo())
+
     
     private let networkService = NetworkService()
     
@@ -97,9 +94,7 @@ final class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .magenta
-        
-        
-        
+        favoritePhotoViewController.delegate = self
         
         setupView()
     }
@@ -123,8 +118,9 @@ final class FavoriteViewController: UIViewController {
     
     private func selected(at index: IndexPath) {
         let photo = fetchedResultsController.object(at: index)
-        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
-        navigationController?.pushViewController(FavoritePhotoViewController(photo: photoModel), animated: true)
+//        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
+        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo), animated: true)
+//        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo), animated: true)
     }
     
     private func selectInterfaceActivate() {
@@ -193,16 +189,21 @@ final class FavoriteViewController: UIViewController {
         
     }
     private func deleteSomePhotos() {
-        
         if let paths = collectionPhotoView.indexPathsForSelectedItems, !paths.isEmpty {
-            var willDelete = [Photo]()
-            paths.forEach { indexPath in
-                willDelete.append(fetchedResultsController.object(at: indexPath))
-            }
-            coreDataStack.delete(photos: willDelete)
+            deleteFromCoreData(indexPaths: paths)
         }
     }
+    
+    private func deleteFromCoreData(indexPaths paths: [IndexPath]) {
+        var willDelete = [Photo]()
+        paths.forEach { indexPath in
+            willDelete.append(fetchedResultsController.object(at: indexPath))
+        }
+        coreDataStack.delete(photos: willDelete)
+    }
 }
+
+
 
 extension FavoriteViewController: ViewProtocol {
     
@@ -325,3 +326,10 @@ extension FavoriteViewController: NSFetchedResultsControllerDelegate {
 }
 
 
+extension FavoriteViewController: FavoritePhotoViewControllerDelegate {
+    func deletePhotoFromCoreData(_ photo: Photo) {
+        coreDataStack.delete(photos: [photo])
+    }
+    
+    
+}

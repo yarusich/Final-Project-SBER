@@ -101,7 +101,9 @@ final class MainViewController: UIViewController {
     private func loadData(with query: String?) {
         guard let query = query else { return }
         let page = cursor.nextPage()
-        networkService.searchPhotos(currentPage: page, searching: query) { self.process($0) }
+        networkService.searchPhotos(currentPage: page, searching: query) { [weak self] response in
+            guard let self = self else { return }
+            self.process(response) }
     }
     
     private func process(_ response: GetPhotosAPIResponse) {
@@ -187,15 +189,14 @@ extension MainViewController: UICollectionViewDataSource {
         guard let photoCell = cell as? PhotoCellView else { return cell }
         
         
-        networkService.loadPhoto(imageUrl: dataSource[indexPath.item].url) { data in
+        networkService.loadPhoto(imageUrl: dataSource[indexPath.item].url) { [weak self] data in
+            guard let self = self else { return }
                if let data = data, let image = UIImage(data: data) {
                    DispatchQueue.main.async {
                     photoCell.configure(with: self.dataSource[indexPath.item], image)
                    }
                }
            }
-        
-
         
         photoCell.backgroundColor = .yellow
         

@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 final class PhotoViewController: UIViewController {
     private let networkService = NetworkService()
     

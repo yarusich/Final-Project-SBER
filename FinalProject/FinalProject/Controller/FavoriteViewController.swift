@@ -139,7 +139,7 @@ final class FavoriteViewController: UIViewController {
     }
     
     @objc func deleteButtonTapped() {
-        
+        some()
     }
     
     @objc func selectButtonTapped() {
@@ -223,10 +223,24 @@ extension FavoriteViewController: UICollectionViewDelegate {
     func deleteAllPhotos() {
         coreDataStack.deleteAll()
     }
+ 
     
-}
+    }
+
 //  MARK: UICollectionViewDataSource
 extension FavoriteViewController: UICollectionViewDataSource {
+    func some() {
+        var willDelete = [Photo]()
+        if let paths = collectionPhotoView.indexPathsForSelectedItems, !paths.isEmpty {
+            paths.forEach { indexPath in
+                willDelete.append(fetchedResultsController.object(at: indexPath))
+                
+            }
+//            guard let indexPath = index else { return }
+            
+            coreDataStack.delete(photos: willDelete)
+        }
+    }
 //    MARK: Не надо
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController.sections else { return 0 }
@@ -275,7 +289,8 @@ extension FavoriteViewController: UICollectionViewDataSource {
 ////    }
 
 extension FavoriteViewController: NSFetchedResultsControllerDelegate {
-
+    
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         collectionPhotoView.reloadData()
     }

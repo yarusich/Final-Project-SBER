@@ -8,7 +8,8 @@
 import Foundation
 
 final class UsersProfiles {
-    var users = [String]()
+    var currentQuery = String()
+    var querys = [String]()
 }
 
 extension UsersProfiles: Codable { }

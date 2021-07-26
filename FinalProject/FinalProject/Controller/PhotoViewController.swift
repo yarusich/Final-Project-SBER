@@ -11,10 +11,87 @@ import UIKit
 
 final class PhotoViewController: UIViewController {
     
+    private var type: Bool
     private let currentUserKey = "currentUser"
     private let coreDataStack = Container.shared.coreDataStack
     private let photo: PhotoModel
     
+//    MARK: INFO VIEW
+    private lazy var infoView: UIView = {
+        let iv = UIView()
+        iv.backgroundColor = .white
+        iv.layer.cornerRadius = 20
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+
+    private let infoHeadLabel: UILabel = {
+        let t = UILabel()
+        t.text = "Info"
+        t.textAlignment = .center
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let authorHeadLabel: UILabel = {
+        let t = UILabel()
+        t.text = "Author"
+        t.textAlignment = .left
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let authorTextLabel: UILabel = {
+        let t = UILabel()
+        t.textAlignment = .left
+        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let dimensionHeadLabel: UILabel = {
+        let t = UILabel()
+        t.text = "Dimension"
+        t.textAlignment = .left
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let dimensionTextLabel: UILabel = {
+        let t = UILabel()
+        t.textAlignment = .left
+        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+  
+    private let descriptionsHeadLabel: UILabel = {
+        let t = UILabel()
+        t.text = "Descriptions"
+        t.textAlignment = .left
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let descriptionsTextLabel: UITextView = {
+        let t = UITextView()
+        t.textAlignment = .left
+        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private lazy var infoCloseButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("close", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .red
+        btm.addTarget(self, action: #selector(infoCloseButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
+//     - - - -- - - -- - - - - - - -- - - - - - - -
     private lazy var shareButton: UIButton = {
         let btm = UIButton(type: .system)
         btm.setTitle("share", for: .normal)
@@ -31,6 +108,16 @@ final class PhotoViewController: UIViewController {
         btm.setTitleColor(.black, for: .normal)
         btm.backgroundColor = .red
         btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
+    private lazy var deleteButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("del", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .red
+        btm.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
@@ -58,8 +145,6 @@ final class PhotoViewController: UIViewController {
     
     private lazy var imageView: PhotoView = {
         let iv = PhotoView()
-//        MARK: Перенести куда-то
-//        iv.addGestureRecognizer(<#T##gestureRecognizer: UIGestureRecognizer##UIGestureRecognizer#>)
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -70,8 +155,9 @@ final class PhotoViewController: UIViewController {
 //        return recognizer
 //    }()
     
-    init(photo: PhotoModel) {
+    init(photo: PhotoModel, type: Bool) {
         self.photo = photo
+        self.type = type
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -91,7 +177,14 @@ final class PhotoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        authorTextLabel.text = photo.author
+        dimensionTextLabel.text = "\(photo.height) x \(photo.width)"
+        descriptionsTextLabel.text = photo.descript
+
+        infoView.isHidden = true
+        
         tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -148,6 +241,10 @@ final class PhotoViewController: UIViewController {
 //        MARK: Шарим фотку
     @objc private func shareButtonTapped() {
         print("Шарим кота")
+
+        guard let item = imageView.image else { return }
+        let shareController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+        present(shareController, animated: true)
         
     }
     
@@ -155,7 +252,11 @@ final class PhotoViewController: UIViewController {
     @objc private func saveButtonTapped() {
         print("Сохраняем кота в галерею")
         guard let image = imageView.image else { return }
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveImageAlert(_:didFinishSavingWithError:contextInfo:)), nil)
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveImageWithAlert(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    @objc private func deleteButtonTapped() {
+//        MARK: ДЕЛЕГАТ
     }
     
     @objc private func likeButtonTapped() {
@@ -186,17 +287,15 @@ final class PhotoViewController: UIViewController {
     @objc private func infoButtonTapped() {
 //        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
         print("Смотрим инфу про кота")
-        print(photo.descript)
-        print("\(photo.width) x \(photo.height)")
-        print(photo.url)
-        print(photo.author)
+        infoView.isHidden = false
     }
     
     private func hideInterface() {
 //        MARK: Скрыть всё
         shareButton.isHidden = !shareButton.isHidden
         saveButton.isHidden = !saveButton.isHidden
-        likeButton.isHidden = !likeButton.isHidden
+//        likeButton.isHidden = !likeButton.isHidden
+        deleteButton.isHidden = !deleteButton.isHidden
         infoButton.isHidden = !infoButton.isHidden
         
         if let nv = navigationController {
@@ -204,9 +303,11 @@ final class PhotoViewController: UIViewController {
         }
     }
     
-    @objc private func saveImageAlert(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+    @objc private func saveImageWithAlert(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
             if let error = error {
-                print("Ошибка: \(error)")
+                let alertController = UIAlertController(title: "Ошибка сохранения", message: error.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alertController, animated: true)
             }
             else {
                 let alert = UIAlertController(title: "Успешно", message: "Фото было сохраненно в галерею", preferredStyle: .alert)
@@ -214,15 +315,31 @@ final class PhotoViewController: UIViewController {
                 present(alert, animated: true)
             }
         }
+    @objc func infoCloseButtonTapped() {
+        infoView.isHidden = true
+    }
+    
 }
 
 extension PhotoViewController: ViewProtocol {
     func setupView() {
+
         view.addSubview(imageView)
         view.addSubview(shareButton)
         view.addSubview(saveButton)
+        view.addSubview(deleteButton)
         view.addSubview(likeButton)
         view.addSubview(infoButton)
+        view.addSubview(infoView)
+        
+        infoView.addSubview(infoHeadLabel)
+        infoView.addSubview(authorHeadLabel)
+        infoView.addSubview(authorTextLabel)
+        infoView.addSubview(dimensionHeadLabel)
+        infoView.addSubview(dimensionTextLabel)
+        infoView.addSubview(descriptionsHeadLabel)
+        infoView.addSubview(descriptionsTextLabel)
+        infoView.addSubview(infoCloseButton)
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -245,11 +362,55 @@ extension PhotoViewController: ViewProtocol {
             likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
             likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
+            deleteButton.heightAnchor.constraint(equalToConstant: 50),
+            deleteButton.widthAnchor.constraint(equalToConstant: 50),
+            deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
+            deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            
             infoButton.heightAnchor.constraint(equalToConstant: 50),
             infoButton.widthAnchor.constraint(equalToConstant: 50),
             infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
-            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            
+            infoView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 110),
+            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            infoView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 30),
+            
+            infoHeadLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 10),
+            infoHeadLabel.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            
+            authorHeadLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
+            authorHeadLabel.topAnchor.constraint(equalTo: infoHeadLabel.bottomAnchor, constant: 15),
+            
+            authorTextLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
+            authorTextLabel.topAnchor.constraint(equalTo: authorHeadLabel.bottomAnchor, constant: 0),
+            
+            dimensionHeadLabel.leadingAnchor.constraint(equalTo: infoView.centerXAnchor, constant: 15),
+            dimensionHeadLabel.topAnchor.constraint(equalTo: infoHeadLabel.bottomAnchor, constant: 15),
+            
+            dimensionTextLabel.leadingAnchor.constraint(equalTo: infoView.centerXAnchor, constant: 15),
+            dimensionTextLabel.topAnchor.constraint(equalTo: dimensionHeadLabel.bottomAnchor, constant: 0),
+            
+            descriptionsHeadLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
+            descriptionsHeadLabel.topAnchor.constraint(equalTo: authorTextLabel.bottomAnchor, constant: 15),
+            
+            descriptionsTextLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
+            descriptionsTextLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -15),
+            descriptionsTextLabel.topAnchor.constraint(equalTo: descriptionsHeadLabel.bottomAnchor, constant: 0),
+            descriptionsTextLabel.bottomAnchor.constraint(equalTo: infoView.bottomAnchor),
+            
+            infoCloseButton.heightAnchor.constraint(equalToConstant: 30),
+            infoCloseButton.widthAnchor.constraint(equalToConstant: 30),
+            infoCloseButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
+            infoCloseButton.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 10),
         ])
+        likeButton.isHidden = true
+//        if type {
+//            likeButton.isHidden = true
+//        } else {
+//            deleteButton.isHidden = true
+//        }
     }
     
     

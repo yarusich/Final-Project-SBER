@@ -10,6 +10,8 @@ import CoreData
 
 final class FavoriteViewController: UIViewController {
     
+    private var selectIsActive: Bool = false
+    
     private let coreDataStack = Container.shared.coreDataStack
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Photo> = {
@@ -23,7 +25,38 @@ final class FavoriteViewController: UIViewController {
         return frc
     }()
     
-//    private var photos: [PhotoModel] = [PhotoModel]()
+    private lazy var selectButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("Выбрать", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 12.5
+        btm.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
+    private lazy var shareButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("share", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .orange
+        btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        btm.isHidden = true
+        return btm
+    }()
+    
+    private lazy var deleteButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("delete", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .orange
+        btm.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        btm.isHidden = true
+        return btm
+    }()
     
     private lazy var deleteAllButton: UIButton = {
         let btm = UIButton(type: .system)
@@ -32,17 +65,12 @@ final class FavoriteViewController: UIViewController {
         btm.backgroundColor = .orange
         btm.addTarget(self, action: #selector(deleteAllButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
+        btm.isHidden = true
         return btm
     }()
     
     private lazy var collectionPhotoView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        layout.minimumLineSpacing = 0
-        let layout = CustomLayout()
-//        MARK: Размеры ячейки, надо переделать
-//        layout.itemSize = CGSize(width: 200, height: 200)
-        
+        let layout = CustomMainLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(PhotoCellView.self, forCellWithReuseIdentifier: PhotoCellView.id)
         cv.delegate = self
@@ -65,7 +93,7 @@ final class FavoriteViewController: UIViewController {
         super.viewWillAppear(animated)
         
         try? fetchedResultsController.performFetch()
-//        updatePhotos()
+        navigationController?.navigationBar.isHidden = true
         
 //        collectionPhotoView.reloadData()
 //        MARK: Скрыли наш нав бар
@@ -77,6 +105,49 @@ final class FavoriteViewController: UIViewController {
     @objc func deleteAllButtonTapped() {
         deleteAllPhotos()
     }
+    
+    private func selected(at index: IndexPath) {
+        let photo = fetchedResultsController.object(at: index)
+        let photoModel = ConverterPhoto.converter(photo)
+        navigationController?.pushViewController(PhotoViewController(photo: photoModel, type: true), animated: true)
+    }
+    
+    private func selectInterfaceActivate() {
+//        MARK: Скрыть всё
+        shareButton.isHidden = !shareButton.isHidden
+        deleteButton.isHidden = !deleteButton.isHidden
+        deleteAllButton.isHidden = !deleteAllButton.isHidden
+        
+        if let tbc = tabBarController {
+            tbc.tabBar.isHidden = !tbc.tabBar.isHidden
+        }
+//        if let nv = navigationController {
+//            nv.navigationBar.isHidden = !nv.navigationBar.isHidden
+//        }
+    }
+    
+    @objc func shareButtonTapped() {
+        
+    }
+    
+    @objc func deleteButtonTapped() {
+        
+    }
+    
+    @objc func selectButtonTapped() {
+        selectButtonAction()
+    }
+    
+    private func selectButtonAction() {
+        selectIsActive = !selectIsActive
+        selectInterfaceActivate()
+        if selectIsActive {
+            selectButton.setTitle("Отмена", for: .normal)
+        } else {
+            selectButton.setTitle("Выбрать", for: .normal)
+        }
+        
+    }
 }
 
 extension FavoriteViewController: ViewProtocol {
@@ -84,6 +155,10 @@ extension FavoriteViewController: ViewProtocol {
     func setupView() {
         view.addSubview(collectionPhotoView)
         view.addSubview(deleteAllButton)
+        view.addSubview(shareButton)
+        view.addSubview(deleteButton)
+        view.addSubview(selectButton)
+        
         NSLayoutConstraint.activate([
             collectionPhotoView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionPhotoView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -92,22 +167,43 @@ extension FavoriteViewController: ViewProtocol {
             
             deleteAllButton.heightAnchor.constraint(equalToConstant: 60),
             deleteAllButton.widthAnchor.constraint(equalToConstant: 60),
-            deleteAllButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
-            deleteAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+            deleteAllButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            deleteAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20.0),
+            
+            shareButton.heightAnchor.constraint(equalToConstant: 60),
+            shareButton.widthAnchor.constraint(equalToConstant: 60),
+            shareButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20.0),
+            
+            deleteButton.heightAnchor.constraint(equalToConstant: 60),
+            deleteButton.widthAnchor.constraint(equalToConstant: 60),
+            deleteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20.0),
+            
+            selectButton.heightAnchor.constraint(equalToConstant: 25),
+            selectButton.widthAnchor.constraint(equalToConstant: 80),
+            selectButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            selectButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20.0),
+            
+            
         ])
     }
-    
-//    private func updatePhotos() {
-//        photos = FavoriteStor.shared.putStoredPhotos()
-//    }
 }
 
 extension FavoriteViewController: UICollectionViewDelegate {
 //    MARK: Выбрали ячейку
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if selectIsActive {
+////            collectionView.deselectItem(at: indexPath, animated: true)
+//            let selectedPhoto = fetchedResultsController.object(at: indexPath)
+//            print(selectedPhoto.id)
+//            
+//        } else {
+//        collectionView.deselectItem(at: indexPath, animated: true)
+//            
 //        selected(at: indexPath)
-//        print(indexPath)
-//    }
+//        }
+    }
     func deleteAllPhotos() {
         coreDataStack.deleteAll()
     }
@@ -126,12 +222,7 @@ extension FavoriteViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         let photo = fetchedResultsController.object(at: indexPath)
         guard let photoCell = cell as? PhotoCellView else { return cell }
-        let photoModel = PhotoModel(id: photo.id,
-                                    width: photo.width,
-                                    height: photo.height,
-                                    descript: photo.descript,
-                                    author: photo.author,
-                                    url: photo.url)
+        let photoModel = ConverterPhoto.converter(photo)
         
         photoCell.configure(with: photoModel)
         photoCell.backgroundColor = .yellow
@@ -157,11 +248,6 @@ extension FavoriteViewController: UICollectionViewDataSource {
 ////        let photoViewController = PhotoViewController(photo: photos[index.item], at: index)
 ////        navigationController?.pushViewController(photoViewController, animated: true)
 ////    }
-////    MARK: Будет выводить лист настроек
-//    @objc func settingsTapped() {
-//        print("settings tapped")
-//    }
-//}
 
 extension FavoriteViewController: NSFetchedResultsControllerDelegate {
 

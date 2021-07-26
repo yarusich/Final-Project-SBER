@@ -43,6 +43,16 @@ final class PhotoCellView: UICollectionViewCell {
 //        super.prepareForReuse()
 //        imageView.image = nil
 //    }
+//    override var isSelected: Bool {
+//        didSet {
+//            if isSelected {
+//                self.contentView.layer.borderWidth = 4
+//                self.contentView.layer.borderColor = UIColor.white.cgColor
+//            } else {
+//                self.contentView.layer.borderWidth = 0
+//            }
+//        }
+//    }
 
 }
 

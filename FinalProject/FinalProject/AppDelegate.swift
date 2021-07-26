@@ -21,34 +21,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let item2 = UITabBarItem.init(tabBarSystemItem: .favorites, tag: 1)
         let item3 = UITabBarItem.init(tabBarSystemItem: .downloads, tag: 1)
         
-        let rootVC = AuthorizationModel()
+        
         let networkService = NetworkService()
-//        let rootVC = MainViewController(networkService: networkService)
         
         let tabBarController = UITabBarController()
         
         let mainViewController = MainViewController(networkService: networkService)
-        var favoriteViewController = FavoriteViewController()
+        let favoriteViewController = FavoriteViewController()
         let profileViewController = ProfileViewController()
-        let navigationController = UINavigationController(rootViewController: mainViewController)
+        let navigationMainController = UINavigationController(rootViewController: mainViewController)
+        let navigationFavoriteController = UINavigationController(rootViewController: favoriteViewController)
         
-        navigationController.tabBarItem = item1
+        navigationMainController.tabBarItem = item1
         favoriteViewController.tabBarItem = item2
         profileViewController.tabBarItem = item3
-        tabBarController.viewControllers = [navigationController, favoriteViewController, profileViewController]
+        tabBarController.viewControllers = [navigationMainController, navigationFavoriteController, profileViewController]
         
         
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController
+//        window?.rootViewController = ProfileViewController()
         window?.makeKeyAndVisible()
         
-        if let statusBarFrame = window?.windowScene?.statusBarManager?.statusBarFrame {
-            DConstants.statusBarHeight = statusBarFrame.height
-            let statusBarBackgroundView = UIView(frame: statusBarFrame)
-            window?.addSubview(statusBarBackgroundView)
-            statusBarBackgroundView.backgroundColor = .red
-        }
+//        if let statusBarFrame = window?.windowScene?.statusBarManager?.statusBarFrame {
+//            DConstants.statusBarHeight = statusBarFrame.height
+//            let statusBarBackgroundView = UIView(frame: statusBarFrame)
+//            window?.addSubview(statusBarBackgroundView)
+//            statusBarBackgroundView.backgroundColor = .red
+//        }
 
         
         

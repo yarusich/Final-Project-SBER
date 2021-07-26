@@ -9,15 +9,6 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    var searchBarIsEmpty: Bool {
-        guard let text = photoSearchController.searchBar.text else { return false}
-        return text.isEmpty
-    }
-    var isFiltering: Bool {
-        return photoSearchController.isActive && !searchBarIsEmpty
-    }
-    
-    
     private let networkService: PhotoNetworkServiceProtocol
     
     private var cursor = Cursor()
@@ -30,8 +21,9 @@ final class MainViewController: UIViewController {
         sc.obscuresBackgroundDuringPresentation = false
         sc.hidesNavigationBarDuringPresentation = false
 //        sc.searchBar.delegate = self
-        sc.searchBar.placeholder = "Поиск котиков"
+//        sc.searchBar.placeholder = "Поиск котиков"
         sc.searchBar.autocapitalizationType = .none
+        
         return sc
     }()
     
@@ -45,7 +37,7 @@ final class MainViewController: UIViewController {
 //        let layout = UICollectionViewFlowLayout()
 //        layout.scrollDirection = .vertical
 //        layout.minimumLineSpacing = 0
-        let layout = CustomLayout()
+        let layout = CustomMainLayout()
 //        MARK: Размеры ячейки, надо переделать
 //        layout.itemSize = CGSize(width: 200, height: 200)
         
@@ -74,11 +66,12 @@ final class MainViewController: UIViewController {
         
         view.backgroundColor = .orange
         
-        setupPhotoSearchController()
+
         setupView()
-        setupNavigationBar()
         
         loadData(with: NetworkConstants.query)
+        setupPhotoSearchController()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,22 +80,21 @@ final class MainViewController: UIViewController {
 //        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.backgroundColor = UIColor.clear
         navigationController?.navigationBar.barTintColor = .red
-    }
-    
-    private func setupNavigationBar() {
-
+        
+//        navigationItem.searchController = photoSearchController
     }
     
     private func setupPhotoSearchController() {
 //        photoSearchController.searchResultsUpdater = self
 //        photoSearchController.obscuresBackgroundDuringPresentation = false
-//        photoSearchController.searchBar.placeholder = "поиск котиков"
-        let currentQuery = NetworkConstants.query?.trimmingCharacters(in: .whitespacesAndNewlines)
-        if let query = currentQuery, query.isEmpty == false { return }
-        navigationItem.searchController = photoSearchController
+        photoSearchController.searchBar.placeholder = "поиск котиков"
+//        let currentQuery = NetworkConstants.query?.trimmingCharacters(in: .whitespacesAndNewlines)
+//        if let query = currentQuery, query.isEmpty == false { return }
+        
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         extendedLayoutIncludesOpaqueBars = true
+        navigationItem.searchController = photoSearchController
     }
     
 //    MARK: LOAD DATA
@@ -117,6 +109,7 @@ final class MainViewController: UIViewController {
             switch response {
             case .success(let data):
                 self.dataSource.append(contentsOf: data.results)
+                print(self.dataSource.count)
                 self.collectionPhotoView.reloadData()
             case .failure(let error):
                 self.showAlert(for: error)
@@ -143,6 +136,7 @@ final class MainViewController: UIViewController {
         case .buildingURL:
             return "Вы не авторизованы"
         case .unknown:
+            print("!!!!НЕ ГРУЗИТ!!!!")
             return "Что-то неизвестное"
         }
     }
@@ -164,6 +158,7 @@ extension MainViewController: ViewProtocol {
 extension MainViewController: UICollectionViewDelegate {
 //    MARK: Выбрали ячейку
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        collectionView.deselectItem(at: indexPath, animated: true)
         selected(at: indexPath)
     }
     
@@ -211,7 +206,11 @@ extension MainViewController: UIScrollViewDelegate {
 extension MainViewController {
     
     func selected(at index: IndexPath) {
-        navigationController?.pushViewController(PhotoViewController(photo: dataSource[index.item]), animated: true)
+//        guard !photoSearchController.isActive else {
+//            return
+//        }
+        
+        navigationController?.pushViewController(PhotoViewController(photo: dataSource[index.item], type: false), animated: true)
     }
 //    MARK: Будет выводить лист настроек
     @objc func settingsTapped() {

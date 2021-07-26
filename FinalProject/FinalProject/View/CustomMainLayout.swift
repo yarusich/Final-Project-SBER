@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class CustomLayout: UICollectionViewLayout {
+final class CustomMainLayout: UICollectionViewLayout {
     private let section = 0
-    private let lineSpacing: CGFloat = 10
+    private let lineSpacing: CGFloat = 0
 //    MARK: Задаём размер элемента из вне (убрать 31)
 //    var itemSize: CGSize = .zero {
 //        didSet {

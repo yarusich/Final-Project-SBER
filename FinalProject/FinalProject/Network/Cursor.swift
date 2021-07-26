@@ -19,8 +19,4 @@ class Cursor {
         page = 0
     }
 }
-//struct Cursor {
-//    let page: Int                       //текущая страница
-//    let perPage: Int                    //элементов на странице
-//    let parameters: [String: Any]?      //что-то
-//}
+

@@ -158,7 +158,10 @@ extension MainViewController: ViewProtocol {
 extension MainViewController: UICollectionViewDelegate {
 //    MARK: Выбрали ячейку
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
         selected(at: indexPath)
     }
     
@@ -182,8 +185,16 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         
         guard let photoCell = cell as? PhotoCellView else { return cell }
-//        MARK: Загрузку по урлу лучше сделать здесь?
-        photoCell.configure(with: dataSource[indexPath.item])
+        
+        
+        networkService.loadPhoto(imageUrl: dataSource[indexPath.item].url) { data in
+               if let data = data, let image = UIImage(data: data) {
+                   DispatchQueue.main.async {
+                    photoCell.configure(with: self.dataSource[indexPath.item], image)
+                   }
+               }
+           }
+        
 
         
         photoCell.backgroundColor = .yellow

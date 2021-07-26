@@ -50,6 +50,13 @@ final class ProfileViewController: UIViewController {
         setView()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if let touch = touches.first as? UITouch {
+        view.endEditing(true)
+        }
+    }
+    
     private func setView() {
         view.addSubview(profileTextLabel)
         view.addSubview(changeProfileButton)
@@ -79,6 +86,7 @@ final class ProfileViewController: UIViewController {
         defaultQueryTextField.text = ""
         defaultQueryTextField.placeholder = text
         print(query)
+        view.endEditing(true)
     }
     
 }

@@ -13,8 +13,8 @@ final class PhotoCellView: UICollectionViewCell {
     
     private let networkService = NetworkService()
     
-    private lazy var imageView: PhotoView = {
-        let iv = PhotoView(frame: .init(x: contentView.bounds.origin.x, y: contentView.bounds.origin.y, width: contentView.bounds.width, height: contentView.bounds.height))
+    private lazy var imageView: UIImageView = {
+        let iv = UIImageView(frame: .init(x: contentView.bounds.origin.x, y: contentView.bounds.origin.y, width: contentView.bounds.width, height: contentView.bounds.height))
         
 //        iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
@@ -43,22 +43,23 @@ final class PhotoCellView: UICollectionViewCell {
 //        super.prepareForReuse()
 //        imageView.image = nil
 //    }
-//    override var isSelected: Bool {
-//        didSet {
-//            if isSelected {
-//                self.contentView.layer.borderWidth = 4
-//                self.contentView.layer.borderColor = UIColor.white.cgColor
-//            } else {
-//                self.contentView.layer.borderWidth = 0
-//            }
-//        }
-//    }
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                self.contentView.layer.borderWidth = 4
+                self.contentView.layer.borderColor = UIColor.white.cgColor
+            } else {
+                self.contentView.layer.borderWidth = 0
+            }
+        }
+    }
 
 }
 
 extension PhotoCellView {
-    func configure(with model: PhotoModel) {
-        imageView.setupImage(str: model.url)
+    func configure(with model: PhotoModel, _ image: UIImage) {
+//        imageView.setupImage(str: model.url)
+        imageView.image = image
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
     }

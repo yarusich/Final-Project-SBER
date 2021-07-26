@@ -10,7 +10,11 @@ import CoreData
 
 final class FavoriteViewController: UIViewController {
     
+    private let networkService = NetworkService()
+    
     private var selectIsActive: Bool = false
+    
+    private var selectedPhotos = [PhotoModel]()
     
     private let coreDataStack = Container.shared.coreDataStack
     
@@ -78,6 +82,7 @@ final class FavoriteViewController: UIViewController {
         cv.backgroundColor = .red
         cv.showsVerticalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.allowsMultipleSelection = true
         return cv
     }()
     
@@ -127,7 +132,10 @@ final class FavoriteViewController: UIViewController {
     }
     
     @objc func shareButtonTapped() {
-        
+//        guard let indexes = collectionPhotoView.indexPathsForSelectedItems else { return }
+//
+//        let shareController = UIActivityViewController(activityItems: , applicationActivities: nil)
+//        present(shareController, animated: true)
     }
     
     @objc func deleteButtonTapped() {
@@ -145,9 +153,14 @@ final class FavoriteViewController: UIViewController {
             selectButton.setTitle("Отмена", for: .normal)
         } else {
             selectButton.setTitle("Выбрать", for: .normal)
+            collectionPhotoView.indexPathsForSelectedItems?.forEach {
+                collectionPhotoView.deselectItem(at: $0, animated: false)
+            }
+            
         }
         
     }
+
 }
 
 extension FavoriteViewController: ViewProtocol {
@@ -193,16 +206,17 @@ extension FavoriteViewController: ViewProtocol {
 extension FavoriteViewController: UICollectionViewDelegate {
 //    MARK: Выбрали ячейку
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if selectIsActive {
-////            collectionView.deselectItem(at: indexPath, animated: true)
+        
+        if selectIsActive {
 //            let selectedPhoto = fetchedResultsController.object(at: indexPath)
-//            print(selectedPhoto.id)
-//            
-//        } else {
-//        collectionView.deselectItem(at: indexPath, animated: true)
-//            
-//        selected(at: indexPath)
-//        }
+        } else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            selected(at: indexPath)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
     }
     func deleteAllPhotos() {
         coreDataStack.deleteAll()
@@ -224,7 +238,16 @@ extension FavoriteViewController: UICollectionViewDataSource {
         guard let photoCell = cell as? PhotoCellView else { return cell }
         let photoModel = ConverterPhoto.converter(photo)
         
-        photoCell.configure(with: photoModel)
+
+        networkService.loadPhoto(imageUrl: photo.url) { data in
+               if let data = data, let image = UIImage(data: data) {
+                   DispatchQueue.main.async {
+                    photoCell.configure(with: photoModel, image)
+                   }
+               }
+           }
+        
+        
         photoCell.backgroundColor = .yellow
         
         return photoCell

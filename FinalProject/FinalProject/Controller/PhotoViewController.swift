@@ -10,6 +10,7 @@ import UIKit
 
 
 final class PhotoViewController: UIViewController {
+    private let networkService = NetworkService()
     
     private var type: Bool
     private let currentUserKey = "currentUser"
@@ -143,8 +144,8 @@ final class PhotoViewController: UIViewController {
     }()
     
     
-    private lazy var imageView: PhotoView = {
-        let iv = PhotoView()
+    private lazy var imageView: UIImageView = {
+        let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -199,8 +200,19 @@ final class PhotoViewController: UIViewController {
         }
     }
     
+    func setupImage(str url: String) {
+       networkService.loadPhoto(imageUrl: url) { data in
+           if let data = data, let image = UIImage(data: data) {
+               DispatchQueue.main.async {
+                self.imageView.image = image
+               }
+           }
+       }
+   }
+    
     private func configImage(with model: PhotoModel) {
-        imageView.setupImage(str: model.url)
+//        imageView.setupImage(str: model.url)
+        setupImage(str: photo.url)
         imageView.contentMode = .scaleAspectFit
 //        MARK: Посмотреть оба вариант клипа
         imageView.clipsToBounds = true
@@ -405,12 +417,12 @@ extension PhotoViewController: ViewProtocol {
             infoCloseButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
             infoCloseButton.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 10),
         ])
-        likeButton.isHidden = true
-//        if type {
-//            likeButton.isHidden = true
-//        } else {
-//            deleteButton.isHidden = true
-//        }
+//        likeButton.isHidden = true
+        if type {
+            likeButton.isHidden = true
+        } else {
+            deleteButton.isHidden = true
+        }
     }
     
     

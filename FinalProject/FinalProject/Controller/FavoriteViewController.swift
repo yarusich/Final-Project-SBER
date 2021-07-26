@@ -10,6 +10,13 @@ import CoreData
 
 final class FavoriteViewController: UIViewController {
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? FavoritePhotoViewController else { return }
+        destination.closure = { [weak self] id in
+        
+        }
+    }
+    
     private let networkService = NetworkService()
     
     private var selectIsActive: Bool = false
@@ -91,6 +98,9 @@ final class FavoriteViewController: UIViewController {
         
         view.backgroundColor = .magenta
         
+        
+        
+        
         setupView()
     }
     
@@ -113,8 +123,8 @@ final class FavoriteViewController: UIViewController {
     
     private func selected(at index: IndexPath) {
         let photo = fetchedResultsController.object(at: index)
-        let photoModel = ConverterPhoto.converter(photo)
-        navigationController?.pushViewController(PhotoViewController(photo: photoModel, type: true), animated: true)
+        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
+        navigationController?.pushViewController(FavoritePhotoViewController(photo: photoModel), animated: true)
     }
     
     private func selectInterfaceActivate() {
@@ -132,14 +142,34 @@ final class FavoriteViewController: UIViewController {
     }
     
     @objc func shareButtonTapped() {
-//        guard let indexes = collectionPhotoView.indexPathsForSelectedItems else { return }
-//
-//        let shareController = UIActivityViewController(activityItems: , applicationActivities: nil)
-//        present(shareController, animated: true)
+        
+        
+        if let indexPaths = collectionPhotoView.indexPathsForSelectedItems, !indexPaths.isEmpty {
+            let photoDispatchGroup = DispatchGroup()
+            var photos = [Photo]()
+            var images = [UIImage]()
+            indexPaths.forEach { indexPath in
+                photos.append(fetchedResultsController.object(at: indexPath))
+            }
+            photos.forEach { photo in
+                photoDispatchGroup.enter()
+                networkService.loadPhoto(imageUrl: photo.url) { data in
+                    if let data = data, let image = UIImage(data: data) {
+                        images.append(image)
+                        photoDispatchGroup.leave()
+                    }
+                }
+            }
+            photoDispatchGroup.notify(queue: DispatchQueue.main) {
+                let shareController = UIActivityViewController(activityItems: images, applicationActivities: nil)
+                self.present(shareController, animated: true)
+                
+            }
+        }
     }
     
     @objc func deleteButtonTapped() {
-        some()
+        deleteSomePhotos()
     }
     
     @objc func selectButtonTapped() {
@@ -162,7 +192,16 @@ final class FavoriteViewController: UIViewController {
         }
         
     }
-
+    private func deleteSomePhotos() {
+        
+        if let paths = collectionPhotoView.indexPathsForSelectedItems, !paths.isEmpty {
+            var willDelete = [Photo]()
+            paths.forEach { indexPath in
+                willDelete.append(fetchedResultsController.object(at: indexPath))
+            }
+            coreDataStack.delete(photos: willDelete)
+        }
+    }
 }
 
 extension FavoriteViewController: ViewProtocol {
@@ -229,18 +268,7 @@ extension FavoriteViewController: UICollectionViewDelegate {
 
 //  MARK: UICollectionViewDataSource
 extension FavoriteViewController: UICollectionViewDataSource {
-    func some() {
-        var willDelete = [Photo]()
-        if let paths = collectionPhotoView.indexPathsForSelectedItems, !paths.isEmpty {
-            paths.forEach { indexPath in
-                willDelete.append(fetchedResultsController.object(at: indexPath))
-                
-            }
-//            guard let indexPath = index else { return }
-            
-            coreDataStack.delete(photos: willDelete)
-        }
-    }
+
 //    MARK: Не надо
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController.sections else { return 0 }
@@ -252,7 +280,7 @@ extension FavoriteViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         let photo = fetchedResultsController.object(at: indexPath)
         guard let photoCell = cell as? PhotoCellView else { return cell }
-        let photoModel = ConverterPhoto.converter(photo)
+        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
         
 
         networkService.loadPhoto(imageUrl: photo.url) { data in
@@ -295,4 +323,5 @@ extension FavoriteViewController: NSFetchedResultsControllerDelegate {
         collectionPhotoView.reloadData()
     }
 }
+
 

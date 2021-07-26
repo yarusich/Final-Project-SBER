@@ -65,9 +65,7 @@ final class CoreDataStack {
     }
     
     func delete(photos: [Photo]?) {
-        guard let photos = photos else {
-//            self.deleteAll()
-            return }
+        guard let photos = photos else { return }
         
         mainContext.performAndWait {
             photos.forEach {
@@ -79,9 +77,9 @@ final class CoreDataStack {
         }
     }
     
-    private func fetchRequest(for dto: Photo) -> NSFetchRequest<Photo> {
+    private func fetchRequest(for photo: Photo) -> NSFetchRequest<Photo> {
         let request = NSFetchRequest<Photo>(entityName: "Photo")
-        request.predicate = .init(format: "id == %@", dto.id)
+        request.predicate = .init(format: "id == %@", photo.id)
         return request
     }
 }

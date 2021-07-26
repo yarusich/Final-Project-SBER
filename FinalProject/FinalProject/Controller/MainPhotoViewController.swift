@@ -1,5 +1,5 @@
 //
-//  PhotoViewController.swift
+//  MainPhotoViewController.swift
 //  FinalProject
 //
 //  Created by Антон Сафронов on 12.07.2021.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class PhotoViewController: UIViewController {
+final class MainPhotoViewController: UIViewController {
+    
     private let networkService = NetworkService()
     
-    private var type: Bool
     private let currentUserKey = "currentUser"
     private let coreDataStack = Container.shared.coreDataStack
     private let photo: PhotoModel
@@ -111,16 +111,6 @@ final class PhotoViewController: UIViewController {
         return btm
     }()
     
-    private lazy var deleteButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("del", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .red
-        btm.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
-        return btm
-    }()
-    
     private lazy var likeButton: UIButton = {
         let btm = UIButton(type: .system)
         btm.setTitle("like", for: .normal)
@@ -154,9 +144,8 @@ final class PhotoViewController: UIViewController {
 //        return recognizer
 //    }()
     
-    init(photo: PhotoModel, type: Bool) {
+    init(photo: PhotoModel) {
         self.photo = photo
-        self.type = type
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -265,10 +254,6 @@ final class PhotoViewController: UIViewController {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveImageWithAlert(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
-    @objc private func deleteButtonTapped() {
-//        MARK: ДЕЛЕГАТ
-    }
-    
     @objc private func likeButtonTapped() {
 //        MARK: сохраняем фотку в раздел фоток
         print("Сохраняем кота в фаворит(кор дату)")
@@ -304,8 +289,7 @@ final class PhotoViewController: UIViewController {
 //        MARK: Скрыть всё
         shareButton.isHidden = !shareButton.isHidden
         saveButton.isHidden = !saveButton.isHidden
-//        likeButton.isHidden = !likeButton.isHidden
-        deleteButton.isHidden = !deleteButton.isHidden
+        likeButton.isHidden = !likeButton.isHidden
         infoButton.isHidden = !infoButton.isHidden
         
         if let nv = navigationController {
@@ -320,7 +304,7 @@ final class PhotoViewController: UIViewController {
                 present(alertController, animated: true)
             }
             else {
-                let alert = UIAlertController(title: "Успешно", message: "Фото было сохраненно в галерею", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Успешно", message: "Фото было сохранено в галерею устройства", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 present(alert, animated: true)
             }
@@ -331,13 +315,12 @@ final class PhotoViewController: UIViewController {
     
 }
 
-extension PhotoViewController: ViewProtocol {
+extension MainPhotoViewController: ViewProtocol {
     func setupView() {
 
         view.addSubview(imageView)
         view.addSubview(shareButton)
         view.addSubview(saveButton)
-        view.addSubview(deleteButton)
         view.addSubview(likeButton)
         view.addSubview(infoButton)
         view.addSubview(infoView)
@@ -371,11 +354,6 @@ extension PhotoViewController: ViewProtocol {
             likeButton.widthAnchor.constraint(equalToConstant: 50),
             likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
             likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            
-            deleteButton.heightAnchor.constraint(equalToConstant: 50),
-            deleteButton.widthAnchor.constraint(equalToConstant: 50),
-            deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
-            deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
             infoButton.heightAnchor.constraint(equalToConstant: 50),
             infoButton.widthAnchor.constraint(equalToConstant: 50),
@@ -415,15 +393,12 @@ extension PhotoViewController: ViewProtocol {
             infoCloseButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
             infoCloseButton.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 10),
         ])
-//        likeButton.isHidden = true
-        if type {
-            likeButton.isHidden = true
-        } else {
-            deleteButton.isHidden = true
-        }
+
     }
     
     
 }
+
+
 
 

@@ -8,7 +8,7 @@
 import Foundation
 
 final class ConverterPhoto {
-    static func converter(_ photo: Photo) -> PhotoModel {
+    static func photoToPhotoModel(_ photo: Photo) -> PhotoModel {
         let photoModel = PhotoModel(id: photo.id,
                                     width: photo.width,
                                     height: photo.height,
@@ -17,4 +17,8 @@ final class ConverterPhoto {
                                     url: photo.url)
         return photoModel
     }
+    
+//    static func photoModelToPhoto(_ photoModel) -> Photo {
+//        
+//    }
 }

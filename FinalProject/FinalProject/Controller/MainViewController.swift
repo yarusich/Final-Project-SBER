@@ -222,7 +222,7 @@ extension MainViewController {
 //            return
 //        }
         
-        navigationController?.pushViewController(PhotoViewController(photo: dataSource[index.item], type: false), animated: true)
+        navigationController?.pushViewController(MainPhotoViewController(photo: dataSource[index.item]), animated: true)
     }
 //    MARK: Будет выводить лист настроек
     @objc func settingsTapped() {

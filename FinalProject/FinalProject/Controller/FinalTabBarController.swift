@@ -27,7 +27,7 @@ class FinalTabBarController: UITabBarController {
         let favoriteViewController = UINavigationController(rootViewController: FavoriteViewController())
         favoriteViewController.tabBarItem = item2
         
-        let profileViewController = UINavigationController(rootViewController: ProfileViewController())
+        let profileViewController = ProfileViewController()
         profileViewController.tabBarItem = item3
         
         viewControllers = [mainViewController, favoriteViewController, profileViewController]

@@ -13,7 +13,6 @@
 		84133A982687F04900EACD6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84133A962687F04900EACD6A /* LaunchScreen.storyboard */; };
 		84133AA32687F04900EACD6A /* FinalProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84133AA22687F04900EACD6A /* FinalProjectTests.swift */; };
 		84133AAE2687F04900EACD6A /* FinalProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84133AAD2687F04900EACD6A /* FinalProjectUITests.swift */; };
-		842A8DC126AA5FF6008BA670 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC026AA5FF6008BA670 /* TabBarController.swift */; };
 		842A8DC826AA7508008BA670 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */; };
 		842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */; };
 		842A8DD226AA7773008BA670 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DD126AA7773008BA670 /* CoreDataStack.swift */; };
@@ -78,7 +77,6 @@
 		84133AA92687F04900EACD6A /* FinalProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinalProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84133AAD2687F04900EACD6A /* FinalProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalProjectUITests.swift; sourceTree = "<group>"; };
 		84133AAF2687F04900EACD6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		842A8DC026AA5FF6008BA670 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		842A8DD126AA7773008BA670 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				84133AC62687F20C00EACD6A /* View */,
 				84133AC72687F21400EACD6A /* Controller */,
 				84133A882687F04500EACD6A /* AppDelegate.swift */,
-				842A8DC026AA5FF6008BA670 /* TabBarController.swift */,
 				84133A942687F04900EACD6A /* Assets.xcassets */,
 				84133A962687F04900EACD6A /* LaunchScreen.storyboard */,
 				84133A992687F04900EACD6A /* Info.plist */,
@@ -390,7 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */,
-				842A8DC126AA5FF6008BA670 /* TabBarController.swift in Sources */,
 				84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */,
 				84DD68902695F9A2007842CD /* MainView.swift in Sources */,
 				84AD842026A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift in Sources */,

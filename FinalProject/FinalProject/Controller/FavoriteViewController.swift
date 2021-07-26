@@ -146,6 +146,8 @@ final class FavoriteViewController: UIViewController {
         selectButtonAction()
     }
     
+
+    
     private func selectButtonAction() {
         selectIsActive = !selectIsActive
         selectInterfaceActivate()

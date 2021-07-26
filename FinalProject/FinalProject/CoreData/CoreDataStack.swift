@@ -63,6 +63,27 @@ final class CoreDataStack {
             try? mainContext.save()
         }
     }
+    
+    func delete(photos: [Photo]?) {
+        guard let photos = photos else {
+//            self.deleteAll()
+            return }
+        
+        mainContext.performAndWait {
+            photos.forEach {
+                if let photo = try? fetchRequest(for: $0).execute().first {
+                    mainContext.delete(photo)
+                }
+            }
+            try? mainContext.save()
+        }
+    }
+    
+    private func fetchRequest(for dto: Photo) -> NSFetchRequest<Photo> {
+        let request = NSFetchRequest<Photo>(entityName: "Photo")
+        request.predicate = .init(format: "id == %@", dto.id)
+        return request
+    }
 }
 
 

@@ -22,7 +22,7 @@
 		842A8E2226AD1DFA008BA670 /* BottomSheetContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E2126AD1DF9008BA670 /* BottomSheetContainerViewController.swift */; };
 		842A8E2C26AE1891008BA670 /* ConverterPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E2B26AE1891008BA670 /* ConverterPhoto.swift */; };
 		842A8E3426AE2732008BA670 /* CustomFavoriteLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E3326AE2732008BA670 /* CustomFavoriteLayout.swift */; };
-		842A8E3F26AE631F008BA670 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E3E26AE631E008BA670 /* TabBarController.swift */; };
+		842A8E3F26AE631F008BA670 /* FinalTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */; };
 		84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD840F269E701D00CAF493 /* NetworkConstants.swift */; };
 		84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */; };
 		84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */; };
@@ -87,7 +87,7 @@
 		842A8E2126AD1DF9008BA670 /* BottomSheetContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetContainerViewController.swift; sourceTree = "<group>"; };
 		842A8E2B26AE1891008BA670 /* ConverterPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterPhoto.swift; sourceTree = "<group>"; };
 		842A8E3326AE2732008BA670 /* CustomFavoriteLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFavoriteLayout.swift; sourceTree = "<group>"; };
-		842A8E3E26AE631E008BA670 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalTabBarController.swift; sourceTree = "<group>"; };
 		84AD840F269E701D00CAF493 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosResponse.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 				842A8E2B26AE1891008BA670 /* ConverterPhoto.swift */,
 				84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */,
 				842A8E2126AD1DF9008BA670 /* BottomSheetContainerViewController.swift */,
-				842A8E3E26AE631E008BA670 /* TabBarController.swift */,
+				842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -407,7 +407,7 @@
 				84DD699A269C0882007842CD /* PhotoView.swift in Sources */,
 				84DD69B7269E0912007842CD /* PhotoSearchController.swift in Sources */,
 				842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */,
-				842A8E3F26AE631F008BA670 /* TabBarController.swift in Sources */,
+				842A8E3F26AE631F008BA670 /* FinalTabBarController.swift in Sources */,
 				84DD6995269BD3C0007842CD /* DConstans.swift in Sources */,
 				84DD6990269BD155007842CD /* PhotoViewController.swift in Sources */,
 				84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */,

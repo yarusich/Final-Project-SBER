@@ -11,7 +11,7 @@ import CoreData
 final class FavoriteViewController: UIViewController {
     
     
-    private var favoritePhotoViewController = FavoritePhotoViewController(photo: Photo())
+    
 
     
     private let networkService = NetworkService()
@@ -94,7 +94,6 @@ final class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .magenta
-        favoritePhotoViewController.delegate = self
         
         setupView()
     }
@@ -119,7 +118,7 @@ final class FavoriteViewController: UIViewController {
     private func selected(at index: IndexPath) {
         let photo = fetchedResultsController.object(at: index)
 //        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
-        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo), animated: true)
+        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo, delegate: self), animated: true)
 //        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo), animated: true)
     }
     

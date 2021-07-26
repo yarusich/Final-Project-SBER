@@ -13,8 +13,6 @@ protocol FavoritePhotoViewControllerDelegate: AnyObject {
 
 final class FavoritePhotoViewController: UIViewController {
     
-    
-    var closure: ((Photo) -> ())?
     weak var delegate: FavoritePhotoViewControllerDelegate?
     
     private let networkService = NetworkService()
@@ -152,10 +150,12 @@ final class FavoritePhotoViewController: UIViewController {
 //        return recognizer
 //    }()
     
-    init(photo: Photo) {
+    init(photo: Photo, delegate: FavoritePhotoViewControllerDelegate) {
+        self.delegate = delegate
         self.photo = photo
         super.init(nibName: nil, bundle: nil)
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -264,11 +264,11 @@ final class FavoritePhotoViewController: UIViewController {
     }
     
     @objc private func deleteButtonTapped() {
-//        closure?(photo)
         delegate?.deletePhotoFromCoreData(photo)
+        navigationController?.popViewController(animated: true)
     }
 
-    
+
     @objc private func infoButtonTapped() {
 //        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
         print("Смотрим инфу про кота")

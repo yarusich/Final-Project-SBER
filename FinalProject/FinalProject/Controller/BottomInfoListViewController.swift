@@ -9,6 +9,75 @@ import UIKit
 
 final class BottomInfoListViewController: UIViewController {
     
+    private let photo: Photo
+    
+    private let infoHeadLabel: UILabel = {
+        let t = UILabel()
+        t.text = "Info"
+        t.textAlignment = .center
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let authorHeadLabel: UILabel = {
+        let t = UILabel()
+        t.text = "Author"
+        t.textAlignment = .left
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let authorTextLabel: UILabel = {
+        let t = UILabel()
+        t.textAlignment = .left
+        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let dimensionHeadLabel: UILabel = {
+        let t = UILabel()
+        t.text = "Dimension"
+        t.textAlignment = .left
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let dimensionTextLabel: UILabel = {
+        let t = UILabel()
+        t.textAlignment = .left
+        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+  
+    private let descriptionsHeadLabel: UILabel = {
+        let t = UILabel()
+        t.text = "Descriptions"
+        t.textAlignment = .left
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+    private let descriptionsTextLabel: UITextView = {
+        let t = UITextView()
+        t.textAlignment = .left
+        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.translatesAutoresizingMaskIntoConstraints = false
+        return t
+    }()
+    
+//    private lazy var infoCloseButton: UIButton = {
+//        let btm = UIButton(type: .system)
+//        btm.setTitle("close", for: .normal)
+//        btm.setTitleColor(.black, for: .normal)
+//        btm.backgroundColor = .orange
+//        btm.layer.cornerRadius = 15
+//        btm.addTarget(self, action: #selector(infoCloseButtonTapped), for: .touchUpInside)
+//        btm.translatesAutoresizingMaskIntoConstraints = false
+//        return btm
+//    }()
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Get Started"
@@ -24,10 +93,12 @@ final class BottomInfoListViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
+
     
+//    MARK: СТАК
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, notesLabel, spacer])
+        let stackView = UIStackView(arrangedSubviews: [infoHeadLabel, authorHeadLabel, authorTextLabel, dimensionHeadLabel, dimensionTextLabel, descriptionsHeadLabel, descriptionsTextLabel])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -60,6 +131,15 @@ final class BottomInfoListViewController: UIViewController {
     var containerViewHeightConstraint: NSLayoutConstraint?
     var containerViewBottomConstraint: NSLayoutConstraint?
     
+    init(photo: Photo) {
+        self.photo = photo
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,11 +150,17 @@ final class BottomInfoListViewController: UIViewController {
         setupPanGesture()
 
     }
+    
+
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateShowDimmedView()
         animatePresentContainer()
+        
+        authorTextLabel.text = photo.author
+        dimensionTextLabel.text = "\(photo.height) x \(photo.width)"
+        descriptionsTextLabel.text = photo.descript
     }
     
     @objc func handleCloseAction() {

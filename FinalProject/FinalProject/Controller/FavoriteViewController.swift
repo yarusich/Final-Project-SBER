@@ -49,6 +49,7 @@ final class FavoriteViewController: UIViewController {
         btm.setTitle("share", for: .normal)
         btm.setTitleColor(.black, for: .normal)
         btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 15
         btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         btm.isHidden = true
@@ -60,6 +61,7 @@ final class FavoriteViewController: UIViewController {
         btm.setTitle("delete", for: .normal)
         btm.setTitleColor(.black, for: .normal)
         btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 15
         btm.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         btm.isHidden = true
@@ -71,9 +73,11 @@ final class FavoriteViewController: UIViewController {
         btm.setTitle("DelAll", for: .normal)
         btm.setTitleColor(.black, for: .normal)
         btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 15
         btm.addTarget(self, action: #selector(deleteAllButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         btm.isHidden = true
+        
         return btm
     }()
     

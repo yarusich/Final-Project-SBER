@@ -84,7 +84,8 @@ final class MainPhotoViewController: UIViewController {
         let btm = UIButton(type: .system)
         btm.setTitle("close", for: .normal)
         btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .red
+        btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 15
         btm.addTarget(self, action: #selector(infoCloseButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
@@ -95,7 +96,8 @@ final class MainPhotoViewController: UIViewController {
         let btm = UIButton(type: .system)
         btm.setTitle("share", for: .normal)
         btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .red
+        btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 15
         btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
@@ -105,7 +107,8 @@ final class MainPhotoViewController: UIViewController {
         let btm = UIButton(type: .system)
         btm.setTitle("save", for: .normal)
         btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .red
+        btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 15
         btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
@@ -115,7 +118,8 @@ final class MainPhotoViewController: UIViewController {
         let btm = UIButton(type: .system)
         btm.setTitle("like", for: .normal)
         btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .red
+        btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 15
         btm.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
@@ -125,7 +129,8 @@ final class MainPhotoViewController: UIViewController {
         let btm = UIButton(type: .system)
         btm.setTitle("info", for: .normal)
         btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .red
+        btm.backgroundColor = .orange
+        btm.layer.cornerRadius = 15
         btm.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         return btm

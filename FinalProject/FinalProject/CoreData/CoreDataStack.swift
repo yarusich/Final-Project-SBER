@@ -25,10 +25,7 @@ final class CoreDataStack {
         return model
     }()
     
-    
-    
     init() {
-        
         guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
             fatalError("Documents is nil")
         }
@@ -83,5 +80,6 @@ final class CoreDataStack {
         return request
     }
 }
+
 
 

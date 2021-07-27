@@ -13,7 +13,7 @@ final class MainPhotoViewController: UIViewController {
     
     private let currentUserKey = "currentUser"
     private let coreDataStack = Container.shared.coreDataStack
-    private let photo: PhotoModel
+    private let photo: PhotoDTO
     
 
     private lazy var shareButton: UIButton = {
@@ -79,7 +79,7 @@ final class MainPhotoViewController: UIViewController {
 //        return recognizer
 //    }()
     
-    init(photo: PhotoModel) {
+    init(photo: PhotoDTO) {
         self.photo = photo
         super.init(nibName: nil, bundle: nil)
     }
@@ -132,7 +132,7 @@ final class MainPhotoViewController: UIViewController {
        }
    }
     
-    private func configImage(with model: PhotoModel) {
+    private func configImage(with model: PhotoDTO) {
 //        imageView.setupImage(str: model.url)
         setupImage(str: photo.url)
 //        imageView.contentMode = .scaleAspectFit
@@ -197,15 +197,16 @@ final class MainPhotoViewController: UIViewController {
 //        MARK: backgroundContext видимо долго слишком
         let context = coreDataStack.mainContext
         context.performAndWait {
-            let photoData = Photo(context: context)
-            photoData.author = photo.author
-            photoData.descript = photo.descript
-            photoData.height = photo.height
-            photoData.width = photo.width
-            photoData.id = photo.id
-            photoData.url = photo.url
-//            photoData.user = UserDefaults.standard.string(forKey: currentUserKey)
-            photoData.user = "Richard"
+//            let photoData = Photo(context: context)
+//            photoData.author = photo.author
+//            photoData.descript = photo.descript
+//            photoData.height = photo.height
+//            photoData.width = photo.width
+//            photoData.id = photo.id
+//            photoData.url = photo.url
+            let data = Photo(context: context, with: photo)
+            print(data)
+            
         }
 //        try? context.save()
         do {
@@ -219,8 +220,8 @@ final class MainPhotoViewController: UIViewController {
     @objc private func infoButtonTapped() {
 //        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
         print("Смотрим инфу про кота")
-//        let vc = BottomInfoListViewController(photo: ConverterPhoto.photoToPhotoModel(Photo))
-        let vc = BottomInfoListViewController()
+//        let photoDTO = PhotoDTO(with: photo)
+        let vc = BottomInfoListViewController(photo: photo)
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }

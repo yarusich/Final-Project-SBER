@@ -24,6 +24,7 @@
 		842A8E4D26AF21A3008BA670 /* FavoritePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */; };
 		842A8EC826B002F9008BA670 /* BottomInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */; };
 		842A8ED026B0127C008BA670 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8ECF26B0127B008BA670 /* ImageScrollView.swift */; };
+		842A8F0926B098E9008BA670 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8F0826B098E9008BA670 /* Photo+CoreDataProperties.swift */; };
 		84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD840F269E701D00CAF493 /* NetworkConstants.swift */; };
 		84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */; };
 		84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */; };
@@ -90,6 +91,7 @@
 		842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotoViewController.swift; sourceTree = "<group>"; };
 		842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoListViewController.swift; sourceTree = "<group>"; };
 		842A8ECF26B0127B008BA670 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		842A8F0826B098E9008BA670 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Photo+CoreDataProperties.swift"; path = "FinalProject/CoreData/Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		84AD840F269E701D00CAF493 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosResponse.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		84133A7C2687F04500EACD6A = {
 			isa = PBXGroup;
 			children = (
+				842A8F0826B098E9008BA670 /* Photo+CoreDataProperties.swift */,
 				84133A872687F04500EACD6A /* FinalProject */,
 				84133AA12687F04900EACD6A /* FinalProjectTests */,
 				84133AAC2687F04900EACD6A /* FinalProjectUITests */,
@@ -393,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */,
+				842A8F0926B098E9008BA670 /* Photo+CoreDataProperties.swift in Sources */,
 				84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */,
 				84DD68902695F9A2007842CD /* MainView.swift in Sources */,
 				84AD842026A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift in Sources */,

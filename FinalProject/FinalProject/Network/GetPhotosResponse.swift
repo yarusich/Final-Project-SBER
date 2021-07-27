@@ -8,10 +8,10 @@
 import Foundation
 
 struct GetPhotosResponse: Decodable {
-    let results: [PhotoModel]
+    let results: [PhotoDTO]
 }
 
-struct PhotoModel {
+struct PhotoDTO {
     let id: String
     let width: Int16
     let height: Int16
@@ -55,7 +55,7 @@ struct User: Decodable {
     let name: String
 }
 
-extension PhotoModel: Decodable {
+extension PhotoDTO: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         

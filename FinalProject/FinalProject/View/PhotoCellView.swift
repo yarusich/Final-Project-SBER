@@ -57,7 +57,7 @@ final class PhotoCellView: UICollectionViewCell {
 }
 
 extension PhotoCellView {
-    func configure(with model: PhotoModel, _ image: UIImage) {
+    func configure(with model: PhotoDTO, _ image: UIImage) {
 //        imageView.setupImage(str: model.url)
         imageView.image = image
         imageView.contentMode = .scaleAspectFill

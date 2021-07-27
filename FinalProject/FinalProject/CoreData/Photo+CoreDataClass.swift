@@ -11,20 +11,16 @@ import CoreData
 
 @objc(Photo)
 public class Photo: NSManagedObject {
-
+    
+    convenience init(context: NSManagedObjectContext, with photoModel: PhotoDTO) {
+        self.init(context: context)
+        self.id = photoModel.id
+        self.width = photoModel.width
+        self.height = photoModel.height
+        self.descript = photoModel.descript
+        self.author = photoModel.author
+        self.url = photoModel.url
+    }
 }
 
-//MARK: сохранение штуки
-//func cards(with predicate: NSPredicate) -> [CardDTO] {
-//        let context = stack.mainContext
-//        var result = [CardDTO]()
-//
-//        let request = NSFetchRequest<Card>(entityName: "Card")
-//        request.predicate = predicate
-//        context.performAndWait {
-//            guard let cards = try? request.execute() else { return }
-//            result = cards.map { CardDTO(with: $0) }
-//        }
-//        return result
-//    }
-//}
+

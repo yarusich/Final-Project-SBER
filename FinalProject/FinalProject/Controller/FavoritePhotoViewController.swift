@@ -210,7 +210,8 @@ final class FavoritePhotoViewController: UIViewController {
         print("Смотрим инфу про кота")
 
 //        let vc = BottomInfoListViewController(photo: photo)
-        let vc = BottomInfoListViewController()
+        let photoDTO = PhotoDTO(with: photo)
+        let vc = BottomInfoListViewController(photo: photoDTO)
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }
@@ -239,40 +240,22 @@ final class FavoritePhotoViewController: UIViewController {
                 present(alert, animated: true)
             }
         }
-
-    
 }
 
 extension FavoritePhotoViewController: ViewProtocol {
     func setupView() {
 
         view.addSubview(imageScrollView)
-//        view.addSubview(imageScrollView)
         view.addSubview(shareButton)
         view.addSubview(saveButton)
         view.addSubview(deleteButton)
         view.addSubview(infoButton)
-        
-        
-//        infoView.addSubview(infoHeadLabel)
-//        infoView.addSubview(authorHeadLabel)
-//        infoView.addSubview(authorTextLabel)
-//        infoView.addSubview(dimensionHeadLabel)
-//        infoView.addSubview(dimensionTextLabel)
-//        infoView.addSubview(descriptionsHeadLabel)
-//        infoView.addSubview(descriptionsTextLabel)
-//        infoView.addSubview(infoCloseButton)
         
         NSLayoutConstraint.activate([
             imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
             imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-//            imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
-//            imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             shareButton.heightAnchor.constraint(equalToConstant: 50),
             shareButton.widthAnchor.constraint(equalToConstant: 50),
@@ -293,39 +276,6 @@ extension FavoritePhotoViewController: ViewProtocol {
             infoButton.widthAnchor.constraint(equalToConstant: 50),
             infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
             infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            
-//            infoView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 110),
-//            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            infoView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 30),
-//            
-//            infoHeadLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 10),
-//            infoHeadLabel.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
-//            
-//            authorHeadLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-//            authorHeadLabel.topAnchor.constraint(equalTo: infoHeadLabel.bottomAnchor, constant: 15),
-//            
-//            authorTextLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-//            authorTextLabel.topAnchor.constraint(equalTo: authorHeadLabel.bottomAnchor, constant: 0),
-//            
-//            dimensionHeadLabel.leadingAnchor.constraint(equalTo: infoView.centerXAnchor, constant: 15),
-//            dimensionHeadLabel.topAnchor.constraint(equalTo: infoHeadLabel.bottomAnchor, constant: 15),
-//            
-//            dimensionTextLabel.leadingAnchor.constraint(equalTo: infoView.centerXAnchor, constant: 15),
-//            dimensionTextLabel.topAnchor.constraint(equalTo: dimensionHeadLabel.bottomAnchor, constant: 0),
-//            
-//            descriptionsHeadLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-//            descriptionsHeadLabel.topAnchor.constraint(equalTo: authorTextLabel.bottomAnchor, constant: 15),
-//            
-//            descriptionsTextLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-//            descriptionsTextLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -15),
-//            descriptionsTextLabel.topAnchor.constraint(equalTo: descriptionsHeadLabel.bottomAnchor, constant: 0),
-//            descriptionsTextLabel.bottomAnchor.constraint(equalTo: infoView.bottomAnchor),
-//            
-//            infoCloseButton.heightAnchor.constraint(equalToConstant: 30),
-//            infoCloseButton.widthAnchor.constraint(equalToConstant: 30),
-//            infoCloseButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
-//            infoCloseButton.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 10),
         ])
     }
     

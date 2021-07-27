@@ -13,7 +13,7 @@ final class MainViewController: UIViewController {
     
     private var cursor = Cursor()
     
-    private var dataSource = [PhotoModel]()
+    private var dataSource = [PhotoDTO]()
             
     private let photoSearchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)

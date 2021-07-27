@@ -18,9 +18,10 @@ final class FavoriteViewController: UIViewController {
     
     private var selectIsActive: Bool = false
     
-    private var selectedPhotos = [PhotoModel]()
+    private var selectedPhotos = [PhotoDTO]()
     
     private let coreDataStack = Container.shared.coreDataStack
+    
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Photo> = {
         let request = NSFetchRequest<Photo>(entityName: "Photo")
@@ -122,6 +123,7 @@ final class FavoriteViewController: UIViewController {
     private func selected(at index: IndexPath) {
         let photo = fetchedResultsController.object(at: index)
 //        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
+        let photoDTO = PhotoDTO(with: photo)
         let favoritePhotoViewController = FavoritePhotoViewController(photo: photo, delegate: self)
         navigationController?.pushViewController(favoritePhotoViewController, animated: true)
 //        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo), animated: true)
@@ -284,14 +286,13 @@ extension FavoriteViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         let photo = fetchedResultsController.object(at: indexPath)
+        let photoDTO = PhotoDTO(with: photo)
         guard let photoCell = cell as? PhotoCellView else { return cell }
-        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
-        
 
         networkService.loadPhoto(imageUrl: photo.url) { data in
                if let data = data, let image = UIImage(data: data) {
                    DispatchQueue.main.async {
-                    photoCell.configure(with: photoModel, image)
+                    photoCell.configure(with: photoDTO, image)
                    }
                }
            }

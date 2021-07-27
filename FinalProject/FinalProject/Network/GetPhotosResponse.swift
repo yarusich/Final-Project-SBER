@@ -44,8 +44,6 @@ struct PhotoDTO {
     }
 }
 
-
-
 struct PhotoURLs: Decodable {
     let regular: String
 

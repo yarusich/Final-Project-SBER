@@ -9,11 +9,7 @@ import UIKit
 import CoreData
 
 final class FavoriteViewController: UIViewController {
-    
-    
-    
 
-    
     private let networkService = NetworkService()
     
     private var selectIsActive: Bool = false
@@ -83,7 +79,8 @@ final class FavoriteViewController: UIViewController {
     }()
     
     private lazy var collectionPhotoView: UICollectionView = {
-        let layout = CustomMainLayout()
+//        let layout = CustomMainLayout()
+        let layout = CustomFavoriteLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(PhotoCellView.self, forCellWithReuseIdentifier: PhotoCellView.id)
         cv.delegate = self
@@ -338,3 +335,5 @@ extension FavoriteViewController: FavoritePhotoViewControllerDelegate {
     
     
 }
+
+

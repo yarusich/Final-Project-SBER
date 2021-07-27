@@ -30,11 +30,9 @@
 		84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */; };
 		84AD842026A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841F26A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift */; };
 		84AD842B26A1245A00CAF493 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD842A26A1245A00CAF493 /* Cursor.swift */; };
-		84AD843326A26C5D00CAF493 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843226A26C5D00CAF493 /* AuthorizationViewController.swift */; };
 		84AD843826A26CD200CAF493 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843726A26CD200CAF493 /* FavoriteViewController.swift */; };
 		84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */; };
 		84AD844826A3BEC300CAF493 /* FavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD844726A3BEC300CAF493 /* FavoriteModel.swift */; };
-		84AD844D26A404AB00CAF493 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD844C26A404AB00CAF493 /* AuthorizationModel.swift */; };
 		84AD845926A68FF100CAF493 /* UsersStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD845826A68FF100CAF493 /* UsersStorageService.swift */; };
 		84AD845E26A6948900CAF493 /* UsersProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD845D26A6948900CAF493 /* UsersProfiles.swift */; };
 		84DD68862695F198007842CD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68852695F198007842CD /* MainViewController.swift */; };
@@ -97,11 +95,9 @@
 		84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosResponse.swift; sourceTree = "<group>"; };
 		84AD841F26A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoNetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		84AD842A26A1245A00CAF493 /* Cursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
-		84AD843226A26C5D00CAF493 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		84AD843726A26CD200CAF493 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		84AD844726A3BEC300CAF493 /* FavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteModel.swift; sourceTree = "<group>"; };
-		84AD844C26A404AB00CAF493 /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
 		84AD845826A68FF100CAF493 /* UsersStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersStorageService.swift; sourceTree = "<group>"; };
 		84AD845D26A6948900CAF493 /* UsersProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfiles.swift; sourceTree = "<group>"; };
 		84DD68852695F198007842CD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -206,7 +202,6 @@
 				84DD68AD2696F13E007842CD /* PhotoModel.swift */,
 				84DD6994269BD3C0007842CD /* DConstans.swift */,
 				84AD844726A3BEC300CAF493 /* FavoriteModel.swift */,
-				84AD844C26A404AB00CAF493 /* AuthorizationModel.swift */,
 				84AD845826A68FF100CAF493 /* UsersStorageService.swift */,
 				84AD845D26A6948900CAF493 /* UsersProfiles.swift */,
 			);
@@ -218,8 +213,8 @@
 			children = (
 				84DD688F2695F9A2007842CD /* MainView.swift */,
 				84DD68A52696EA87007842CD /* PhotoCellView.swift */,
-				84DD68B526979117007842CD /* CustomMainLayout.swift */,
 				84DD6999269C0882007842CD /* PhotoView.swift */,
+				84DD68B526979117007842CD /* CustomMainLayout.swift */,
 				842A8E3326AE2732008BA670 /* CustomFavoriteLayout.swift */,
 			);
 			path = View;
@@ -231,7 +226,6 @@
 				84DD68852695F198007842CD /* MainViewController.swift */,
 				84DD698F269BD155007842CD /* MainPhotoViewController.swift */,
 				84DD69B6269E0912007842CD /* PhotoSearchController.swift */,
-				84AD843226A26C5D00CAF493 /* AuthorizationViewController.swift */,
 				84AD843726A26CD200CAF493 /* FavoriteViewController.swift */,
 				842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */,
 				842A8ECF26B0127B008BA670 /* ImageScrollView.swift */,
@@ -408,7 +402,6 @@
 				842A8EC826B002F9008BA670 /* BottomInfoListViewController.swift in Sources */,
 				84AD842B26A1245A00CAF493 /* Cursor.swift in Sources */,
 				84133A932687F04500EACD6A /* FinalProject.xcdatamodeld in Sources */,
-				84AD843326A26C5D00CAF493 /* AuthorizationViewController.swift in Sources */,
 				84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */,
 				84AD844826A3BEC300CAF493 /* FavoriteModel.swift in Sources */,
 				84DD699A269C0882007842CD /* PhotoView.swift in Sources */,
@@ -420,7 +413,6 @@
 				842A8ED026B0127C008BA670 /* ImageScrollView.swift in Sources */,
 				84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */,
 				84AD843826A26CD200CAF493 /* FavoriteViewController.swift in Sources */,
-				84AD844D26A404AB00CAF493 /* AuthorizationModel.swift in Sources */,
 				84DD68AE2696F13E007842CD /* PhotoModel.swift in Sources */,
 				84DD68B626979117007842CD /* CustomMainLayout.swift in Sources */,
 				842A8DDC26AA8407008BA670 /* PhotoToPhotoModel.swift in Sources */,

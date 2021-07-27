@@ -81,11 +81,7 @@ final class FavoritePhotoViewController: UIViewController {
     
 
     
-//    lazy var doubleTapGesture: UITapGestureRecognizer = {
-//        let recognizer = UITapGestureRecognizer()
-//        recognizer.addTarget(self, action: #selector(viewDoubleTap))
-//        return recognizer
-//    }()
+
     
     init(photo: Photo, delegate: FavoritePhotoViewControllerDelegate) {
         self.delegate = delegate

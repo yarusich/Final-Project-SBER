@@ -67,11 +67,7 @@ final class MainPhotoViewController: UIViewController {
         return i
     }()
     
-//    private lazy var imageView: UIImageView = {
-//        let iv = UIImageView()
-//        iv.translatesAutoresizingMaskIntoConstraints = false
-//        return iv
-//    }()
+
     
 //    lazy var doubleTapGesture: UITapGestureRecognizer = {
 //        let recognizer = UITapGestureRecognizer()
@@ -100,11 +96,6 @@ final class MainPhotoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        authorTextLabel.text = photo.author
-//        dimensionTextLabel.text = "\(photo.height) x \(photo.width)"
-//        descriptionsTextLabel.text = photo.descript
-//
-//        infoView.isHidden = true
         
         tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = false
@@ -140,32 +131,12 @@ final class MainPhotoViewController: UIViewController {
 //        imageView.clipsToBounds = true
 //        imageView.isUserInteractionEnabled = true
 //        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
-//        imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(viewPinched(_:))))
-//        imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:))))
+
     }
-/// ТАЩИМ
-//    @objc private func viewPanned(_ recognizer: UIPanGestureRecognizer) {
-//        print("тащим кота")
-//        let translation = recognizer.translation(in: self.view)
-//        if let view = recognizer.view {
-//            view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
-//        }
-//        recognizer.setTranslation(CGPoint.zero, in: self.view)
-//    }
+
     
-/// ЩИПОК
-//    @objc private func viewPinched(_ recognizer: UIPinchGestureRecognizer) {
-//        print("щиплем кота")
-//        if let view = recognizer.view {
-//            view.transform = view.transform.scaledBy(x: recognizer.scale, y: recognizer.scale)
-//            recognizer.scale = 1
-//        }
-//    }
-/// ДАБЛ ТАП
-//    @objc private func viewDoubleTapped() {
-////        MARK: двойной тап приближает и отдаляет
-//        print("тапнули по коту два раза")
-//    }
+
+
 /// ОДИНАРНЫЙ ТАП
     @objc private func viewTapped() {
 //        MARK: одинарный тап - скрывает интерфейс
@@ -197,15 +168,9 @@ final class MainPhotoViewController: UIViewController {
 //        MARK: backgroundContext видимо долго слишком
         let context = coreDataStack.mainContext
         context.performAndWait {
-//            let photoData = Photo(context: context)
-//            photoData.author = photo.author
-//            photoData.descript = photo.descript
-//            photoData.height = photo.height
-//            photoData.width = photo.width
-//            photoData.id = photo.id
-//            photoData.url = photo.url
-            let data = Photo(context: context, with: photo)
-            print(data)
+            let _ = Photo(context: context, with: photo)
+            
+//            print(data)
             
         }
 //        try? context.save()
@@ -267,20 +232,7 @@ extension MainPhotoViewController: ViewProtocol {
         view.addSubview(infoButton)
 //        view.addSubview(infoView)
         
-//        infoView.addSubview(infoHeadLabel)
-//        infoView.addSubview(authorHeadLabel)
-//        infoView.addSubview(authorTextLabel)
-//        infoView.addSubview(dimensionHeadLabel)
-//        infoView.addSubview(dimensionTextLabel)
-//        infoView.addSubview(descriptionsHeadLabel)
-//        infoView.addSubview(descriptionsTextLabel)
-//        infoView.addSubview(infoCloseButton)
-        
         NSLayoutConstraint.activate([
-//            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            imageView.topAnchor.constraint(equalTo: view.topAnchor),
-//            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -306,39 +258,6 @@ extension MainPhotoViewController: ViewProtocol {
             infoButton.widthAnchor.constraint(equalToConstant: 50),
             infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
             infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            
-//            infoView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 110),
-//            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            infoView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 30),
-//
-//            infoHeadLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 10),
-//            infoHeadLabel.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
-//
-//            authorHeadLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-//            authorHeadLabel.topAnchor.constraint(equalTo: infoHeadLabel.bottomAnchor, constant: 15),
-//
-//            authorTextLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-//            authorTextLabel.topAnchor.constraint(equalTo: authorHeadLabel.bottomAnchor, constant: 0),
-//
-//            dimensionHeadLabel.leadingAnchor.constraint(equalTo: infoView.centerXAnchor, constant: 15),
-//            dimensionHeadLabel.topAnchor.constraint(equalTo: infoHeadLabel.bottomAnchor, constant: 15),
-//
-//            dimensionTextLabel.leadingAnchor.constraint(equalTo: infoView.centerXAnchor, constant: 15),
-//            dimensionTextLabel.topAnchor.constraint(equalTo: dimensionHeadLabel.bottomAnchor, constant: 0),
-//
-//            descriptionsHeadLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-//            descriptionsHeadLabel.topAnchor.constraint(equalTo: authorTextLabel.bottomAnchor, constant: 15),
-//
-//            descriptionsTextLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-//            descriptionsTextLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -15),
-//            descriptionsTextLabel.topAnchor.constraint(equalTo: descriptionsHeadLabel.bottomAnchor, constant: 0),
-//            descriptionsTextLabel.bottomAnchor.constraint(equalTo: infoView.bottomAnchor),
-//
-//            infoCloseButton.heightAnchor.constraint(equalToConstant: 30),
-//            infoCloseButton.widthAnchor.constraint(equalToConstant: 30),
-//            infoCloseButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
-//            infoCloseButton.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 10),
         ])
 
     }

@@ -149,6 +149,14 @@ final class FavoritePhotoViewController: UIViewController {
         return iv
     }()
     
+    lazy var containerStackView: UIStackView = {
+        let spacer = UIView()
+        let stackView = UIStackView(arrangedSubviews: [infoHeadLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 16.0
+        return stackView
+    }()
+    
 //    lazy var doubleTapGesture: UITapGestureRecognizer = {
 //        let recognizer = UITapGestureRecognizer()
 //        recognizer.addTarget(self, action: #selector(viewDoubleTap))
@@ -173,6 +181,7 @@ final class FavoritePhotoViewController: UIViewController {
         
         
         configImage(with: photo)
+        
         setupView()
     }
     
@@ -277,7 +286,10 @@ final class FavoritePhotoViewController: UIViewController {
     @objc private func infoButtonTapped() {
 //        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
         print("Смотрим инфу про кота")
-        infoView.isHidden = false
+
+        let vc = BottomInfoListViewController()
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
     }
     
     private func hideInterface() {

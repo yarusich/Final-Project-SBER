@@ -22,6 +22,7 @@
 		842A8E3426AE2732008BA670 /* CustomFavoriteLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E3326AE2732008BA670 /* CustomFavoriteLayout.swift */; };
 		842A8E3F26AE631F008BA670 /* FinalTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */; };
 		842A8E4D26AF21A3008BA670 /* FavoritePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */; };
+		842A8EC826B002F9008BA670 /* BottomInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */; };
 		84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD840F269E701D00CAF493 /* NetworkConstants.swift */; };
 		84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */; };
 		84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */; };
@@ -86,6 +87,7 @@
 		842A8E3326AE2732008BA670 /* CustomFavoriteLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFavoriteLayout.swift; sourceTree = "<group>"; };
 		842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalTabBarController.swift; sourceTree = "<group>"; };
 		842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotoViewController.swift; sourceTree = "<group>"; };
+		842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoListViewController.swift; sourceTree = "<group>"; };
 		84AD840F269E701D00CAF493 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosResponse.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				84AD843226A26C5D00CAF493 /* AuthorizationViewController.swift */,
 				84AD843726A26CD200CAF493 /* FavoriteViewController.swift */,
 				842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */,
+				842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */,
 				842A8E2B26AE1891008BA670 /* ConverterPhoto.swift */,
 				84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */,
 				842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */,
@@ -395,6 +398,7 @@
 				842A8E4D26AF21A3008BA670 /* FavoritePhotoViewController.swift in Sources */,
 				842A8DD726AA7D75008BA670 /* Container.swift in Sources */,
 				842A8E2C26AE1891008BA670 /* ConverterPhoto.swift in Sources */,
+				842A8EC826B002F9008BA670 /* BottomInfoListViewController.swift in Sources */,
 				84AD842B26A1245A00CAF493 /* Cursor.swift in Sources */,
 				84133A932687F04500EACD6A /* FinalProject.xcdatamodeld in Sources */,
 				84AD843326A26C5D00CAF493 /* AuthorizationViewController.swift in Sources */,

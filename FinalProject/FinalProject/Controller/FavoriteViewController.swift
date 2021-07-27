@@ -122,7 +122,8 @@ final class FavoriteViewController: UIViewController {
     private func selected(at index: IndexPath) {
         let photo = fetchedResultsController.object(at: index)
 //        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
-        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo, delegate: self), animated: true)
+        let favoritePhotoViewController = FavoritePhotoViewController(photo: photo, delegate: self)
+        navigationController?.pushViewController(favoritePhotoViewController, animated: true)
 //        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo), animated: true)
     }
     

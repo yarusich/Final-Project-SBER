@@ -231,11 +231,11 @@
 				84AD843226A26C5D00CAF493 /* AuthorizationViewController.swift */,
 				84AD843726A26CD200CAF493 /* FavoriteViewController.swift */,
 				842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */,
+				842A8ECF26B0127B008BA670 /* ImageScrollView.swift */,
 				842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */,
 				842A8E2B26AE1891008BA670 /* ConverterPhoto.swift */,
 				84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */,
 				842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */,
-				842A8ECF26B0127B008BA670 /* ImageScrollView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

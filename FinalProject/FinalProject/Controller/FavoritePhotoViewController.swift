@@ -68,17 +68,16 @@ final class FavoritePhotoViewController: UIViewController {
     
     
     private lazy var imageScrollView: ImageScrollView = {
-        let i = ImageScrollView()
-        
+        let i = ImageScrollView(frame: view.bounds)
         i.translatesAutoresizingMaskIntoConstraints = false
         return i
     }()
     
-    private lazy var imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
+//    private lazy var imageScrollView: UIImageView = {
+//        let iv = UIImageView()
+//        iv.translatesAutoresizingMaskIntoConstraints = false
+//        return iv
+//    }()
     
 
     
@@ -135,7 +134,7 @@ final class FavoritePhotoViewController: UIViewController {
        networkService.loadPhoto(imageUrl: url) { data in
            if let data = data, let image = UIImage(data: data) {
                DispatchQueue.main.async {
-                self.imageView.image = image
+                self.imageScrollView.set(image: image)
                }
            }
        }
@@ -144,13 +143,13 @@ final class FavoritePhotoViewController: UIViewController {
     private func configImage(with model: Photo) {
 
         setupImage(str: photo.url)
-        imageView.contentMode = .scaleAspectFit
+//        imageView.contentMode = .scaleAspectFit
 //        MARK: Посмотреть оба вариант клипа
-        imageView.clipsToBounds = true
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
-        imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(viewPinched(_:))))
-        imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:))))
+//        imageScrollView.clipsToBounds = true
+        imageScrollView.isUserInteractionEnabled = true
+        imageScrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
+//        imageScrollView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(viewPinched(_:))))
+//        imageScrollView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:))))
     }
 /// ТАЩИМ
     @objc private func viewPanned(_ recognizer: UIPanGestureRecognizer) {
@@ -185,8 +184,9 @@ final class FavoritePhotoViewController: UIViewController {
     @objc private func shareButtonTapped() {
         print("Шарим кота")
 
-        guard let item = imageView.image else { return }
-        let shareController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+//        guard let item = imageScrollView.image else { return }
+        let image = imageScrollView.getImage()
+        let shareController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(shareController, animated: true)
         
     }
@@ -194,7 +194,8 @@ final class FavoritePhotoViewController: UIViewController {
 //        MARK: сохраняем фотку в галерею
     @objc private func saveButtonTapped() {
         print("Сохраняем кота в галерею")
-        guard let image = imageView.image else { return }
+//        guard let image = imageScrollView.image else { return }
+        let image = imageScrollView.getImage()
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveImageWithAlert(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
@@ -244,7 +245,8 @@ final class FavoritePhotoViewController: UIViewController {
 extension FavoritePhotoViewController: ViewProtocol {
     func setupView() {
 
-        view.addSubview(imageView)
+        view.addSubview(imageScrollView)
+//        view.addSubview(imageScrollView)
         view.addSubview(shareButton)
         view.addSubview(saveButton)
         view.addSubview(deleteButton)
@@ -261,15 +263,15 @@ extension FavoritePhotoViewController: ViewProtocol {
 //        infoView.addSubview(infoCloseButton)
         
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.topAnchor.constraint(equalTo: view.topAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
             imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
             imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+//            imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+//            imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             shareButton.heightAnchor.constraint(equalToConstant: 50),
             shareButton.widthAnchor.constraint(equalToConstant: 50),

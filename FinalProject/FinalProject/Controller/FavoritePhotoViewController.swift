@@ -209,7 +209,8 @@ final class FavoritePhotoViewController: UIViewController {
 //        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
         print("Смотрим инфу про кота")
 
-        let vc = BottomInfoListViewController(photo: photo)
+//        let vc = BottomInfoListViewController(photo: photo)
+        let vc = BottomInfoListViewController()
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }

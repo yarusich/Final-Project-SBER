@@ -9,7 +9,7 @@ import UIKit
 
 final class BottomInfoListViewController: UIViewController {
     
-    private let photo: Photo
+//    private let photo: Photo
     
     private let infoHeadLabel: UILabel = {
         let t = UILabel()
@@ -131,14 +131,14 @@ final class BottomInfoListViewController: UIViewController {
     var containerViewHeightConstraint: NSLayoutConstraint?
     var containerViewBottomConstraint: NSLayoutConstraint?
     
-    init(photo: Photo) {
-        self.photo = photo
-        super.init(nibName: nil, bundle: nil)
-    }
+//    init(photo: Photo) {
+//        self.photo = photo
+//        super.init(nibName: nil, bundle: nil)
+//    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,9 +158,9 @@ final class BottomInfoListViewController: UIViewController {
         animateShowDimmedView()
         animatePresentContainer()
         
-        authorTextLabel.text = photo.author
-        dimensionTextLabel.text = "\(photo.height) x \(photo.width)"
-        descriptionsTextLabel.text = photo.descript
+//        authorTextLabel.text = photo.author
+//        dimensionTextLabel.text = "\(photo.height) x \(photo.width)"
+//        descriptionsTextLabel.text = photo.descript
     }
     
     @objc func handleCloseAction() {

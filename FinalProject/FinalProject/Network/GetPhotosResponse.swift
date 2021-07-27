@@ -33,7 +33,18 @@ struct PhotoModel {
     enum URLCodingKeys: String, CodingKey {
         case url = "regular"
     }
+    init(with photoMO: Photo) {
+        self.id = photoMO.id
+        self.width = photoMO.width
+        self.height = photoMO.height
+        self.descript = photoMO.descript
+        self.author = photoMO.author
+        self.url = photoMO.url
+        
+    }
 }
+
+
 
 struct PhotoURLs: Decodable {
     let regular: String

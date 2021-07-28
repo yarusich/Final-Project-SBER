@@ -9,11 +9,12 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
-    var query = "Введите слово"
+    private let userDefaultsService = UserDefaultsService()
+    
+//    private var query = "Введите слово"
     
     private lazy var defaultQueryTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = query
         tf.textAlignment = .center
         tf.font = UIFont.systemFont(ofSize: 25)
         tf.backgroundColor = .white
@@ -42,6 +43,14 @@ final class ProfileViewController: UIViewController {
         return btm
     }()
     
+    init() {
+
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +71,7 @@ final class ProfileViewController: UIViewController {
         view.addSubview(changeProfileButton)
         view.addSubview(defaultQueryTextField)
         
+        defaultQueryTextField.placeholder = setQuery()
         
         NSLayoutConstraint.activate([
             
@@ -82,11 +92,22 @@ final class ProfileViewController: UIViewController {
     
     @objc private func changeQueryButtonTapped() {
         guard let text = defaultQueryTextField.text else { return }
-        query = text
+        
+        userDefaultsService.addCurrentQuery(query: text)
+
         defaultQueryTextField.text = ""
-        defaultQueryTextField.placeholder = text
-        print(query)
+        defaultQueryTextField.placeholder = userDefaultsService.getCurrentQuery()
+        
+
         view.endEditing(true)
     }
     
+    private func setQuery() -> String {
+        let text = userDefaultsService.getCurrentQuery()
+        if text == "" {
+            return "Запрос по-умолчанию"
+        } else {
+            return text
+        }
+    }
 }

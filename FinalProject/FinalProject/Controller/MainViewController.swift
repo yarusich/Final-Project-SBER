@@ -9,7 +9,11 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    private var query = String()
+    
     private let networkService: PhotoNetworkServiceProtocol
+    
+    private let userDefaultsService = UserDefaultsService()
     
     private var cursor = Cursor()
     
@@ -62,14 +66,14 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NetworkConstants.query = "cats"
+        query = userDefaultsService.getCurrentQuery()
         
         view.backgroundColor = .orange
         
 
         setupView()
         
-        loadData(with: NetworkConstants.query)
+        loadData(with: query)
         setupPhotoSearchController()
 
     }
@@ -78,8 +82,10 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
 //        MARK: Скрыли наш нав бар
 //        navigationController?.navigationBar.isHidden = false
-        navigationController?.navigationBar.backgroundColor = UIColor.clear
-        navigationController?.navigationBar.barTintColor = .red
+//        MARK: Устанавливаем запрос по-умолчанию здесь
+        photoSearchController.searchBar.placeholder = userDefaultsService.getCurrentQuery()
+        
+ 
         
 //        navigationItem.searchController = photoSearchController
     }
@@ -87,19 +93,22 @@ final class MainViewController: UIViewController {
     private func setupPhotoSearchController() {
 //        photoSearchController.searchResultsUpdater = self
 //        photoSearchController.obscuresBackgroundDuringPresentation = false
-        photoSearchController.searchBar.placeholder = "поиск котиков"
+        
 //        let currentQuery = NetworkConstants.query?.trimmingCharacters(in: .whitespacesAndNewlines)
 //        if let query = currentQuery, query.isEmpty == false { return }
         
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         extendedLayoutIncludesOpaqueBars = true
+        
         navigationItem.searchController = photoSearchController
+        
     }
     
 //    MARK: LOAD DATA
     private func loadData(with query: String?) {
         guard let query = query else { return }
+        cursor.zeroPage()
         let page = cursor.nextPage()
         networkService.searchPhotos(currentPage: page, searching: query) { [weak self] response in
             guard let self = self else { return }
@@ -142,12 +151,35 @@ final class MainViewController: UIViewController {
             return "Что-то неизвестное"
         }
     }
+    
+    
+    @objc func searchButtonTapped() {
+        
+        print("search btm was tap")
+    }
 }
 
 extension MainViewController: ViewProtocol {
     
     func setupView() {
         view.addSubview(collectionPhotoView)
+        
+        photoSearchBar.sizeToFit()
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.title = "Search Bar"
+//        navigationController?.navigationBar.barTintColor = UIColor(red: 55/255, green: 120/255, blue: 250/255, alpha: 1)
+//        MARK: погуглить, можно ли сделать более прозрачным
+        navigationController?.navigationBar.isTranslucent = true
+//        MARK: выбрать вариант:
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.tintColor = .white
+        
+
+
+        
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonTapped))
+//        navigationController?.navigationBar.backgroundColor = UIColor.clear
+        navigationController?.navigationBar.barTintColor = .red
         NSLayoutConstraint.activate([
             collectionPhotoView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionPhotoView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -168,9 +200,10 @@ extension MainViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        MARK: подгрузка
         let rowCount = 1
         if indexPath.item == dataSource.count - rowCount {
-            loadData(with: NetworkConstants.query)
+            loadData(with: query)
         }
     }
     

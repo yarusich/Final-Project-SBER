@@ -13,7 +13,7 @@ final class BottomInfoListViewController: UIViewController {
     
     private let infoHeadLabel: UILabel = {
         let t = UILabel()
-        t.text = "Info"
+        t.text = "Информация"
         t.textAlignment = .center
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
@@ -21,7 +21,7 @@ final class BottomInfoListViewController: UIViewController {
     
     private let authorHeadLabel: UILabel = {
         let t = UILabel()
-        t.text = "Author"
+        t.text = "Автор"
         t.textAlignment = .left
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
@@ -37,7 +37,7 @@ final class BottomInfoListViewController: UIViewController {
     
     private let dimensionHeadLabel: UILabel = {
         let t = UILabel()
-        t.text = "Dimension"
+        t.text = "Исходное разрешение"
         t.textAlignment = .left
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
@@ -53,7 +53,7 @@ final class BottomInfoListViewController: UIViewController {
   
     private let descriptionsHeadLabel: UILabel = {
         let t = UILabel()
-        t.text = "Descriptions"
+        t.text = "Описание"
         t.textAlignment = .left
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
@@ -78,12 +78,7 @@ final class BottomInfoListViewController: UIViewController {
 //        return btm
 //    }()
     
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Get Started"
-        label.font = .boldSystemFont(ofSize: 20)
-        return label
-    }()
+
     
 //    MARK: СТАК
     lazy var contentStackView: UIStackView = {

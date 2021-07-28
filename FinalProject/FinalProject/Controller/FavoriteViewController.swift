@@ -22,18 +22,6 @@ final class FavoriteViewController: UIViewController {
         return cds
     }()
     
-    
-//    private lazy var fetchedResultsController: NSFetchedResultsController<Photo> = {
-//        let request = NSFetchRequest<Photo>(entityName: "Photo")
-//        request.sortDescriptors = [.init(key: "id", ascending: true)]
-//        let frc = NSFetchedResultsController(fetchRequest: request,
-//                                             managedObjectContext: coreDataStack.mainContext,
-//                                             sectionNameKeyPath: nil,
-//                                             cacheName: nil)
-//        frc.delegate = self
-//        return frc
-//    }()
-    
     private lazy var selectButton: UIButton = {
         let btm = UIButton(type: .system)
         btm.setTitle("Выбрать", for: .normal)

@@ -2,7 +2,7 @@
 //  Photo+CoreDataProperties.swift
 //  FinalProject
 //
-//  Created by Антон Сафронов on 27.07.2021.
+//  Created by Антон Сафронов on 28.07.2021.
 //
 //
 
@@ -22,6 +22,7 @@ extension Photo {
     @NSManaged public var id: String
     @NSManaged public var url: String
     @NSManaged public var width: Int16
+
 }
 
 extension Photo : Identifiable {

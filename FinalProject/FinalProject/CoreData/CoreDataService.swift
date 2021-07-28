@@ -10,10 +10,7 @@ import CoreData
 
 protocol CoreDataServiceProtocol {
     func save(photos: [PhotoDTO])
-    
     func delete(photos: [PhotoDTO]?)
-    
-//    func photos(with predicate: NSPredicate) -> [PhotoDTO]
 }
 
 protocol CoreDataSeriviceDelegate: AnyObject {

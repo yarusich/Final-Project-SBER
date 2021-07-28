@@ -1,5 +1,5 @@
 //
-//  UsersStorageService.swift
+//  QueryDefaultsService.swift
 //  FinalProject
 //
 //  Created by Антон Сафронов on 20.07.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class UsersStorageService {
+final class QueryDefaultsService {
     private let defaults: UserDefaults
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()

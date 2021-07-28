@@ -24,8 +24,8 @@
 		842A8E4D26AF21A3008BA670 /* FavoritePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */; };
 		842A8EC826B002F9008BA670 /* BottomInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */; };
 		842A8ED026B0127C008BA670 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8ECF26B0127B008BA670 /* ImageScrollView.swift */; };
-		842A8F0926B098E9008BA670 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8F0826B098E9008BA670 /* Photo+CoreDataProperties.swift */; };
 		842A8F2126B1001D008BA670 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8F2026B1001D008BA670 /* CoreDataService.swift */; };
+		842A8F4826B15EAD008BA670 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8F4726B15EAD008BA670 /* UserDefaultsService.swift */; };
 		84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD840F269E701D00CAF493 /* NetworkConstants.swift */; };
 		84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */; };
 		84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */; };
@@ -33,17 +33,15 @@
 		84AD842B26A1245A00CAF493 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD842A26A1245A00CAF493 /* Cursor.swift */; };
 		84AD843826A26CD200CAF493 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843726A26CD200CAF493 /* FavoriteViewController.swift */; };
 		84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */; };
-		84AD844826A3BEC300CAF493 /* FavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD844726A3BEC300CAF493 /* FavoriteModel.swift */; };
-		84AD845926A68FF100CAF493 /* UsersStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD845826A68FF100CAF493 /* UsersStorageService.swift */; };
-		84AD845E26A6948900CAF493 /* UsersProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD845D26A6948900CAF493 /* UsersProfiles.swift */; };
+		84AD844826A3BEC300CAF493 /* UserDefaultsServiceOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD844726A3BEC300CAF493 /* UserDefaultsServiceOld.swift */; };
+		84AD845926A68FF100CAF493 /* QueryDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD845826A68FF100CAF493 /* QueryDefaultsService.swift */; };
+		84AD845E26A6948900CAF493 /* QueryDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD845D26A6948900CAF493 /* QueryDefaults.swift */; };
 		84DD68862695F198007842CD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68852695F198007842CD /* MainViewController.swift */; };
 		84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688A2695F255007842CD /* MainViewDelegate.swift */; };
 		84DD68902695F9A2007842CD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688F2695F9A2007842CD /* MainView.swift */; };
 		84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68A52696EA87007842CD /* PhotoCellView.swift */; };
-		84DD68AE2696F13E007842CD /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68AD2696F13E007842CD /* PhotoModel.swift */; };
 		84DD68B626979117007842CD /* CustomMainLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68B526979117007842CD /* CustomMainLayout.swift */; };
 		84DD6990269BD155007842CD /* MainPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD698F269BD155007842CD /* MainPhotoViewController.swift */; };
-		84DD6995269BD3C0007842CD /* DConstans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6994269BD3C0007842CD /* DConstans.swift */; };
 		84DD699A269C0882007842CD /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6999269C0882007842CD /* PhotoView.swift */; };
 		84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD69A9269D37ED007842CD /* NetworkService.swift */; };
 		84DD69B7269E0912007842CD /* PhotoSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD69B6269E0912007842CD /* PhotoSearchController.swift */; };
@@ -90,8 +88,8 @@
 		842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotoViewController.swift; sourceTree = "<group>"; };
 		842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoListViewController.swift; sourceTree = "<group>"; };
 		842A8ECF26B0127B008BA670 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
-		842A8F0826B098E9008BA670 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Photo+CoreDataProperties.swift"; path = "FinalProject/CoreData/Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		842A8F2026B1001D008BA670 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		842A8F4726B15EAD008BA670 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		84AD840F269E701D00CAF493 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosResponse.swift; sourceTree = "<group>"; };
@@ -99,17 +97,15 @@
 		84AD842A26A1245A00CAF493 /* Cursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 		84AD843726A26CD200CAF493 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		84AD844726A3BEC300CAF493 /* FavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteModel.swift; sourceTree = "<group>"; };
-		84AD845826A68FF100CAF493 /* UsersStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersStorageService.swift; sourceTree = "<group>"; };
-		84AD845D26A6948900CAF493 /* UsersProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProfiles.swift; sourceTree = "<group>"; };
+		84AD844726A3BEC300CAF493 /* UserDefaultsServiceOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceOld.swift; sourceTree = "<group>"; };
+		84AD845826A68FF100CAF493 /* QueryDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryDefaultsService.swift; sourceTree = "<group>"; };
+		84AD845D26A6948900CAF493 /* QueryDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryDefaults.swift; sourceTree = "<group>"; };
 		84DD68852695F198007842CD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		84DD688A2695F255007842CD /* MainViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewDelegate.swift; sourceTree = "<group>"; };
 		84DD688F2695F9A2007842CD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		84DD68A52696EA87007842CD /* PhotoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellView.swift; sourceTree = "<group>"; };
-		84DD68AD2696F13E007842CD /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		84DD68B526979117007842CD /* CustomMainLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainLayout.swift; sourceTree = "<group>"; };
 		84DD698F269BD155007842CD /* MainPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoViewController.swift; sourceTree = "<group>"; };
-		84DD6994269BD3C0007842CD /* DConstans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DConstans.swift; sourceTree = "<group>"; };
 		84DD6999269C0882007842CD /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		84DD69A9269D37ED007842CD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		84DD69B6269E0912007842CD /* PhotoSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchController.swift; sourceTree = "<group>"; };
@@ -143,7 +139,6 @@
 		84133A7C2687F04500EACD6A = {
 			isa = PBXGroup;
 			children = (
-				842A8F0826B098E9008BA670 /* Photo+CoreDataProperties.swift */,
 				84133A872687F04500EACD6A /* FinalProject */,
 				84133AA12687F04900EACD6A /* FinalProjectTests */,
 				84133AAC2687F04900EACD6A /* FinalProjectUITests */,
@@ -201,11 +196,10 @@
 			isa = PBXGroup;
 			children = (
 				84DD688A2695F255007842CD /* MainViewDelegate.swift */,
-				84DD68AD2696F13E007842CD /* PhotoModel.swift */,
-				84DD6994269BD3C0007842CD /* DConstans.swift */,
-				84AD844726A3BEC300CAF493 /* FavoriteModel.swift */,
-				84AD845826A68FF100CAF493 /* UsersStorageService.swift */,
-				84AD845D26A6948900CAF493 /* UsersProfiles.swift */,
+				842A8F4726B15EAD008BA670 /* UserDefaultsService.swift */,
+				84AD844726A3BEC300CAF493 /* UserDefaultsServiceOld.swift */,
+				84AD845D26A6948900CAF493 /* QueryDefaults.swift */,
+				84AD845826A68FF100CAF493 /* QueryDefaultsService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -245,8 +239,8 @@
 				842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */,
 				842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */,
 				842A8DD126AA7773008BA670 /* CoreDataStack.swift */,
-				842A8DD626AA7D75008BA670 /* Container.swift */,
 				842A8F2026B1001D008BA670 /* CoreDataService.swift */,
+				842A8DD626AA7D75008BA670 /* Container.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -393,7 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */,
-				842A8F0926B098E9008BA670 /* Photo+CoreDataProperties.swift in Sources */,
 				842A8F2126B1001D008BA670 /* CoreDataService.swift in Sources */,
 				84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */,
 				84DD68902695F9A2007842CD /* MainView.swift in Sources */,
@@ -407,22 +400,21 @@
 				84AD842B26A1245A00CAF493 /* Cursor.swift in Sources */,
 				84133A932687F04500EACD6A /* FinalProject.xcdatamodeld in Sources */,
 				84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */,
-				84AD844826A3BEC300CAF493 /* FavoriteModel.swift in Sources */,
+				84AD844826A3BEC300CAF493 /* UserDefaultsServiceOld.swift in Sources */,
 				84DD699A269C0882007842CD /* PhotoView.swift in Sources */,
 				84DD69B7269E0912007842CD /* PhotoSearchController.swift in Sources */,
 				842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */,
 				842A8E3F26AE631F008BA670 /* FinalTabBarController.swift in Sources */,
-				84DD6995269BD3C0007842CD /* DConstans.swift in Sources */,
 				84DD6990269BD155007842CD /* MainPhotoViewController.swift in Sources */,
 				842A8ED026B0127C008BA670 /* ImageScrollView.swift in Sources */,
+				842A8F4826B15EAD008BA670 /* UserDefaultsService.swift in Sources */,
 				84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */,
 				84AD843826A26CD200CAF493 /* FavoriteViewController.swift in Sources */,
-				84DD68AE2696F13E007842CD /* PhotoModel.swift in Sources */,
 				84DD68B626979117007842CD /* CustomMainLayout.swift in Sources */,
 				842A8DDC26AA8407008BA670 /* PhotoToPhotoModel.swift in Sources */,
 				84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */,
-				84AD845926A68FF100CAF493 /* UsersStorageService.swift in Sources */,
-				84AD845E26A6948900CAF493 /* UsersProfiles.swift in Sources */,
+				84AD845926A68FF100CAF493 /* QueryDefaultsService.swift in Sources */,
+				84AD845E26A6948900CAF493 /* QueryDefaults.swift in Sources */,
 				84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */,
 				84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */,
 				84DD68862695F198007842CD /* MainViewController.swift in Sources */,

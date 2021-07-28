@@ -110,11 +110,11 @@ final class BottomInfoListViewController: UIViewController {
         return view
     }()
     
-    // Constants
+    
     let defaultHeight: CGFloat = 300
     let dismissibleHeight: CGFloat = 200
     let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
-    // keep current new height, initial is default height
+   
     var currentContainerHeight: CGFloat = 300
     
     
@@ -202,14 +202,9 @@ final class BottomInfoListViewController: UIViewController {
     // MARK: Pan gesture handler
     @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
-        
-        print("Pan gesture y offset: \(translation.y)")
-        
-        
+
         let isDraggingDown = translation.y > 0
-        print("Dragging direction: \(isDraggingDown ? "going down" : "going up")")
-        
-        
+   
         let newHeight = currentContainerHeight - translation.y
         
         

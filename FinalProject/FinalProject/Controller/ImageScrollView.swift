@@ -125,7 +125,7 @@ class ImageScrollView: UIScrollView {
         imageView.frame = frameToCenter
     }
     
-    // gesture
+    
     @objc private func doubleTapped(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
         self.zoom(point: location, animated: true)

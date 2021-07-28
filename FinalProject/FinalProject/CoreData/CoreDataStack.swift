@@ -50,35 +50,6 @@ final class CoreDataStack {
         self.backgroundContext.parent = self.mainContext
     }
     
-    func deleteAll() {
-        let fetchRequest = NSFetchRequest<Photo>(entityName: "Photo")
-        mainContext.performAndWait {
-            let photos = try? fetchRequest.execute()
-            photos?.forEach {
-                mainContext.delete($0)
-            }
-            try? mainContext.save()
-        }
-    }
-    
-    func delete(photos: [Photo]?) {
-        guard let photos = photos else { return }
-        
-        mainContext.performAndWait {
-            photos.forEach {
-                if let photo = try? fetchRequest(for: $0).execute().first {
-                    mainContext.delete(photo)
-                }
-            }
-            try? mainContext.save()
-        }
-    }
-    
-    private func fetchRequest(for photo: Photo) -> NSFetchRequest<Photo> {
-        let request = NSFetchRequest<Photo>(entityName: "Photo")
-        request.predicate = .init(format: "id == %@", photo.id)
-        return request
-    }
 }
 
 

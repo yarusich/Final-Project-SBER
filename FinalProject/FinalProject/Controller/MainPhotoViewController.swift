@@ -12,9 +12,9 @@ final class MainPhotoViewController: UIViewController {
     private let networkService = NetworkService()
     
     private let currentUserKey = "currentUser"
-    private let coreDataStack = Container.shared.coreDataStack
+//    private let coreDataStack = Container.shared.coreDataStack
     private let photo: PhotoDTO
-    
+    private let coreDataService = CoreDataService()
 
     private lazy var shareButton: UIButton = {
         let btm = UIButton(type: .system)
@@ -166,21 +166,22 @@ final class MainPhotoViewController: UIViewController {
     @objc private func likeButtonTapped() {
 //        MARK: сохраняем фотку в раздел фоток
         print("Сохраняем кота в фаворит(кор дату)")
-//        MARK: backgroundContext видимо долго слишком
-        let context = coreDataStack.mainContext
-        context.performAndWait {
-            let 🦁 = Photo(context: context, with: photo)
-            
-//            print(data)
-            
-        }
-//        try? context.save()
-        do {
-            try context.save()
-            print("context.save")
-        } catch(let error) {
-            print(error.localizedDescription)
-        }
+        coreDataService.save(photos: [photo])
+        
+//        let context = coreDataStack.mainContext
+//        context.performAndWait {
+//            let 🦁 = Photo(context: context, with: photo)
+//
+////            print(data)
+//
+//        }
+////        try? context.save()
+//        do {
+//            try context.save()
+//            print("context.save")
+//        } catch(let error) {
+//            print(error.localizedDescription)
+//        }
     }
     
     @objc private func infoButtonTapped() {

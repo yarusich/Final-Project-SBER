@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FavoritePhotoViewControllerDelegate: AnyObject {
-    func deletePhotoFromCoreData(_ photo: Photo)
+    func deletePhotoFromCoreData(_ photo: PhotoDTO)
 }
 
 final class FavoritePhotoViewController: UIViewController {
@@ -18,10 +18,11 @@ final class FavoritePhotoViewController: UIViewController {
     private let networkService = NetworkService()
     
     private let currentUserKey = "currentUser"
-    private let coreDataStack = Container.shared.coreDataStack
-    private let photo: Photo
+//    private let coreDataStack = Container.shared.coreDataStack
+    private let photo: PhotoDTO
     
-   
+    
+    
     private lazy var shareButton: UIButton = {
         let btm = UIButton(type: .system)
         btm.setTitle("share", for: .normal)
@@ -74,7 +75,7 @@ final class FavoritePhotoViewController: UIViewController {
     }()
     
     
-    init(photo: Photo, delegate: FavoritePhotoViewControllerDelegate) {
+    init(photo: PhotoDTO, delegate: FavoritePhotoViewControllerDelegate) {
         self.delegate = delegate
         self.photo = photo
         super.init(nibName: nil, bundle: nil)
@@ -127,7 +128,7 @@ final class FavoritePhotoViewController: UIViewController {
        }
    }
     
-    private func configImage(with model: Photo) {
+    private func configImage(with model: PhotoDTO) {
 
         setupImage(str: photo.url)
 //        imageView.contentMode = .scaleAspectFit
@@ -138,29 +139,7 @@ final class FavoritePhotoViewController: UIViewController {
 //        imageScrollView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(viewPinched(_:))))
 //        imageScrollView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:))))
     }
-/// ТАЩИМ
-    @objc private func viewPanned(_ recognizer: UIPanGestureRecognizer) {
-        print("тащим кота")
-        let translation = recognizer.translation(in: self.view)
-        if let view = recognizer.view {
-            view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
-        }
-        recognizer.setTranslation(CGPoint.zero, in: self.view)
-    }
-    
-/// ЩИПОК
-    @objc private func viewPinched(_ recognizer: UIPinchGestureRecognizer) {
-        print("щиплем кота")
-        if let view = recognizer.view {
-            view.transform = view.transform.scaledBy(x: recognizer.scale, y: recognizer.scale)
-            recognizer.scale = 1
-        }
-    }
-/// ДАБЛ ТАП
-    @objc private func viewDoubleTapped() {
-//        MARK: двойной тап приближает и отдаляет
-        print("тапнули по коту два раза")
-    }
+
 /// ОДИНАРНЫЙ ТАП
     @objc private func viewTapped() {
 //        MARK: одинарный тап - скрывает интерфейс
@@ -197,8 +176,8 @@ final class FavoritePhotoViewController: UIViewController {
         print("Смотрим инфу про кота")
 
 //        let vc = BottomInfoListViewController(photo: photo)
-        let photoDTO = PhotoDTO(with: photo)
-        let vc = BottomInfoListViewController(photo: photoDTO)
+//        let photoDTO = PhotoDTO(with: photo)
+        let vc = BottomInfoListViewController(photo: photo)
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }

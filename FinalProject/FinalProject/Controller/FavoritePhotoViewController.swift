@@ -73,15 +73,6 @@ final class FavoritePhotoViewController: UIViewController {
         return i
     }()
     
-//    private lazy var imageScrollView: UIImageView = {
-//        let iv = UIImageView()
-//        iv.translatesAutoresizingMaskIntoConstraints = false
-//        return iv
-//    }()
-    
-
-    
-
     
     init(photo: Photo, delegate: FavoritePhotoViewControllerDelegate) {
         self.delegate = delegate
@@ -98,7 +89,7 @@ final class FavoritePhotoViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .blue
-        
+        imageScrollView.hideDelegate = self
         
         configImage(with: photo)
         
@@ -212,7 +203,7 @@ final class FavoritePhotoViewController: UIViewController {
         self.present(vc, animated: false)
     }
     
-    private func hideInterface() {
+    private func hideAllInterface() {
 //        MARK: Скрыть всё
         shareButton.isHidden = !shareButton.isHidden
         saveButton.isHidden = !saveButton.isHidden
@@ -279,6 +270,12 @@ extension FavoritePhotoViewController: ViewProtocol {
 }
 
 
-
+extension FavoritePhotoViewController: ImageScrollViewDelegate {
+    func hideInterface() {
+        hideAllInterface()
+    }
+    
+    
+}
 
 

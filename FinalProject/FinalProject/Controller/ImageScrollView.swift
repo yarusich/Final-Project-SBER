@@ -7,24 +7,43 @@
 
 import UIKit
 
+protocol ImageScrollViewDelegate: AnyObject {
+    func hideInterface()
+}
+
 class ImageScrollView: UIScrollView {
     
-    private let numberOfTapsRequired = 2
-        
+    
+    
+    weak var hideDelegate: ImageScrollViewDelegate?
+    
     private var imageView = UIImageView()
 
-    private lazy var zoomingTap: UITapGestureRecognizer = {
-        let zoomingTap = UITapGestureRecognizer(target: self, action: #selector(handleZoomingTap))
-        zoomingTap.numberOfTapsRequired = numberOfTapsRequired
-        return zoomingTap
+    private lazy var doubleTap: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        tap.numberOfTapsRequired = 2
+        return tap
+    }()
+    
+    private lazy var singleTap: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(singleTapped))
+        tap.numberOfTapsRequired = 1
+        tap.require(toFail: doubleTap)
+        return tap
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.delegate = self
+//        self.hideDelegate = hideDelegate
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         decelerationRate = UIScrollView.DecelerationRate.fast
+    }
+    
+    init(frame: CGRect, hideDelegate: ImageScrollViewDelegate) {
+        super.init(frame: frame)
+        self.hideDelegate = hideDelegate
     }
     
     required init?(coder: NSCoder) {
@@ -50,8 +69,10 @@ class ImageScrollView: UIScrollView {
         setCurrentMaxandMinZoomScale()
         self.zoomScale = self.minimumZoomScale
         
-        self.imageView.addGestureRecognizer(self.zoomingTap)
+        self.imageView.addGestureRecognizer(self.doubleTap)
+        self.imageView.addGestureRecognizer(self.singleTap)
         self.imageView.isUserInteractionEnabled = true
+        
 
     }
     
@@ -69,15 +90,16 @@ class ImageScrollView: UIScrollView {
         let yScale = boundsSize.height / imageSize.height
         let minScale = min(xScale, yScale)
         
-        var maxScale: CGFloat = 1.0
-        if minScale < 0.1 {
-            maxScale = 0.3
+        var maxScale: CGFloat = 2.0
+        
+        if minScale < 0.3 {
+            maxScale = 0.9
         }
-        if minScale >= 0.1 && minScale < 0.5 {
-            maxScale = 0.7
+        if minScale >= 0.3 && minScale < 1.5 {
+            maxScale = 1.4
         }
-        if minScale >= 0.5 {
-            maxScale = max(1.0, minScale)
+        if minScale >= 1.5 {
+            maxScale = max(3.0, minScale)
         }
         
         self.minimumZoomScale = minScale
@@ -104,9 +126,13 @@ class ImageScrollView: UIScrollView {
     }
     
     // gesture
-    @objc private func handleZoomingTap(sender: UITapGestureRecognizer) {
+    @objc private func doubleTapped(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
         self.zoom(point: location, animated: true)
+    }
+    
+    @objc private func singleTapped(sender: UITapGestureRecognizer) {
+        hideDelegate?.hideInterface()
     }
     
     private func zoom(point: CGPoint, animated: Bool) {
@@ -148,3 +174,16 @@ extension ImageScrollView: UIScrollViewDelegate {
     }
 }
 
+extension ImageScrollView: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+             shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+       
+       if gestureRecognizer == self.singleTap &&
+              otherGestureRecognizer == self.doubleTap {
+          return true
+       }
+       return false
+    }
+    
+}

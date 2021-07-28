@@ -77,6 +77,7 @@ final class MainPhotoViewController: UIViewController {
     
     init(photo: PhotoDTO) {
         self.photo = photo
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -88,7 +89,7 @@ final class MainPhotoViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .green
-        
+        imageScrollView.hideDelegate = self
         configImage(with: photo)
         setupView()
     }
@@ -168,7 +169,7 @@ final class MainPhotoViewController: UIViewController {
 //        MARK: backgroundContext видимо долго слишком
         let context = coreDataStack.mainContext
         context.performAndWait {
-            let _ = Photo(context: context, with: photo)
+            let 🦁 = Photo(context: context, with: photo)
             
 //            print(data)
             
@@ -191,7 +192,7 @@ final class MainPhotoViewController: UIViewController {
         self.present(vc, animated: false)
     }
     
-    private func hideInterface() {
+    private func hideAllInterface() {
 //        MARK: Скрыть всё
         shareButton.isHidden = !shareButton.isHidden
         saveButton.isHidden = !saveButton.isHidden
@@ -265,6 +266,13 @@ extension MainPhotoViewController: ViewProtocol {
     
 }
 
+extension MainPhotoViewController: ImageScrollViewDelegate {
+    func hideInterface() {
+        hideAllInterface()
+    }
+    
+    
+}
 
 
 

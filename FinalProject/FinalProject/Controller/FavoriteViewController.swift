@@ -14,7 +14,7 @@ final class FavoriteViewController: UIViewController {
     
     private var selectIsActive: Bool = false
     
-    private var selectedPhotos = [PhotoDTO]()
+//    private var selectedPhotos = [PhotoDTO]() // не использую
     
     private let coreDataStack = Container.shared.coreDataStack
     
@@ -79,8 +79,7 @@ final class FavoriteViewController: UIViewController {
     }()
     
     private lazy var collectionPhotoView: UICollectionView = {
-//        let layout = CustomMainLayout()
-        let layout = CustomFavoriteLayout()
+        let layout = CustomMainLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(PhotoCellView.self, forCellWithReuseIdentifier: PhotoCellView.id)
         cv.delegate = self
@@ -94,9 +93,7 @@ final class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .magenta
-        
         setupView()
     }
     
@@ -120,7 +117,7 @@ final class FavoriteViewController: UIViewController {
     private func selected(at index: IndexPath) {
         let photo = fetchedResultsController.object(at: index)
 //        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
-        let photoDTO = PhotoDTO(with: photo)
+//        let photoDTO = PhotoDTO(with: photo)
         let favoritePhotoViewController = FavoritePhotoViewController(photo: photo, delegate: self)
         navigationController?.pushViewController(favoritePhotoViewController, animated: true)
 //        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo), animated: true)

@@ -187,8 +187,7 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         
         guard let photoCell = cell as? PhotoCellView else { return cell }
-        
-        
+
         networkService.loadPhoto(imageUrl: dataSource[indexPath.item].url) { [weak self] data in
             guard let self = self else { return }
                if let data = data, let image = UIImage(data: data) {

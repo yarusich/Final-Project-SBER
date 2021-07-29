@@ -47,7 +47,7 @@ extension CoreDataService: CoreDataServiceProtocol {
                     photo.id = $0.id
                     photo.width = $0.width
                     photo.height = $0.height
-                    photo.descript = $0.descript ?? ""
+                    photo.descript = $0.descript
                     photo.author = $0.author
                     photo.url = $0.url
                 } else {
@@ -55,7 +55,7 @@ extension CoreDataService: CoreDataServiceProtocol {
                     ph.id = $0.id
                     ph.width = $0.width
                     ph.height = $0.height
-                    ph.descript = $0.descript ?? ""
+                    ph.descript = $0.descript
                     ph.author = $0.author
                     ph.url = $0.url
                 }

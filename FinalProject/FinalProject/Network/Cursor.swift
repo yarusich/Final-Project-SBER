@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Cursor {
+final class Cursor {
     private var page: Int = 0
     
     func nextPage() -> String {

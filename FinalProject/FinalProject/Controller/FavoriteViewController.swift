@@ -11,10 +11,7 @@ import CoreData
 final class FavoriteViewController: UIViewController {
 
     private let networkService = NetworkService()
-    
     private var selectIsActive: Bool = false
-    
-    private let coreDataStack = Container.shared.coreDataStack
     
     lazy var coreDataService: CoreDataService = {
         let cds = CoreDataService()
@@ -56,11 +53,8 @@ final class FavoriteViewController: UIViewController {
         btm.isHidden = true
         return btm
     }()
-    
 
-    
     private lazy var collectionPhotoView: UICollectionView = {
-//        let layout = CustomMainLayout()
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
@@ -101,11 +95,8 @@ final class FavoriteViewController: UIViewController {
     private func selected(at index: IndexPath) {
         let photo = coreDataService.fetchedResultsController.object(at: index)
         let pht = PhotoDTO(with: photo)
-//        let photoModel = ConverterPhoto.photoToPhotoModel(photo)
-//        let photoDTO = PhotoDTO(with: photo)
         let favoritePhotoViewController = FavoritePhotoViewController(photo: pht, delegate: self)
         navigationController?.pushViewController(favoritePhotoViewController, animated: true)
-//        navigationController?.pushViewController(FavoritePhotoViewController(photo: photo), animated: true)
     }
     
     private func selectInterfaceActivate() {
@@ -121,8 +112,7 @@ final class FavoriteViewController: UIViewController {
 //        }
     }
     
-    @objc func shareButtonTapped() {
-        
+    @objc private func shareButtonTapped() {
         
         if let indexPaths = collectionPhotoView.indexPathsForSelectedItems, !indexPaths.isEmpty {
             let photoDispatchGroup = DispatchGroup()
@@ -143,20 +133,17 @@ final class FavoriteViewController: UIViewController {
             photoDispatchGroup.notify(queue: DispatchQueue.main) {
                 let shareController = UIActivityViewController(activityItems: images, applicationActivities: nil)
                 self.present(shareController, animated: true)
-                
             }
         }
     }
     
-    @objc func deleteButtonTapped() {
+    @objc private func deleteButtonTapped() {
         deleteSomePhotos()
     }
     
-    @objc func selectButtonTapped() {
+    @objc private func selectButtonTapped() {
         selectButtonAction()
     }
-    
-
     
     private func selectButtonAction() {
         selectIsActive = !selectIsActive
@@ -225,7 +212,7 @@ extension FavoriteViewController: ViewProtocol {
 extension FavoriteViewController: UICollectionViewDelegate {
 //    MARK: Выбрали ячейку
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+//        MARK: РАЗОБРАТЬСЯ ТУТ
         if selectIsActive {
 //            let selectedPhoto = fetchedResultsController.object(at: indexPath)
         } else {
@@ -268,30 +255,11 @@ extension FavoriteViewController: UICollectionViewDataSource {
     
 }
 
-//extension FavoriteViewController: UIScrollViewDelegate {
-////    MARK: Для скрытия верхнего бара
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-////        if scrollView.isTracking {
-////        navigationController?.navigationBar.isHidden = true
-////        }
-//    }
-//}
-
-//  MARK: VIEW
-//extension FavoriteViewController {
-//
-////    func selected(at index: IndexPath) {
-////        let photoViewController = PhotoViewController(photo: photos[index.item], at: index)
-////        navigationController?.pushViewController(photoViewController, animated: true)
-////    }
-
-
 extension FavoriteViewController: FavoritePhotoViewControllerDelegate {
     func deletePhotoFromCoreData(_ photo: PhotoDTO) {
         coreDataService.delete(photos: [photo])
     }
 }
-
 
 extension FavoriteViewController: CoreDataSeriviceDelegate {
     func reloadData() {

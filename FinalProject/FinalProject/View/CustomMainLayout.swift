@@ -10,14 +10,7 @@ import UIKit
 final class CustomMainLayout: UICollectionViewLayout {
     private let section = 0
     private let lineSpacing: CGFloat = 0
-//    MARK: Задаём размер элемента из вне (убрать 31)
-//    var itemSize: CGSize = .zero {
-//        didSet {
-//            invalidateLayout()
-//        }
-//    }
-    
-    var cache = CustomePhotoLayoutCache.zero
+    private var cache = CustomePhotoLayoutCache.zero
     
     override var collectionViewContentSize: CGSize {
         return cache.contentSize
@@ -97,8 +90,6 @@ class CustomePhotoLayoutCache {
             .enumerated()   //index to frame relation
             .filter { $0.element.intersects(frame) }    //filter by frame
             .map { $0.offset }  //return indexes
-    }
-    
-    
+    } 
 }
 

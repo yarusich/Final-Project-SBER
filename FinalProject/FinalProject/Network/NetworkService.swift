@@ -7,6 +7,14 @@
 
 import UIKit
 
+typealias GetPhotosAPIResponse = Result<GetPhotosResponse, NetworkServiceError>
+
+protocol PhotoNetworkServiceProtocol {
+    func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (GetPhotosAPIResponse) -> Void)
+//    func getRandomPhotos(current page: String, complition: @escaping (GetPhotosAPIResponse) -> Void)
+    func loadPhoto(imageUrl: String, completion: @escaping (Data?) -> Void)
+}
+
 final class NetworkService {
     let timeoutInterval: Double = 30
     let perPage = "10"
@@ -41,13 +49,9 @@ extension NetworkService: PhotoNetworkServiceProtocol {
 
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
-        
-        
+  
 //        MARK: HANDLER
         let handler: CompletionHandler = { data, resp, error in
-            
-//
-            
             do {
                 let data = try self.httpResponse(data: data, response: resp)
                 let objects = try self.decoder.decode(GetPhotosResponse.self, from: data)
@@ -56,9 +60,8 @@ extension NetworkService: PhotoNetworkServiceProtocol {
                 completion(.failure(error))
             } catch {
                 completion(.failure(.unknown))
-                
             }
-            }
+        }
         
 //        MARK: CALL
         let dataTask = session.dataTask(with: request, completionHandler: handler)

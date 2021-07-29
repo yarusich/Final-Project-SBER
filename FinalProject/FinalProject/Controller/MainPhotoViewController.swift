@@ -10,9 +10,7 @@ import UIKit
 final class MainPhotoViewController: UIViewController {
     
     private let networkService = NetworkService()
-    
     private let currentUserKey = "currentUser"
-//    private let coreDataStack = Container.shared.coreDataStack
     private let photo: PhotoDTO
     private let coreDataService = CoreDataService()
 
@@ -68,12 +66,6 @@ final class MainPhotoViewController: UIViewController {
     }()
     
 
-    
-//    lazy var doubleTapGesture: UITapGestureRecognizer = {
-//        let recognizer = UITapGestureRecognizer()
-//        recognizer.addTarget(self, action: #selector(viewDoubleTap))
-//        return recognizer
-//    }()
     
     init(photo: PhotoDTO) {
         self.photo = photo
@@ -167,25 +159,9 @@ final class MainPhotoViewController: UIViewController {
 //        MARK: сохраняем фотку в раздел фоток
         print("Сохраняем кота в фаворит(кор дату)")
         coreDataService.save(photos: [photo])
-        
-//        let context = coreDataStack.mainContext
-//        context.performAndWait {
-//            let 🦁 = Photo(context: context, with: photo)
-//
-////            print(data)
-//
-//        }
-////        try? context.save()
-//        do {
-//            try context.save()
-//            print("context.save")
-//        } catch(let error) {
-//            print(error.localizedDescription)
-//        }
     }
     
     @objc private func infoButtonTapped() {
-//        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
         print("Смотрим инфу про кота")
 //        let photoDTO = PhotoDTO(with: photo)
         let vc = BottomInfoListViewController(photo: photo)
@@ -226,13 +202,11 @@ final class MainPhotoViewController: UIViewController {
 extension MainPhotoViewController: ViewProtocol {
     func setupView() {
 
-//        view.addSubview(imageView)
         view.addSubview(imageScrollView)
         view.addSubview(shareButton)
         view.addSubview(saveButton)
         view.addSubview(likeButton)
         view.addSubview(infoButton)
-//        view.addSubview(infoView)
         
         NSLayoutConstraint.activate([
             
@@ -261,10 +235,7 @@ extension MainPhotoViewController: ViewProtocol {
             infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
             infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])
-
     }
-    
-    
 }
 
 extension MainPhotoViewController: ImageScrollViewDelegate {

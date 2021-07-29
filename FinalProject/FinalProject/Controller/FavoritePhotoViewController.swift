@@ -14,15 +14,10 @@ protocol FavoritePhotoViewControllerDelegate: AnyObject {
 final class FavoritePhotoViewController: UIViewController {
     
     weak var delegate: FavoritePhotoViewControllerDelegate?
-    
     private let networkService = NetworkService()
-    
     private let currentUserKey = "currentUser"
-//    private let coreDataStack = Container.shared.coreDataStack
     private let photo: PhotoDTO
-    
-    
-    
+ 
     private lazy var shareButton: UIButton = {
         let btm = UIButton(type: .system)
         btm.setTitle("share", for: .normal)
@@ -81,7 +76,6 @@ final class FavoritePhotoViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -93,15 +87,11 @@ final class FavoritePhotoViewController: UIViewController {
         imageScrollView.hideDelegate = self
         
         configImage(with: photo)
-        
         setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-
-        
         tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = false
     }
@@ -118,7 +108,7 @@ final class FavoritePhotoViewController: UIViewController {
         }
     }
     
-    func setupImage(str url: String) {
+    private func setupImage(str url: String) {
        networkService.loadPhoto(imageUrl: url) { data in
            if let data = data, let image = UIImage(data: data) {
                DispatchQueue.main.async {

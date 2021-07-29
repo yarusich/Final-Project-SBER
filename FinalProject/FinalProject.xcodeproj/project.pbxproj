@@ -17,9 +17,7 @@
 		842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */; };
 		842A8DD226AA7773008BA670 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DD126AA7773008BA670 /* CoreDataStack.swift */; };
 		842A8DD726AA7D75008BA670 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DD626AA7D75008BA670 /* Container.swift */; };
-		842A8DDC26AA8407008BA670 /* PhotoToPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DDB26AA8407008BA670 /* PhotoToPhotoModel.swift */; };
 		842A8E2C26AE1891008BA670 /* ConverterPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E2B26AE1891008BA670 /* ConverterPhoto.swift */; };
-		842A8E3426AE2732008BA670 /* CustomFavoriteLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E3326AE2732008BA670 /* CustomFavoriteLayout.swift */; };
 		842A8E3F26AE631F008BA670 /* FinalTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */; };
 		842A8E4D26AF21A3008BA670 /* FavoritePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */; };
 		842A8EC826B002F9008BA670 /* BottomInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */; };
@@ -30,7 +28,6 @@
 		84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD840F269E701D00CAF493 /* NetworkConstants.swift */; };
 		84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */; };
 		84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */; };
-		84AD842026A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841F26A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift */; };
 		84AD842B26A1245A00CAF493 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD842A26A1245A00CAF493 /* Cursor.swift */; };
 		84AD843826A26CD200CAF493 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843726A26CD200CAF493 /* FavoriteViewController.swift */; };
 		84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */; };
@@ -45,7 +42,6 @@
 		84DD6990269BD155007842CD /* MainPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD698F269BD155007842CD /* MainPhotoViewController.swift */; };
 		84DD699A269C0882007842CD /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD6999269C0882007842CD /* PhotoView.swift */; };
 		84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD69A9269D37ED007842CD /* NetworkService.swift */; };
-		84DD69B7269E0912007842CD /* PhotoSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD69B6269E0912007842CD /* PhotoSearchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,9 +78,7 @@
 		842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		842A8DD126AA7773008BA670 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		842A8DD626AA7D75008BA670 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
-		842A8DDB26AA8407008BA670 /* PhotoToPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoToPhotoModel.swift; sourceTree = "<group>"; };
 		842A8E2B26AE1891008BA670 /* ConverterPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterPhoto.swift; sourceTree = "<group>"; };
-		842A8E3326AE2732008BA670 /* CustomFavoriteLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFavoriteLayout.swift; sourceTree = "<group>"; };
 		842A8E3E26AE631E008BA670 /* FinalTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalTabBarController.swift; sourceTree = "<group>"; };
 		842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotoViewController.swift; sourceTree = "<group>"; };
 		842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoListViewController.swift; sourceTree = "<group>"; };
@@ -95,7 +89,6 @@
 		84AD840F269E701D00CAF493 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosResponse.swift; sourceTree = "<group>"; };
-		84AD841F26A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoNetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		84AD842A26A1245A00CAF493 /* Cursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 		84AD843726A26CD200CAF493 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -110,7 +103,6 @@
 		84DD698F269BD155007842CD /* MainPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoViewController.swift; sourceTree = "<group>"; };
 		84DD6999269C0882007842CD /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		84DD69A9269D37ED007842CD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		84DD69B6269E0912007842CD /* PhotoSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +163,6 @@
 				84133A962687F04900EACD6A /* LaunchScreen.storyboard */,
 				84133A992687F04900EACD6A /* Info.plist */,
 				84133A912687F04500EACD6A /* FinalProject.xcdatamodeld */,
-				842A8DDB26AA8407008BA670 /* PhotoToPhotoModel.swift */,
 			);
 			path = FinalProject;
 			sourceTree = "<group>";
@@ -214,7 +205,6 @@
 				84DD68A52696EA87007842CD /* PhotoCellView.swift */,
 				84DD6999269C0882007842CD /* PhotoView.swift */,
 				84DD68B526979117007842CD /* CustomMainLayout.swift */,
-				842A8E3326AE2732008BA670 /* CustomFavoriteLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -224,7 +214,6 @@
 			children = (
 				84DD68852695F198007842CD /* MainViewController.swift */,
 				84DD698F269BD155007842CD /* MainPhotoViewController.swift */,
-				84DD69B6269E0912007842CD /* PhotoSearchController.swift */,
 				84AD843726A26CD200CAF493 /* FavoriteViewController.swift */,
 				842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */,
 				842A8ECF26B0127B008BA670 /* ImageScrollView.swift */,
@@ -252,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				84AD840F269E701D00CAF493 /* NetworkConstants.swift */,
-				84AD841F26A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift */,
 				84DD69A9269D37ED007842CD /* NetworkService.swift */,
 				84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */,
 				84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */,
@@ -394,7 +382,6 @@
 				84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */,
 				84736CFB26B22DAC001184F9 /* TempClass.swift in Sources */,
 				84DD68902695F9A2007842CD /* MainView.swift in Sources */,
-				84AD842026A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift in Sources */,
 				84133A892687F04500EACD6A /* AppDelegate.swift in Sources */,
 				842A8DC826AA7508008BA670 /* Photo+CoreDataClass.swift in Sources */,
 				842A8E4D26AF21A3008BA670 /* FavoritePhotoViewController.swift in Sources */,
@@ -406,7 +393,6 @@
 				84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */,
 				84AD844826A3BEC300CAF493 /* UserDefaultsServiceOld.swift in Sources */,
 				84DD699A269C0882007842CD /* PhotoView.swift in Sources */,
-				84DD69B7269E0912007842CD /* PhotoSearchController.swift in Sources */,
 				842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */,
 				842A8E3F26AE631F008BA670 /* FinalTabBarController.swift in Sources */,
 				84DD6990269BD155007842CD /* MainPhotoViewController.swift in Sources */,
@@ -415,14 +401,12 @@
 				84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */,
 				84AD843826A26CD200CAF493 /* FavoriteViewController.swift in Sources */,
 				84DD68B626979117007842CD /* CustomMainLayout.swift in Sources */,
-				842A8DDC26AA8407008BA670 /* PhotoToPhotoModel.swift in Sources */,
 				84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */,
 				84AD845926A68FF100CAF493 /* QueryDefaultsService.swift in Sources */,
 				84AD845E26A6948900CAF493 /* QueryDefaults.swift in Sources */,
 				84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */,
 				84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */,
 				84DD68862695F198007842CD /* MainViewController.swift in Sources */,
-				842A8E3426AE2732008BA670 /* CustomFavoriteLayout.swift in Sources */,
 				842A8DD226AA7773008BA670 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

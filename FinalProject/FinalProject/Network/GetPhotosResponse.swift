@@ -8,6 +8,7 @@
 import Foundation
 
 struct GetPhotosResponse: Decodable {
+    let total: Int
     let results: [PhotoDTO]
 }
 
@@ -15,7 +16,7 @@ struct PhotoDTO {
     var id: String
     var width: Int16
     var height: Int16
-    var descript: String?
+    var descript: String
     var author: String
     var url: String
 
@@ -46,7 +47,6 @@ struct PhotoDTO {
 
 struct PhotoURLs: Decodable {
     let regular: String
-
 }
 
 struct User: Decodable {
@@ -60,8 +60,12 @@ extension PhotoDTO: Decodable {
         id = try container.decode(String.self, forKey: .id)
         width = try container.decode(Int16.self, forKey: .width)
         height = try container.decode(Int16.self, forKey: .height)
-        descript = try? container.decode(String.self, forKey: .descript)
-
+        
+        descript = ""
+        if let temp = try? container.decode(String.self, forKey: .descript) {
+        descript = temp
+        }
+        
         let authorContainer = try container.nestedContainer(keyedBy: NameCodingKeys.self, forKey: .user)
         self.author = try authorContainer.decode(String.self, forKey: .author)
 

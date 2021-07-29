@@ -11,8 +11,6 @@ final class ProfileViewController: UIViewController {
     
     private let userDefaultsService = UserDefaultsService()
     
-//    private var query = "Введите слово"
-    
     private lazy var defaultQueryTextField: UITextField = {
         let tf = UITextField()
         tf.textAlignment = .center
@@ -97,8 +95,7 @@ final class ProfileViewController: UIViewController {
 
         defaultQueryTextField.text = ""
         defaultQueryTextField.placeholder = userDefaultsService.getCurrentQuery()
-        
-
+    
         view.endEditing(true)
     }
     

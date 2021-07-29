@@ -60,7 +60,12 @@ final class FavoriteViewController: UIViewController {
 
     
     private lazy var collectionPhotoView: UICollectionView = {
-        let layout = CustomMainLayout()
+//        let layout = CustomMainLayout()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.itemSize = CGSize(width: view.frame.size.width/2, height: view.frame.size.width/2)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(PhotoCellView.self, forCellWithReuseIdentifier: PhotoCellView.id)
         cv.delegate = self

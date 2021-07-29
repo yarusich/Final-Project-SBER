@@ -1,12 +1,12 @@
-////
-////  TempClass.swift
-////  FinalProject
-////
-////  Created by Антон Сафронов on 29.07.2021.
-////
 //
-//import UIKit
+//  TempClass.swift
+//  FinalProject
 //
+//  Created by Антон Сафронов on 29.07.2021.
+//
+
+import UIKit
+
 //var imageCache = NSCache<AnyObject, AnyObject>()
 //extension UIImageView {
 //    func loadImage(imageURL: String) {
@@ -24,7 +24,7 @@
 //        }
 //    }
 //}
-//
-//
+
+
 
 

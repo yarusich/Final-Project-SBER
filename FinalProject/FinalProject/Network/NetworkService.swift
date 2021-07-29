@@ -9,7 +9,8 @@ import UIKit
 
 final class NetworkService {
     let timeoutInterval: Double = 30
-    
+    let perPage = "10"
+    let httpMethod = "GET"
     let sessionConfig = URLSessionConfiguration.default
     
     
@@ -28,11 +29,6 @@ extension NetworkService: PhotoNetworkServiceProtocol {
     
 //    MARK: SEARCH PHOTOS
     func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (GetPhotosAPIResponse) -> Void) {
-        
-//        MARK: Курсор и запрос, принимать из вне. Курсор видимо переписать, используя объект Cursor
-
-//        let page = String(cursor)
-        let perPage = String(10)
 //        MARK: Сконфигурировали запрос
         var components = URLComponents(string: NetworkConstants.baseURLString)
         components?.queryItems = [
@@ -44,12 +40,13 @@ extension NetworkService: PhotoNetworkServiceProtocol {
         guard let url = components?.url else { completion(.failure(.buildingURL)); return }
         
         var request = URLRequest(url: url, timeoutInterval: timeoutInterval)
-        request.httpMethod = "GET"
+        request.httpMethod = httpMethod
         
 //        MARK: HANDLER
-        let handler: CompletionHandler = { rawData, response, taskError in
+        let handler: CompletionHandler = { data, response, error in
+            guard let data = data else { return }
             do {
-                let data = try self.httpResponse(data: rawData, response: response)
+                let data = try self.httpResponse(data: data, response: response)
                 let response = try self.decoder.decode(GetPhotosResponse.self, from: data)
                 completion(.success(response))
             } catch let error as NetworkServiceError {

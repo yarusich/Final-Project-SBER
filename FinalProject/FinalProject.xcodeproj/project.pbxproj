@@ -26,6 +26,7 @@
 		842A8ED026B0127C008BA670 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8ECF26B0127B008BA670 /* ImageScrollView.swift */; };
 		842A8F2126B1001D008BA670 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8F2026B1001D008BA670 /* CoreDataService.swift */; };
 		842A8F4826B15EAD008BA670 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8F4726B15EAD008BA670 /* UserDefaultsService.swift */; };
+		84736CFB26B22DAC001184F9 /* TempClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84736CFA26B22DAC001184F9 /* TempClass.swift */; };
 		84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD840F269E701D00CAF493 /* NetworkConstants.swift */; };
 		84AD841526A0C2C200CAF493 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */; };
 		84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */; };
@@ -90,6 +91,7 @@
 		842A8ECF26B0127B008BA670 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		842A8F2026B1001D008BA670 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		842A8F4726B15EAD008BA670 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		84736CFA26B22DAC001184F9 /* TempClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempClass.swift; sourceTree = "<group>"; };
 		84AD840F269E701D00CAF493 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotosResponse.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				84AD844726A3BEC300CAF493 /* UserDefaultsServiceOld.swift */,
 				84AD845D26A6948900CAF493 /* QueryDefaults.swift */,
 				84AD845826A68FF100CAF493 /* QueryDefaultsService.swift */,
+				84736CFA26B22DAC001184F9 /* TempClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				84AD8410269E701D00CAF493 /* NetworkConstants.swift in Sources */,
 				842A8F2126B1001D008BA670 /* CoreDataService.swift in Sources */,
 				84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */,
+				84736CFB26B22DAC001184F9 /* TempClass.swift in Sources */,
 				84DD68902695F9A2007842CD /* MainView.swift in Sources */,
 				84AD842026A0EB6D00CAF493 /* PhotoNetworkServiceProtocol.swift in Sources */,
 				84133A892687F04500EACD6A /* AppDelegate.swift in Sources */,

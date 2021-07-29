@@ -8,6 +8,10 @@
 import UIKit
 
 final class NetworkService {
+    let timeoutInterval: Double = 30
+    
+    let sessionConfig = URLSessionConfiguration.default
+    
     
     private let decoder = JSONDecoder()
 
@@ -26,7 +30,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
     func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (GetPhotosAPIResponse) -> Void) {
         
 //        MARK: Курсор и запрос, принимать из вне. Курсор видимо переписать, используя объект Cursor
-//        let query = "cats"
+
 //        let page = String(cursor)
         let perPage = String(10)
 //        MARK: Сконфигурировали запрос
@@ -39,7 +43,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
         ]
         guard let url = components?.url else { completion(.failure(.buildingURL)); return }
         
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url, timeoutInterval: timeoutInterval)
         request.httpMethod = "GET"
         
 //        MARK: HANDLER
@@ -51,6 +55,8 @@ extension NetworkService: PhotoNetworkServiceProtocol {
             } catch let error as NetworkServiceError {
                 completion(.failure(error))
             } catch {
+                let response = response as! HTTPURLResponse
+                print("statusCode: \(response.statusCode)")
                 completion(.failure(.unknown))
             }
         }
@@ -63,7 +69,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
     func loadPhoto(imageUrl: String, completion: @escaping (Data?) -> Void) {
         guard let url = URL(string: imageUrl) else { completion(nil); return }
 
-        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30)
 
 //        MARK: PHOTO HANDLER
         let handler: CompletionHandler = { rawData, response, taskError in

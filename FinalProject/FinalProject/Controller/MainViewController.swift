@@ -9,7 +9,12 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    private var query = String()
+    private var query = String() {
+        didSet {
+            cursor.zeroPage()
+            print("текущий курсор: \(cursor.nextPage())")
+        }
+    }
     
     private let networkService: PhotoNetworkServiceProtocol
     
@@ -22,20 +27,30 @@ final class MainViewController: UIViewController {
     private let photoSearchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
 //        sc.delegate = self
-        sc.obscuresBackgroundDuringPresentation = false
-        sc.hidesNavigationBarDuringPresentation = false
+        sc.obscuresBackgroundDuringPresentation = false //не трогать
+        sc.hidesNavigationBarDuringPresentation = true
 //        sc.searchBar.delegate = self
-//        sc.searchBar.placeholder = "Поиск котиков"
         sc.searchBar.autocapitalizationType = .none
+//        MARK: Нужно?
+        sc.searchBar.becomeFirstResponder()
         
         return sc
     }()
     
-    private lazy var photoSearchBar: UISearchBar = {
-        let sb = UISearchBar()
+    private func setupPhotoSearchController() {
+//        photoSearchController.searchResultsUpdater = self
+//        photoSearchController.obscuresBackgroundDuringPresentation = false
         
-        return sb
-    }()
+//        let currentQuery = NetworkConstants.query?.trimmingCharacters(in: .whitespacesAndNewlines)
+//        if let query = currentQuery, query.isEmpty == false { return }
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+        extendedLayoutIncludesOpaqueBars = true
+        
+        navigationItem.searchController = photoSearchController
+        photoSearchController.searchBar.delegate = self
+    }
     
     private lazy var collectionPhotoView: UICollectionView = {
 //        let layout = UICollectionViewFlowLayout()
@@ -90,25 +105,11 @@ final class MainViewController: UIViewController {
 //        navigationItem.searchController = photoSearchController
     }
     
-    private func setupPhotoSearchController() {
-//        photoSearchController.searchResultsUpdater = self
-//        photoSearchController.obscuresBackgroundDuringPresentation = false
-        
-//        let currentQuery = NetworkConstants.query?.trimmingCharacters(in: .whitespacesAndNewlines)
-//        if let query = currentQuery, query.isEmpty == false { return }
-        
-        navigationItem.hidesSearchBarWhenScrolling = false
-        definesPresentationContext = true
-        extendedLayoutIncludesOpaqueBars = true
-        
-        navigationItem.searchController = photoSearchController
-        
-    }
+
     
 //    MARK: LOAD DATA
-    private func loadData(with query: String?) {
-        guard let query = query else { return }
-        cursor.zeroPage()
+    private func loadData(with query: String) {
+//        guard let query = query else { return }
         let page = cursor.nextPage()
         networkService.searchPhotos(currentPage: page, searching: query) { [weak self] response in
             guard let self = self else { return }
@@ -147,7 +148,6 @@ final class MainViewController: UIViewController {
         case .buildingURL:
             return "Вы не авторизованы"
         case .unknown:
-            print("!!!!НЕ ГРУЗИТ!!!!")
             return "Что-то неизвестное"
         }
     }
@@ -164,7 +164,7 @@ extension MainViewController: ViewProtocol {
     func setupView() {
         view.addSubview(collectionPhotoView)
         
-        photoSearchBar.sizeToFit()
+//        photoSearchBar.sizeToFit()
 //        navigationController?.navigationBar.prefersLargeTitles = true
 //        navigationItem.title = "Search Bar"
 //        navigationController?.navigationBar.barTintColor = UIColor(red: 55/255, green: 120/255, blue: 250/255, alpha: 1)
@@ -174,8 +174,8 @@ extension MainViewController: ViewProtocol {
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.tintColor = .white
         
-
-
+        
+        
         
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonTapped))
 //        navigationController?.navigationBar.backgroundColor = UIColor.clear
@@ -263,8 +263,26 @@ extension MainViewController {
 }
 
 
+extension MainViewController: UISearchBarDelegate {
+    
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        print("text: \(text)")
+        query = text
+        if text == ""  { return }
+        dataSource.removeAll()
+        loadData(with: text)
+        collectionPhotoView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+}
+
 extension MainViewController: UISearchControllerDelegate {
-    //
+    
 }
 
 

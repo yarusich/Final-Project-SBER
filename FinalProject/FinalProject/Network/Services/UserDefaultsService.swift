@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct KeysDefault {
-    static let key = "Query"
-}
-
 protocol UserDefaultsServiceProtocol {
     func addCurrentQuery(query: String)
     func getCurrentQuery() -> String
@@ -18,22 +14,23 @@ protocol UserDefaultsServiceProtocol {
 }
 
 final class UserDefaultsService {
+    private let key = "Query"
     private let userDefault = UserDefaults.standard
 }
 
 extension UserDefaultsService: UserDefaultsServiceProtocol {
     
     func addCurrentQuery(query: String) {
-        userDefault.setValue(query, forKey: KeysDefault.key)
+        userDefault.setValue(query, forKey: key)
     }
 
     func getCurrentQuery() -> String {
-        guard let query = userDefault.string(forKey: KeysDefault.key) else { return ""}
+        guard let query = userDefault.string(forKey: key) else { return ""}
         return query
     }
     
     func clearCurrentQuery() {
-        userDefault.removeObject(forKey: KeysDefault.key)
+        userDefault.removeObject(forKey: key)
     }
 }
 

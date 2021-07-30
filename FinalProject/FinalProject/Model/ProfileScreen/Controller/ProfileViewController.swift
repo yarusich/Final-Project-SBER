@@ -71,7 +71,7 @@ final class ProfileViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        if let touch = touches.first as? UITouch {
+        if touches.first != nil  {
         view.endEditing(true)
         }
     }

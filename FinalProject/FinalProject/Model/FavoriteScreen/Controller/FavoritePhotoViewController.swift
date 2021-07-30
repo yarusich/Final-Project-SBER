@@ -86,7 +86,7 @@ final class FavoritePhotoViewController: UIViewController {
         view.backgroundColor = .blue
         imageScrollView.hideDelegate = self
         
-        configImage(with: photo)
+        loadPhoto(url: photo.url, photoData: photo)
         setupView()
     }
     
@@ -94,10 +94,6 @@ final class FavoritePhotoViewController: UIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = false
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
     }
     
     override func willMove(toParent parent: UIViewController?) {
@@ -109,13 +105,6 @@ final class FavoritePhotoViewController: UIViewController {
     }
     
     private func setupImage(str url: String) {
-//       networkService.loadPhoto(imageUrl: url) { data in
-//           if let data = data, let image = UIImage(data: data) {
-//               DispatchQueue.main.async {
-//                self.imageScrollView.set(image: image)
-//               }
-//           }
-//       }
         networkService.loadPhoto(imageUrl: url) { [weak self] response in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -129,31 +118,9 @@ final class FavoritePhotoViewController: UIViewController {
             }
         }
    }
-    
-    private func configImage(with model: PhotoDTO) {
 
-        loadPhoto(url: model.url, photoData: model)
-        
-//        imageView.contentMode = .scaleAspectFit
-//        MARK: Посмотреть оба вариант клипа
-//        imageScrollView.clipsToBounds = true
-//        imageScrollView.isUserInteractionEnabled = true
-//        imageScrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
-//        imageScrollView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(viewPinched(_:))))
-//        imageScrollView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:))))
-    }
-
-/// ОДИНАРНЫЙ ТАП
-    @objc private func viewTapped() {
-//        MARK: одинарный тап - скрывает интерфейс
-        print("тапнули по коту один раз")
-        hideInterface()
-    }
 //        MARK: Шарим фотку
     @objc private func shareButtonTapped() {
-        print("Шарим кота")
-
-//        guard let item = imageScrollView.image else { return }
         let image = imageScrollView.getImage()
         let shareController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(shareController, animated: true)
@@ -162,8 +129,7 @@ final class FavoritePhotoViewController: UIViewController {
     
 //        MARK: сохраняем фотку в галерею
     @objc private func saveButtonTapped() {
-        print("Сохраняем кота в галерею")
-//        guard let image = imageScrollView.image else { return }
+        
         let image = imageScrollView.getImage()
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveImageWithAlert(_:didFinishSavingWithError:contextInfo:)), nil)
     }
@@ -175,11 +141,6 @@ final class FavoritePhotoViewController: UIViewController {
 
 
     @objc private func infoButtonTapped() {
-//        MARK: покажет лист с инфой, которая будет прилетать при инициализации (строка 14)
-        print("Смотрим инфу про кота")
-
-//        let vc = BottomInfoListViewController(photo: photo)
-//        let photoDTO = PhotoDTO(with: photo)
         let vc = BottomInfoListViewController(photo: photo)
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
@@ -266,7 +227,6 @@ extension FavoritePhotoViewController: ViewProtocol {
     
     
 }
-
 
 extension FavoritePhotoViewController: ImageScrollViewDelegate {
     func hideInterface() {

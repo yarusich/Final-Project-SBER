@@ -82,21 +82,17 @@ final class MainPhotoViewController: UIViewController {
         
         view.backgroundColor = .green
         imageScrollView.hideDelegate = self
-        configImage(with: photo)
+        loadPhoto(url: photo.url, photoData: photo)
         setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = false
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
     
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
@@ -105,22 +101,6 @@ final class MainPhotoViewController: UIViewController {
             tabBarController?.tabBar.isHidden = false
         }
     }
-    
-    private func configImage(with model: PhotoDTO) {
-        
-        loadPhoto(url: model.url, photoData: model)
-//        imageView.setupImage(str: model.url)
-//        setupImage(str: photo.url)
-//        imageView.contentMode = .scaleAspectFit
-//        MARK: Посмотреть оба вариант клипа
-//        imageView.clipsToBounds = true
-//        imageView.isUserInteractionEnabled = true
-
-
-    }
-
-    
-
 
 /// ОДИНАРНЫЙ ТАП
     @objc private func viewTapped() {

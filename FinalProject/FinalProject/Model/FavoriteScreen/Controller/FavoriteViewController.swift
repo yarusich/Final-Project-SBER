@@ -82,12 +82,6 @@ final class FavoriteViewController: UIViewController {
         
         try? coreDataService.fetchedResultsController.performFetch()
         navigationController?.navigationBar.isHidden = true
-        
-//        collectionPhotoView.reloadData()
-//        MARK: Скрыли наш нав бар
-//        navigationController?.navigationBar.isHidden = false
-//        navigationController?.navigationBar.backgroundColor = UIColor.clear
-//        navigationController?.navigationBar.barTintColor = .red
     }
     
 
@@ -107,9 +101,6 @@ final class FavoriteViewController: UIViewController {
         if let tbc = tabBarController {
             tbc.tabBar.isHidden = !tbc.tabBar.isHidden
         }
-//        if let nv = navigationController {
-//            nv.navigationBar.isHidden = !nv.navigationBar.isHidden
-//        }
     }
     
     @objc private func shareButtonTapped() {
@@ -136,15 +127,17 @@ final class FavoriteViewController: UIViewController {
             photoDispatchGroup.notify(queue: DispatchQueue.main) {
                 let shareController = UIActivityViewController(activityItems: images, applicationActivities: nil)
                 self.present(shareController, animated: true)
-//                self.collectionPhotoView.indexPathsForSelectedItems?.forEach {
-//                    self.collectionPhotoView.deselectItem(at: $0, animated: false)
-//                }
-
+                self.decelectAllCells()
             }
 
         }
     }
     
+    private func decelectAllCells() {
+        self.collectionPhotoView.indexPathsForSelectedItems?.forEach {
+            self.collectionPhotoView.deselectItem(at: $0, animated: false)
+        }
+    }
     @objc private func deleteButtonTapped() {
         deleteSomePhotos()
     }
@@ -160,12 +153,8 @@ final class FavoriteViewController: UIViewController {
             selectButton.setTitle("Отмена", for: .normal)
         } else {
             selectButton.setTitle("Выбрать", for: .normal)
-            collectionPhotoView.indexPathsForSelectedItems?.forEach {
-                collectionPhotoView.deselectItem(at: $0, animated: false)
-            }
-            
+            self.decelectAllCells()
         }
-        
     }
     private func deleteSomePhotos() {
         if let paths = collectionPhotoView.indexPathsForSelectedItems, !paths.isEmpty {
@@ -196,9 +185,6 @@ final class FavoriteViewController: UIViewController {
             }
         }
     }
-    
-    
-    
 }
 
 

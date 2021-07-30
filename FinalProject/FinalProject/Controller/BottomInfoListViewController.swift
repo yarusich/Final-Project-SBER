@@ -10,6 +10,13 @@ import UIKit
 final class BottomInfoListViewController: UIViewController {
     
     private let photo: PhotoDTO
+    private let defaultHeight: CGFloat = 300
+    private let dismissibleHeight: CGFloat = 200
+    private let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
+    
+    private var currentContainerHeight: CGFloat = 300
+    private var containerViewHeightConstraint: NSLayoutConstraint?
+    private var containerViewBottomConstraint: NSLayoutConstraint?
     
     private let infoHeadLabel: UILabel = {
         let t = UILabel()
@@ -67,19 +74,6 @@ final class BottomInfoListViewController: UIViewController {
         return t
     }()
     
-//    private lazy var infoCloseButton: UIButton = {
-//        let btm = UIButton(type: .system)
-//        btm.setTitle("close", for: .normal)
-//        btm.setTitleColor(.black, for: .normal)
-//        btm.backgroundColor = .orange
-//        btm.layer.cornerRadius = 15
-//        btm.addTarget(self, action: #selector(infoCloseButtonTapped), for: .touchUpInside)
-//        btm.translatesAutoresizingMaskIntoConstraints = false
-//        return btm
-//    }()
-    
-
-    
 //    MARK: СТАК
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
@@ -106,15 +100,7 @@ final class BottomInfoListViewController: UIViewController {
     }()
     
     
-    let defaultHeight: CGFloat = 300
-    let dismissibleHeight: CGFloat = 200
-    let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
-   
-    var currentContainerHeight: CGFloat = 300
-    
-    
-    var containerViewHeightConstraint: NSLayoutConstraint?
-    var containerViewBottomConstraint: NSLayoutConstraint?
+
     
     init(photo: PhotoDTO) {
         self.photo = photo
@@ -146,11 +132,11 @@ final class BottomInfoListViewController: UIViewController {
         descriptionsTextLabel.text = photo.descript
     }
     
-    @objc func handleCloseAction() {
+    @objc private func handleCloseAction() {
         animateDismissView()
     }
     
-    func setupView() {
+    private func setupView() {
         view.backgroundColor = .clear
         
         view.addSubview(dimmedView)
@@ -185,7 +171,7 @@ final class BottomInfoListViewController: UIViewController {
         containerViewHeightConstraint?.isActive = true
         containerViewBottomConstraint?.isActive = true
     }
-    func setupPanGesture() {
+    private func setupPanGesture() {
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(gesture:)))
         
@@ -195,7 +181,7 @@ final class BottomInfoListViewController: UIViewController {
     }
     
     // MARK: Pan gesture handler
-    @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
+    @objc private func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
 
         let isDraggingDown = translation.y > 0
@@ -234,7 +220,7 @@ final class BottomInfoListViewController: UIViewController {
         }
     }
     
-    func animateContainerHeight(_ height: CGFloat) {
+    private func animateContainerHeight(_ height: CGFloat) {
         UIView.animate(withDuration: 0.4) {
             
             self.containerViewHeightConstraint?.constant = height
@@ -245,8 +231,7 @@ final class BottomInfoListViewController: UIViewController {
         currentContainerHeight = height
     }
     
-    // MARK: Present and dismiss animation
-    func animatePresentContainer() {
+    private func animatePresentContainer() {
         
         UIView.animate(withDuration: 0.3) {
             self.containerViewBottomConstraint?.constant = 0
@@ -255,14 +240,14 @@ final class BottomInfoListViewController: UIViewController {
         }
     }
     
-    func animateShowDimmedView() {
+    private func animateShowDimmedView() {
         dimmedView.alpha = 0
         UIView.animate(withDuration: 0.4) {
             self.dimmedView.alpha = self.maxDimmedAlpha
         }
     }
     
-    func animateDismissView() {
+    private func animateDismissView() {
         
         dimmedView.alpha = maxDimmedAlpha
         UIView.animate(withDuration: 0.4) {

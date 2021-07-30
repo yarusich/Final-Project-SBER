@@ -9,31 +9,23 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    private let networkService: PhotoNetworkServiceProtocol
+    private let userDefaultsService = UserDefaultsService()
+    private var cursor = Cursor()
+    private var dataSource = [PhotoDTO]()
+    
     private var query = String() {
         didSet {
             cursor.zeroPage()
-            print("текущий курсор: \(cursor.nextPage())")
         }
     }
     
-    private let networkService: PhotoNetworkServiceProtocol
-    
-    private let userDefaultsService = UserDefaultsService()
-    
-    private var cursor = Cursor()
-    
-    private var dataSource = [PhotoDTO]()
-            
     private let photoSearchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
-//        sc.delegate = self
-        sc.obscuresBackgroundDuringPresentation = false //не трогать
+        sc.obscuresBackgroundDuringPresentation = false
         sc.hidesNavigationBarDuringPresentation = true
-//        sc.searchBar.delegate = self
         sc.searchBar.autocapitalizationType = .none
-//        MARK: Нужно?
         sc.searchBar.becomeFirstResponder()
-        
         return sc
     }()
     
@@ -53,13 +45,7 @@ final class MainViewController: UIViewController {
     }
     
     private lazy var collectionPhotoView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        layout.minimumLineSpacing = 0
         let layout = CustomMainLayout()
-//        MARK: Размеры ячейки, надо переделать
-//        layout.itemSize = CGSize(width: 200, height: 200)
-        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(PhotoCellView.self, forCellWithReuseIdentifier: PhotoCellView.id)
         cv.delegate = self
@@ -85,9 +71,7 @@ final class MainViewController: UIViewController {
         
         view.backgroundColor = .orange
         
-
         setupView()
-        
         loadData(with: query)
         setupPhotoSearchController()
 
@@ -99,13 +83,7 @@ final class MainViewController: UIViewController {
 //        navigationController?.navigationBar.isHidden = false
 //        MARK: Устанавливаем запрос по-умолчанию здесь
         photoSearchController.searchBar.placeholder = userDefaultsService.getCurrentQuery()
-        
- 
-        
-//        navigationItem.searchController = photoSearchController
     }
-    
-
     
 //    MARK: LOAD DATA
     private func loadData(with query: String) {
@@ -138,8 +116,7 @@ final class MainViewController: UIViewController {
                 case .success(let image):
                     photoCell.configure(with: photoData, image)
                 case .failure(let error):
-                    print(error)
-//                    self.showAlert(for: error)
+                    self.showAlert(for: error)
                 }
             }
         }
@@ -189,10 +166,6 @@ extension MainViewController: ViewProtocol {
 //        MARK: выбрать вариант:
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.tintColor = .white
-        
-//        navigationController?.navigationBar.
-        
-        
         
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonTapped))
 //        navigationController?.navigationBar.backgroundColor = UIColor.clear
@@ -261,9 +234,9 @@ extension MainViewController: UIScrollViewDelegate {
 extension MainViewController {
     
     func selected(at index: IndexPath) {
-//        guard !photoSearchController.isActive else {
-//            return
-//        }
+        guard !photoSearchController.isActive else {
+            return
+        }
         
         navigationController?.pushViewController(MainPhotoViewController(photo: dataSource[index.item]), animated: true)
     }
@@ -292,9 +265,6 @@ extension MainViewController: UISearchBarDelegate {
     }
 }
 
-extension MainViewController: UISearchControllerDelegate {
-    
-}
 
 
     

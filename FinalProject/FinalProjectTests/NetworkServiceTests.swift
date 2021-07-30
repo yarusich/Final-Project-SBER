@@ -30,9 +30,11 @@ class NetworkServiceTests: XCTestCase {
 
 
     func testResonce() {
+        //arrange
         let expectation1 = expectation(description: "Fail")
-
+        //act
         sut.searchPhotos(currentPage: "1", searching: "Cat") { result in
+            //assert
             switch result {
             case .success(let photo):
                 XCTAssertNotNil(photo)
@@ -45,9 +47,11 @@ class NetworkServiceTests: XCTestCase {
     }
 
     func testLoadReturnError() {
+        //arrange
         let expectation2 = expectation(description: "Failur")
-
+        //act
         sut.loadPhoto(imageUrl: image) { result in
+            //assert
             switch result {
             case .success(let imageResult):
                 XCTAssertNotNil(imageResult)

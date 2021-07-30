@@ -40,7 +40,7 @@ final class FavoriteViewController: BaseViewController {
     }()
     
     private lazy var deleteButton: CustomButton = {
-        let btm = CustomButton(name: "square.and.arrow.up")
+        let btm = CustomButton(name: "trash")
         btm.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         btm.isHidden = true
         return btm

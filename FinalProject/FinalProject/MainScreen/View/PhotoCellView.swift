@@ -10,9 +10,7 @@ import UIKit
 final class PhotoCellView: UICollectionViewCell {
     
     static let id = String(describing: self)
-    
     private let networkService = NetworkService()
-    
     private lazy var imageView: UIImageView = {
         let iv = UIImageView(frame: .init(x: contentView.bounds.origin.x, y: contentView.bounds.origin.y, width: contentView.bounds.width, height: contentView.bounds.height))
         

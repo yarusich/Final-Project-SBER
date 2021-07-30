@@ -19,7 +19,7 @@ class NetworkServiceTests: XCTestCase {
         super.setUp()
         photo = [PhotoDTO]()
         response = GetPhotosResponse(results: photo)
-        image = "https://storage.googleapis.com/csgoassist/mirage.jpg"
+        image = "https://i0007.fotocdn.net/s126/b42a5de3455710ec/public_pin_l/2862953168.jpg"
         sut = NetworkService()
     }
 

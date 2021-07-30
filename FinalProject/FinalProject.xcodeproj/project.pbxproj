@@ -22,7 +22,6 @@
 		84284FC826B3DC6A002766CA /* GetPhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */; };
 		84284FD226B3E30C002766CA /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */; };
 		84284FD726B3E6A6002766CA /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */; };
-		84284FDD26B3F16E002766CA /* CoreDataServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284FDC26B3F16E002766CA /* CoreDataServiceTest.swift */; };
 		8428503B26B405B6002766CA /* CursorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428503A26B405B6002766CA /* CursorTest.swift */; };
 		8428504426B405E1002766CA /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD842A26A1245A00CAF493 /* Cursor.swift */; };
 		8428504926B40788002766CA /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8F4726B15EAD008BA670 /* UserDefaultsService.swift */; };
@@ -50,7 +49,6 @@
 		8428510026B47DBB002766CA /* PhotoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68A52696EA87007842CD /* PhotoCellView.swift */; };
 		8428510526B47DBE002766CA /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8ECF26B0127B008BA670 /* ImageScrollView.swift */; };
 		8428510A26B47DC0002766CA /* BottomInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */; };
-		8428511026B47E49002766CA /* MockCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428510F26B47E49002766CA /* MockCoreDataStack.swift */; };
 		8428512426B49EF9002766CA /* FinalUiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428512326B49EF9002766CA /* FinalUiTest.swift */; };
 		842A8DC826AA7508008BA670 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */; };
 		842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */; };
@@ -119,13 +117,11 @@
 		84284F8526B3A9EF002766CA /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 		84284F9626B3CBCC002766CA /* ImageCacheServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheServiceTest.swift; sourceTree = "<group>"; };
 		84284FA526B3CFFF002766CA /* UserDefaultsServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceTest.swift; sourceTree = "<group>"; };
-		84284FDC26B3F16E002766CA /* CoreDataServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceTest.swift; sourceTree = "<group>"; };
 		8428503A26B405B6002766CA /* CursorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorTest.swift; sourceTree = "<group>"; };
 		8428507026B4337D002766CA /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8428507626B444D5002766CA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8428507C26B44506002766CA /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		8428508226B4502E002766CA /* BaseViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewControllerTest.swift; sourceTree = "<group>"; };
-		8428510F26B47E49002766CA /* MockCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataStack.swift; sourceTree = "<group>"; };
 		8428512326B49EF9002766CA /* FinalUiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalUiTest.swift; sourceTree = "<group>"; };
 		842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -209,8 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				84133A882687F04500EACD6A /* AppDelegate.swift */,
-				8428501526B40305002766CA /* Services */,
 				842A8DD026AA775B008BA670 /* CoreData */,
+				8428501526B40305002766CA /* Services */,
 				84DD69A4269C9FFE007842CD /* Network */,
 				8428500026B401BF002766CA /* TabBar */,
 				84284FF426B400FB002766CA /* MainScreen */,
@@ -231,11 +227,9 @@
 				84284F6F26B323F9002766CA /* NetworkServiceTests.swift */,
 				8428508226B4502E002766CA /* BaseViewControllerTest.swift */,
 				84284F9626B3CBCC002766CA /* ImageCacheServiceTest.swift */,
-				84133AA42687F04900EACD6A /* Info.plist */,
 				84284FA526B3CFFF002766CA /* UserDefaultsServiceTest.swift */,
 				8428503A26B405B6002766CA /* CursorTest.swift */,
-				84284FDC26B3F16E002766CA /* CoreDataServiceTest.swift */,
-				8428510F26B47E49002766CA /* MockCoreDataStack.swift */,
+				84133AA42687F04900EACD6A /* Info.plist */,
 			);
 			path = FinalProjectTests;
 			sourceTree = "<group>";
@@ -623,12 +617,10 @@
 				842850C926B47D85002766CA /* CoreDataService.swift in Sources */,
 				8428510A26B47DC0002766CA /* BottomInfoListViewController.swift in Sources */,
 				842850E226B47DA4002766CA /* MainViewController.swift in Sources */,
-				8428511026B47E49002766CA /* MockCoreDataStack.swift in Sources */,
 				8428503B26B405B6002766CA /* CursorTest.swift in Sources */,
 				8428504E26B4079F002766CA /* ImageCacheService.swift in Sources */,
 				842850D826B47D9E002766CA /* CustomMainLayout.swift in Sources */,
 				842850D326B47D94002766CA /* FinalTabBarController.swift in Sources */,
-				84284FDD26B3F16E002766CA /* CoreDataServiceTest.swift in Sources */,
 				84133AA32687F04900EACD6A /* FinalProjectTests.swift in Sources */,
 				842850EC26B47DAF002766CA /* FavoriteViewController.swift in Sources */,
 				842850DD26B47DA0002766CA /* CustomButton.swift in Sources */,

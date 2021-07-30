@@ -16,6 +16,7 @@
 		84284F4A26B3131A002766CA /* SnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284F4926B3131A002766CA /* SnapshotTest.swift */; };
 		84284F5E26B3162F002766CA /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 84284F5D26B3162F002766CA /* SnapshotTesting */; };
 		84284F7526B324C2002766CA /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284F6F26B323F9002766CA /* NetworkServiceTests.swift */; };
+		84284F8626B3A9EF002766CA /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284F8526B3A9EF002766CA /* ImageCacheService.swift */; };
 		842A8DC826AA7508008BA670 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */; };
 		842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */; };
 		842A8DD226AA7773008BA670 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DD126AA7773008BA670 /* CoreDataStack.swift */; };
@@ -88,6 +89,7 @@
 		84284F4926B3131A002766CA /* SnapshotTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTest.swift; sourceTree = "<group>"; };
 		84284F4B26B3131A002766CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84284F6F26B323F9002766CA /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
+		84284F8526B3A9EF002766CA /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 		842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		842A8DD126AA7773008BA670 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */,
 				84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */,
 				84AD842A26A1245A00CAF493 /* Cursor.swift */,
+				84284F8526B3A9EF002766CA /* ImageCacheService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				84DD68B626979117007842CD /* CustomMainLayout.swift in Sources */,
 				84DD69AA269D37ED007842CD /* NetworkService.swift in Sources */,
 				84AD845926A68FF100CAF493 /* QueryDefaultsService.swift in Sources */,
+				84284F8626B3A9EF002766CA /* ImageCacheService.swift in Sources */,
 				84AD845E26A6948900CAF493 /* QueryDefaults.swift in Sources */,
 				84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */,
 				84AD841B26A0D1AD00CAF493 /* GetPhotosResponse.swift in Sources */,

@@ -19,7 +19,7 @@ protocol PhotoNetworkServiceProtocol {
 final class NetworkService {
     let perPage = "5"
     let httpMethod = "GET"
-    
+    private let imageCacheService: ImageCacheService = .shared
     private let decoder = JSONDecoder()
 
     private let session = URLSession.shared
@@ -71,17 +71,21 @@ extension NetworkService: PhotoNetworkServiceProtocol {
 //  MARK: LOAD PHOTO
     func loadPhoto(imageUrl: String, completion: @escaping (Result<UIImage, NetworkServiceError>) -> Void) {
         guard let url = URL(string: imageUrl) else { return }
-
-        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
+        var resultImage = UIImage()
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData)
 
 //        MARK: PHOTO HANDLER
 //        let handler: CompletionHandler = { rawData, response, taskError in
 //    MARK: Cюда вставить кэш
-//        if let cachedImage
+        if let cachedImage = imageCacheService.getImage(key: url.absoluteString) {
+            resultImage = cachedImage
+        } else {
+            
         session.dataTask(with: request) { (rawData: Data?, response: URLResponse?, error: Error?) in
             do {
                 let data = try self.httpResponse(data: rawData, response: response)
                 guard let image = UIImage(data: data) else { return }
+                self.imageCacheService.setImage(image: image, key: url.absoluteString)
                 completion(.success(image))
             } catch  let error as NetworkServiceError {
                 completion(.failure(error))
@@ -94,6 +98,8 @@ extension NetworkService: PhotoNetworkServiceProtocol {
 //        let dataTask = session.dataTask(with: request, completionHandler: handler)
 //        dataTask.resume()
             .resume()
+        }
+        completion(.success(resultImage))
     }
 
     private func httpResponse(data: Data?, response: URLResponse?) throws -> Data {

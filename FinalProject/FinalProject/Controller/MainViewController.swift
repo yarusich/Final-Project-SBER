@@ -45,9 +45,9 @@ final class MainViewController: UIViewController {
 //        if let query = currentQuery, query.isEmpty == false { return }
         
         navigationItem.hidesSearchBarWhenScrolling = false
-        definesPresentationContext = true
-        extendedLayoutIncludesOpaqueBars = true
         
+        extendedLayoutIncludesOpaqueBars = true
+        definesPresentationContext = true
         navigationItem.searchController = photoSearchController
         photoSearchController.searchBar.delegate = self
     }

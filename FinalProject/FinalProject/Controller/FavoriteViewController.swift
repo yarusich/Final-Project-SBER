@@ -113,7 +113,6 @@ final class FavoriteViewController: UIViewController {
     }
     
     @objc private func shareButtonTapped() {
-        
         if let indexPaths = collectionPhotoView.indexPathsForSelectedItems, !indexPaths.isEmpty {
             let photoDispatchGroup = DispatchGroup()
             var photos = [Photo]()
@@ -123,17 +122,26 @@ final class FavoriteViewController: UIViewController {
             }
             photos.forEach { photo in
                 photoDispatchGroup.enter()
-                networkService.loadPhoto(imageUrl: photo.url) { data in
-                    if let data = data, let image = UIImage(data: data) {
+                networkService.loadPhoto(imageUrl: photo.url) { response in
+                       switch response {
+                       case .success(let image):
                         images.append(image)
                         photoDispatchGroup.leave()
-                    }
+                       case .failure(let error):
+//                        self.showAlert(for: error)
+                       print(error)
+                       }
                 }
             }
             photoDispatchGroup.notify(queue: DispatchQueue.main) {
                 let shareController = UIActivityViewController(activityItems: images, applicationActivities: nil)
                 self.present(shareController, animated: true)
+//                self.collectionPhotoView.indexPathsForSelectedItems?.forEach {
+//                    self.collectionPhotoView.deselectItem(at: $0, animated: false)
+//                }
+
             }
+
         }
     }
     
@@ -242,13 +250,26 @@ extension FavoriteViewController: UICollectionViewDataSource {
         let photoDTO = PhotoDTO(with: photo)
         guard let photoCell = cell as? PhotoCellView else { return cell }
 
-        networkService.loadPhoto(imageUrl: photo.url) { data in
-               if let data = data, let image = UIImage(data: data) {
-                   DispatchQueue.main.async {
-                    photoCell.configure(with: photoDTO, image)
-                   }
+//        networkService.loadPhoto(imageUrl: photo.url) { data in
+//               if let data = data, let image = UIImage(data: data) {
+//                   DispatchQueue.main.async {
+//                    photoCell.configure(with: photoDTO, image)
+//                   }
+//               }
+//           }
+        
+        networkService.loadPhoto(imageUrl: photo.url) { [weak self] response in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+               switch response {
+               case .success(let image):
+                   photoCell.configure(with: photoDTO, image)
+               case .failure(let error):
+//                self.showAlert(for: error)
+               print(error)
                }
-           }
+            }
+        }
         photoCell.backgroundColor = .yellow
         return photoCell
     }

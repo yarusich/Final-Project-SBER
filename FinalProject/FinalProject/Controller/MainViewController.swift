@@ -113,7 +113,9 @@ final class MainViewController: UIViewController {
         let page = cursor.nextPage()
         networkService.searchPhotos(currentPage: page, searching: query) { [weak self] response in
             guard let self = self else { return }
-            self.process(response) }
+            self.process(response)
+            
+        }
     }
     
     private func process(_ response: GetPhotosAPIResponse) {
@@ -121,10 +123,23 @@ final class MainViewController: UIViewController {
             switch response {
             case .success(let data):
                 self.dataSource.append(contentsOf: data.results)
-                print(self.dataSource.count)
                 self.collectionPhotoView.reloadData()
             case .failure(let error):
                 self.showAlert(for: error)
+            }
+        }
+    }
+    
+    private func loadPhoto(url: String, photoCell: PhotoCellView, index: Int) {
+        networkService.loadPhoto(imageUrl: url) { [weak self] response in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let image):
+                    photoCell.configure(with: self.dataSource[index], image)
+                case .failure(let error):
+                    self.showAlert(for: error)
+                }
             }
         }
     }
@@ -221,16 +236,19 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         
         guard let photoCell = cell as? PhotoCellView else { return cell }
-
-        networkService.loadPhoto(imageUrl: dataSource[indexPath.item].url) { [weak self] data in
-            guard let self = self else { return }
-               if let data = data, let image = UIImage(data: data) {
-                   DispatchQueue.main.async {
-                    photoCell.configure(with: self.dataSource[indexPath.item], image)
-                   }
-               }
-           }
-        
+        let imageUrl = dataSource[indexPath.item].url
+//        networkService.loadPhoto(imageUrl: dataSource[indexPath.item].url) { [weak self] response in
+//            guard let self = self else { return }
+//            DispatchQueue.main.async {
+//               switch response {
+//               case .success(let image):
+//                   photoCell.configure(with: self.dataSource[indexPath.item], image)
+//               case .failure(let error):
+//                self.showAlert(for: error)
+//               }
+//            }
+//        }
+        loadPhoto(url: imageUrl, photoCell: photoCell, index: indexPath.item)
         photoCell.backgroundColor = .yellow
         
         return photoCell

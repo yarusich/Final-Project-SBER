@@ -12,7 +12,8 @@ typealias GetPhotosAPIResponse = Result<GetPhotosResponse, NetworkServiceError>
 protocol PhotoNetworkServiceProtocol {
     func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (GetPhotosAPIResponse) -> Void)
 //    func getRandomPhotos(current page: String, complition: @escaping (GetPhotosAPIResponse) -> Void)
-    func loadPhoto(imageUrl: String, completion: @escaping (Data?) -> Void)
+//    func loadPhoto(imageUrl: String, completion: @escaping (Data?) -> Void)
+    func loadPhoto(imageUrl: String, completion: @escaping (Result<UIImage, NetworkServiceError>) -> Void)
 }
 
 final class NetworkService {
@@ -68,19 +69,24 @@ extension NetworkService: PhotoNetworkServiceProtocol {
     
     }
 //  MARK: LOAD PHOTO
-    func loadPhoto(imageUrl: String, completion: @escaping (Data?) -> Void) {
-        guard let url = URL(string: imageUrl) else { completion(nil); return }
+    func loadPhoto(imageUrl: String, completion: @escaping (Result<UIImage, NetworkServiceError>) -> Void) {
+        guard let url = URL(string: imageUrl) else { return }
 
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)//.returnCacheDataElseLoad)
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
 
 //        MARK: PHOTO HANDLER
 //        let handler: CompletionHandler = { rawData, response, taskError in
-        session.dataTask(with: request) { rawData, response, error in
+//    MARK: Cюда вставить кэш
+//        if let cachedImage
+        session.dataTask(with: request) { (rawData: Data?, response: URLResponse?, error: Error?) in
             do {
                 let data = try self.httpResponse(data: rawData, response: response)
-                completion(data)
+                guard let image = UIImage(data: data) else { return }
+                completion(.success(image))
+            } catch  let error as NetworkServiceError {
+                completion(.failure(error))
             } catch {
-                completion(nil)
+                completion(.failure(.unknown))
             }
         }
 

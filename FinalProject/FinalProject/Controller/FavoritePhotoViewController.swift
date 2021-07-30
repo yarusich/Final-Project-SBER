@@ -109,13 +109,25 @@ final class FavoritePhotoViewController: UIViewController {
     }
     
     private func setupImage(str url: String) {
-       networkService.loadPhoto(imageUrl: url) { data in
-           if let data = data, let image = UIImage(data: data) {
-               DispatchQueue.main.async {
+//       networkService.loadPhoto(imageUrl: url) { data in
+//           if let data = data, let image = UIImage(data: data) {
+//               DispatchQueue.main.async {
+//                self.imageScrollView.set(image: image)
+//               }
+//           }
+//       }
+        networkService.loadPhoto(imageUrl: url) { [weak self] response in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+               switch response {
+               case .success(let image):
                 self.imageScrollView.set(image: image)
+               case .failure(let error):
+//                self.showAlert(for: error)
+               print(error)
                }
-           }
-       }
+            }
+        }
    }
     
     private func configImage(with model: PhotoDTO) {
@@ -243,8 +255,6 @@ extension FavoritePhotoViewController: ImageScrollViewDelegate {
     func hideInterface() {
         hideAllInterface()
     }
-    
-    
 }
 
 

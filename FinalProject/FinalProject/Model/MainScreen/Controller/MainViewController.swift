@@ -118,7 +118,7 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func process(_ response: GetPhotosAPIResponse) {
+    private func process(_ response:  Result<GetPhotosResponse, NetworkServiceError>) {
         DispatchQueue.main.async {
             switch response {
             case .success(let data):

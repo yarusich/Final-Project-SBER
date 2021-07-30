@@ -7,12 +7,9 @@
 
 import UIKit
 
-typealias GetPhotosAPIResponse = Result<GetPhotosResponse, NetworkServiceError>
-
 protocol PhotoNetworkServiceProtocol {
-    func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (GetPhotosAPIResponse) -> Void)
+    func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (Result<GetPhotosResponse, NetworkServiceError>) -> Void)
 //    func getRandomPhotos(current page: String, complition: @escaping (GetPhotosAPIResponse) -> Void)
-//    func loadPhoto(imageUrl: String, completion: @escaping (Data?) -> Void)
     func loadPhoto(imageUrl: String, completion: @escaping (Result<UIImage, NetworkServiceError>) -> Void)
 }
 
@@ -34,7 +31,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
     typealias CompletionHandler = (Data?, URLResponse?, Error?) -> Void
     
 //    MARK: SEARCH PHOTOS
-    func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (GetPhotosAPIResponse) -> Void) {
+    func searchPhotos(currentPage page: String, searching query: String, completion: @escaping (Result<GetPhotosResponse, NetworkServiceError>) -> Void) {
 //        MARK: Сконфигурировали запрос
         var components = URLComponents(string: NetworkConstants.baseURLString)
         components?.queryItems = [
@@ -49,7 +46,6 @@ extension NetworkService: PhotoNetworkServiceProtocol {
         request.httpMethod = httpMethod
   
 //        MARK: HANDLER
-//        let handler: CompletionHandler = { data, response, error in
         session.dataTask(with: request) { rawData, response, error in
             do {
                 let data = try self.httpResponse(data: rawData, response: response)
@@ -61,10 +57,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
                 completion(.failure(.unknown))
             }
         }
-        
-//        MARK: CALL
-//        let dataTask = session.dataTask(with: request, completionHandler: handler)
-//        dataTask.resume()
+
         .resume()
     
     }
@@ -75,7 +68,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData)
 
 //        MARK: PHOTO HANDLER
-//        let handler: CompletionHandler = { rawData, response, taskError in
+
 //    MARK: Cюда вставить кэш
         if let cachedImage = imageCacheService.getImage(key: url.absoluteString) {
             resultImage = cachedImage
@@ -95,8 +88,7 @@ extension NetworkService: PhotoNetworkServiceProtocol {
         }
 
 //        MARK: PHOTO CALL
-//        let dataTask = session.dataTask(with: request, completionHandler: handler)
-//        dataTask.resume()
+
             .resume()
         }
         completion(.success(resultImage))

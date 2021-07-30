@@ -41,6 +41,18 @@ final class ProfileViewController: UIViewController {
         return btm
     }()
     
+    private lazy var deleteDataFromUserDefaultsButton: UIButton = {
+        let btm = UIButton(type: .system)
+        btm.setTitle("delele data", for: .normal)
+        btm.setTitleColor(.black, for: .normal)
+        btm.backgroundColor = .red
+        btm.layer.cornerRadius = 20.0
+        btm.addTarget(self, action: #selector(deleteDataFromUserDefaultsButtonTapped), for: .touchUpInside)
+        btm.translatesAutoresizingMaskIntoConstraints = false
+        return btm
+    }()
+    
+    
     init() {
 
         super.init(nibName: nil, bundle: nil)
@@ -68,6 +80,7 @@ final class ProfileViewController: UIViewController {
         view.addSubview(profileTextLabel)
         view.addSubview(changeProfileButton)
         view.addSubview(defaultQueryTextField)
+        view.addSubview(deleteDataFromUserDefaultsButton)
         
         defaultQueryTextField.placeholder = setQuery()
         
@@ -84,6 +97,12 @@ final class ProfileViewController: UIViewController {
             changeProfileButton.widthAnchor.constraint(equalToConstant: 200.0),
             changeProfileButton.heightAnchor.constraint(equalToConstant: 40.0),
             changeProfileButton.topAnchor.constraint(equalTo: defaultQueryTextField.bottomAnchor, constant: 40.0),
+            
+            
+            deleteDataFromUserDefaultsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            deleteDataFromUserDefaultsButton.widthAnchor.constraint(equalToConstant: 300.0),
+            deleteDataFromUserDefaultsButton.heightAnchor.constraint(equalToConstant: 40.0),
+            deleteDataFromUserDefaultsButton.topAnchor.constraint(equalTo: changeProfileButton.bottomAnchor, constant: 40.0),
         
         ])
     }
@@ -97,6 +116,10 @@ final class ProfileViewController: UIViewController {
         defaultQueryTextField.placeholder = userDefaultsService.getCurrentQuery()
     
         view.endEditing(true)
+    }
+    
+    @objc private func deleteDataFromUserDefaultsButtonTapped() {
+        userDefaultsService.clearCurrentQuery()
     }
     
     private func setQuery() -> String {

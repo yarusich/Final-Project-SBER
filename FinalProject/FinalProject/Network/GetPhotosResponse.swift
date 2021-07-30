@@ -8,7 +8,6 @@
 import Foundation
 
 struct GetPhotosResponse: Decodable {
-    let total: Int
     let results: [PhotoDTO]
 }
 

@@ -14,6 +14,7 @@ struct KeysDefault {
 protocol UserDefaultsServiceProtocol {
     func addCurrentQuery(query: String)
     func getCurrentQuery() -> String
+    func clearCurrentQuery()
 }
 
 final class UserDefaultsService {
@@ -21,6 +22,7 @@ final class UserDefaultsService {
 }
 
 extension UserDefaultsService: UserDefaultsServiceProtocol {
+    
     func addCurrentQuery(query: String) {
         userDefault.setValue(query, forKey: KeysDefault.key)
     }
@@ -28,6 +30,10 @@ extension UserDefaultsService: UserDefaultsServiceProtocol {
     func getCurrentQuery() -> String {
         guard let query = userDefault.string(forKey: KeysDefault.key) else { return ""}
         return query
+    }
+    
+    func clearCurrentQuery() {
+        userDefault.removeObject(forKey: KeysDefault.key)
     }
 }
 

@@ -11,8 +11,8 @@ import XCTest
 class SnapshotTest: XCTestCase {
     
     func testinfo() throws {
-        let favoriteViewController = FavoriteViewController()
-        assertSnapshot(matching: favoriteViewController, as: .image(on: .iPhone8))
+        let profileViewController = ProfileViewController()
+        assertSnapshot(matching: profileViewController, as: .image(on: .iPhone8))
     }
 
 

@@ -70,11 +70,9 @@ final class MainViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        MARK: Устанавливаем запрос по-умолчанию здесь
         photoSearchController.searchBar.placeholder = userDefaultsService.getCurrentQuery()
     }
     
-//    MARK: LOAD DATA
     private func loadData(with query: String) {
         isLoading = true
         let page = cursor.nextPage()
@@ -154,13 +152,10 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
-        
         guard let photoCell = cell as? PhotoCellView else { return cell }
         let imageUrl = dataSource[indexPath.item].url
         let photoData = dataSource[indexPath.item]
-
         loadPhoto(url: imageUrl, photoCell: photoCell, photoData: photoData)
-        
         return photoCell
     }
 }
@@ -168,14 +163,7 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController {
     
     func selected(at index: IndexPath) {
-        guard !photoSearchController.isActive else {
-            return
-        }
         navigationController?.pushViewController(MainPhotoViewController(photo: dataSource[index.item]), animated: true)
-    }
-//    MARK: Будет выводить лист настроек
-    @objc func settingsTapped() {
-        print("settings tapped")
     }
 }
 

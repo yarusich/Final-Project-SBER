@@ -13,43 +13,46 @@ final class MainPhotoViewController: BaseViewController {
     private let currentUserKey = "currentUser"
     private let photo: PhotoDTO
     private let coreDataService = CoreDataService()
+    
+    lazy var mainPhotoView: MainPhotoView = {
+        let v = MainPhotoView(frame: view.frame)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
 
-    private lazy var shareButton: CustomButton = {
-        let btm = CustomButton(name: "square.and.arrow.up")
-        btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        return btm
-    }()
-    
-    private lazy var saveButton: CustomButton = {
-        let btm = CustomButton(name: "square.and.arrow.down")
-        btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        return btm
-    }()
-    
-    private lazy var likeButton: CustomButton = {
-        let btm = CustomButton(name: "suit.heart.fill")
-        btm.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
-        return btm
-    }()
-    
-    private lazy var infoButton: CustomButton = {
-        let btm = CustomButton(name: "info.circle")
-        btm.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-        return btm
-    }()
-  
-    
+//    private lazy var shareButton: CustomButton = {
+//        let btm = CustomButton(name: "square.and.arrow.up")
+//        btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+//        return btm
+//    }()
+//
+//    private lazy var saveButton: CustomButton = {
+//        let btm = CustomButton(name: "square.and.arrow.down")
+//        btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+//        return btm
+//    }()
+//
+//    private lazy var likeButton: CustomButton = {
+//        let btm = CustomButton(name: "suit.heart.fill")
+//        btm.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+//        return btm
+//    }()
+//
+//    private lazy var infoButton: CustomButton = {
+//        let btm = CustomButton(name: "info.circle")
+//        btm.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+//        return btm
+//    }()
+//
+//
     private lazy var imageScrollView: ImageScrollView = {
         let i = ImageScrollView(frame: view.bounds)
         i.translatesAutoresizingMaskIntoConstraints = false
         return i
     }()
     
-
-    
     init(photo: PhotoDTO) {
         self.photo = photo
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,16 +62,16 @@ final class MainPhotoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemGroupedBackground
         imageScrollView.hideDelegate = self
+        mainPhotoView.delegate = self
         loadPhoto(url: photo.url, photoData: photo)
         setupView()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = false
     }
@@ -76,59 +79,40 @@ final class MainPhotoViewController: BaseViewController {
     
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
-        
         if parent == nil {
             tabBarController?.tabBar.isHidden = false
         }
     }
     
 
-/// ОДИНАРНЫЙ ТАП
+
     @objc private func viewTapped() {
-//        MARK: одинарный тап - скрывает интерфейс
-        print("тапнули по коту один раз")
         hideInterface()
     }
-//        MARK: Шарим фотку
+
     @objc private func shareButtonTapped() {
-        print("Шарим кота")
-        
-//        guard let item = imageView.image else { return }
         let photo = imageScrollView.getImage()
         let shareController = UIActivityViewController(activityItems: [photo], applicationActivities: nil)
         present(shareController, animated: true)
-        
     }
     
-//        MARK: сохраняем фотку в галерею
     @objc private func saveButtonTapped() {
-        print("Сохраняем кота в галерею")
-//        guard let image = imageView.image else { return }
         let image = imageScrollView.getImage()
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveImageWithAlert(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     @objc private func likeButtonTapped() {
-//        MARK: сохраняем фотку в раздел фоток
-        print("Сохраняем кота в фаворит(кор дату)")
         coreDataService.save(photos: [photo])
     }
     
     @objc private func infoButtonTapped() {
-        print("Смотрим инфу про кота")
-//        let photoDTO = PhotoDTO(with: photo)
         let vc = BottomInfoListViewController(photo: photo)
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }
     
     private func hideAllInterface() {
-//        MARK: Скрыть всё
-        shareButton.isHidden = !shareButton.isHidden
-        saveButton.isHidden = !saveButton.isHidden
-        likeButton.isHidden = !likeButton.isHidden
-        infoButton.isHidden = !infoButton.isHidden
-        
+        mainPhotoView.hideAllInterface()
         if let nv = navigationController {
             nv.navigationBar.isHidden = !nv.navigationBar.isHidden
         }
@@ -146,9 +130,6 @@ final class MainPhotoViewController: BaseViewController {
                 present(alert, animated: true)
             }
         }
-    @objc func infoCloseButtonTapped() {
-//        infoView.isHidden = true
-    }
     
     private func loadPhoto(url: String, photoData: PhotoDTO) {
         networkService.loadPhoto(imageUrl: url) { [weak self] response in
@@ -170,37 +151,37 @@ extension MainPhotoViewController: ViewProtocol {
     func setupView() {
 
         view.addSubview(imageScrollView)
-        view.addSubview(shareButton)
-        view.addSubview(saveButton)
-        view.addSubview(likeButton)
-        view.addSubview(infoButton)
+//        view.addSubview(shareButton)
+//        view.addSubview(saveButton)
+//        view.addSubview(likeButton)
+//        view.addSubview(infoButton)
         
         NSLayoutConstraint.activate([
-            
+
             imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
             imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            shareButton.heightAnchor.constraint(equalToConstant: 55),
-            shareButton.widthAnchor.constraint(equalToConstant: 55),
-            shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
-            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            
-            saveButton.heightAnchor.constraint(equalToConstant: 55),
-            saveButton.widthAnchor.constraint(equalToConstant: 55),
-            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40),
-            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            
-            likeButton.heightAnchor.constraint(equalToConstant: 55),
-            likeButton.widthAnchor.constraint(equalToConstant: 55),
-            likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
-            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            
-            infoButton.heightAnchor.constraint(equalToConstant: 55),
-            infoButton.widthAnchor.constraint(equalToConstant: 55),
-            infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
-            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+//
+//            shareButton.heightAnchor.constraint(equalToConstant: 55),
+//            shareButton.widthAnchor.constraint(equalToConstant: 55),
+//            shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
+//            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+//
+//            saveButton.heightAnchor.constraint(equalToConstant: 55),
+//            saveButton.widthAnchor.constraint(equalToConstant: 55),
+//            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40),
+//            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+//
+//            likeButton.heightAnchor.constraint(equalToConstant: 55),
+//            likeButton.widthAnchor.constraint(equalToConstant: 55),
+//            likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
+//            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+//
+//            infoButton.heightAnchor.constraint(equalToConstant: 55),
+//            infoButton.widthAnchor.constraint(equalToConstant: 55),
+//            infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
+//            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])
     }
 }
@@ -208,6 +189,26 @@ extension MainPhotoViewController: ViewProtocol {
 extension MainPhotoViewController: ImageScrollViewDelegate {
     func hideInterface() {
         hideAllInterface()
+    }
+    
+    
+}
+
+extension MainPhotoViewController: MainPhotoViewProtocol {
+    func share() {
+        shareButtonTapped()
+    }
+    
+    func save() {
+        saveButtonTapped()
+    }
+    
+    func like() {
+        likeButtonTapped()
+    }
+    
+    func info() {
+        infoButtonTapped()
     }
     
     

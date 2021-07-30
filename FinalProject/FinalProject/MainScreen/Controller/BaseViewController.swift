@@ -7,10 +7,13 @@
 
 import UIKit
 
+protocol ViewProtocol: class {
+    func setupView()
+}
+
 class BaseViewController: UIViewController {
     
     private let spinnerVC = SpinnerViewController()
-    
     var isLoading = false {
         didSet {
             guard oldValue != isLoading else { return }

@@ -142,15 +142,13 @@ extension MainViewController: UICollectionViewDelegate {
     }
     
 }
-//  MARK: UICollectionViewDataSource
+
 extension MainViewController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         guard let photoCell = cell as? PhotoCellView else { return cell }
         let imageUrl = dataSource[indexPath.item].url
@@ -161,15 +159,12 @@ extension MainViewController: UICollectionViewDataSource {
 }
 
 extension MainViewController {
-    
     func selected(at index: IndexPath) {
         navigationController?.pushViewController(MainPhotoViewController(photo: dataSource[index.item]), animated: true)
     }
 }
 
-
 extension MainViewController: UISearchBarDelegate {
-    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         print("text: \(text)")

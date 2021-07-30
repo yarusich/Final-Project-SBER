@@ -12,6 +12,7 @@ class SnapshotTest: XCTestCase {
     
     func testinfo() throws {
         let profileViewController = ProfileViewController()
+//        isRecording = false
         assertSnapshot(matching: profileViewController, as: .image(on: .iPhone8))
     }
 

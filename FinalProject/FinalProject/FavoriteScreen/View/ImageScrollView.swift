@@ -12,9 +12,7 @@ protocol ImageScrollViewDelegate: AnyObject {
 }
 
 class ImageScrollView: UIScrollView {
-    
-    
-    
+
     weak var hideDelegate: ImageScrollViewDelegate?
     
     private var imageView = UIImageView()

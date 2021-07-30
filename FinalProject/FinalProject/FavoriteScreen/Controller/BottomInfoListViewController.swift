@@ -79,7 +79,13 @@ final class BottomInfoListViewController: UIViewController {
     
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [infoHeadLabel, authorHeadLabel, authorTextLabel, dimensionHeadLabel, dimensionTextLabel, descriptionsHeadLabel, descriptionsTextLabel])
+        let stackView = UIStackView(arrangedSubviews: [infoHeadLabel,
+                                                       authorHeadLabel,
+                                                       authorTextLabel,
+                                                       dimensionHeadLabel,
+                                                       dimensionTextLabel,
+                                                       descriptionsHeadLabel,
+                                                       descriptionsTextLabel])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -101,9 +107,6 @@ final class BottomInfoListViewController: UIViewController {
         return view
     }()
     
-    
-
-    
     init(photo: PhotoDTO) {
         self.photo = photo
         super.init(nibName: nil, bundle: nil)
@@ -119,7 +122,6 @@ final class BottomInfoListViewController: UIViewController {
         setupView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleCloseAction))
         dimmedView.addGestureRecognizer(tapGesture)
-
         setupPanGesture()
 
     }
@@ -128,7 +130,6 @@ final class BottomInfoListViewController: UIViewController {
         super.viewDidAppear(animated)
         animateShowDimmedView()
         animatePresentContainer()
-        
         authorTextLabel.text = photo.author
         dimensionTextLabel.text = "\(photo.height) x \(photo.width)"
         descriptionsTextLabel.text = photo.descript
@@ -138,41 +139,7 @@ final class BottomInfoListViewController: UIViewController {
         animateDismissView()
     }
     
-    private func setupView() {
-        view.backgroundColor = .clear
-        
-        view.addSubview(dimmedView)
-        view.addSubview(containerView)
-        dimmedView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        containerView.addSubview(contentStackView)
-        contentStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        NSLayoutConstraint.activate([
-            
-            dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
-            dimmedView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            dimmedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            dimmedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            contentStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 32),
-            contentStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
-            contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-        ])
 
-        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
-
-        containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: defaultHeight)
-        
-        containerViewHeightConstraint?.isActive = true
-        containerViewBottomConstraint?.isActive = true
-    }
     private func setupPanGesture() {
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(gesture:)))
@@ -267,4 +234,37 @@ final class BottomInfoListViewController: UIViewController {
     }
 }
 
+extension BottomInfoListViewController: ViewProtocol {
+    func setupView() {
+        view.backgroundColor = .clear
+        view.addSubview(dimmedView)
+        view.addSubview(containerView)
+        dimmedView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(contentStackView)
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        NSLayoutConstraint.activate([
+            dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
+            dimmedView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            dimmedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dimmedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            contentStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 32),
+            contentStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+        ])
+
+        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
+        containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: defaultHeight)
+        
+        containerViewHeightConstraint?.isActive = true
+        containerViewBottomConstraint?.isActive = true
+    }
+}
 

@@ -47,7 +47,6 @@
 		842850EC26B47DAF002766CA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843726A26CD200CAF493 /* FavoriteViewController.swift */; };
 		842850F126B47DB1002766CA /* FavoritePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */; };
 		842850F626B47DB7002766CA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */; };
-		842850FB26B47DB9002766CA /* MainViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688A2695F255007842CD /* MainViewDelegate.swift */; };
 		8428510026B47DBB002766CA /* PhotoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68A52696EA87007842CD /* PhotoCellView.swift */; };
 		8428510526B47DBE002766CA /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8ECF26B0127B008BA670 /* ImageScrollView.swift */; };
 		8428510A26B47DC0002766CA /* BottomInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */; };
@@ -70,8 +69,6 @@
 		84AD843826A26CD200CAF493 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843726A26CD200CAF493 /* FavoriteViewController.swift */; };
 		84AD843D26A26D3B00CAF493 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */; };
 		84DD68862695F198007842CD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68852695F198007842CD /* MainViewController.swift */; };
-		84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688A2695F255007842CD /* MainViewDelegate.swift */; };
-		84DD68902695F9A2007842CD /* MainPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD688F2695F9A2007842CD /* MainPhotoView.swift */; };
 		84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68A52696EA87007842CD /* PhotoCellView.swift */; };
 		84DD68B626979117007842CD /* CustomMainLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD68B526979117007842CD /* CustomMainLayout.swift */; };
 		84DD6990269BD155007842CD /* MainPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD698F269BD155007842CD /* MainPhotoViewController.swift */; };
@@ -147,8 +144,6 @@
 		84AD843726A26CD200CAF493 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		84AD843C26A26D3B00CAF493 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		84DD68852695F198007842CD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		84DD688A2695F255007842CD /* MainViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewDelegate.swift; sourceTree = "<group>"; };
-		84DD688F2695F9A2007842CD /* MainPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoView.swift; sourceTree = "<group>"; };
 		84DD68A52696EA87007842CD /* PhotoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellView.swift; sourceTree = "<group>"; };
 		84DD68B526979117007842CD /* CustomMainLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainLayout.swift; sourceTree = "<group>"; };
 		84DD698F269BD155007842CD /* MainPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPhotoViewController.swift; sourceTree = "<group>"; };
@@ -214,12 +209,13 @@
 			isa = PBXGroup;
 			children = (
 				84133A882687F04500EACD6A /* AppDelegate.swift */,
-				84AD840F269E701D00CAF493 /* NetworkConstants.swift */,
+				8428501526B40305002766CA /* Services */,
 				842A8DD026AA775B008BA670 /* CoreData */,
 				84DD69A4269C9FFE007842CD /* Network */,
-				84133AC52687F20600EACD6A /* Model */,
-				84133AC62687F20C00EACD6A /* View */,
-				84133AC72687F21400EACD6A /* Controller */,
+				8428500026B401BF002766CA /* TabBar */,
+				84284FF426B400FB002766CA /* MainScreen */,
+				84284FF526B4011C002766CA /* FavoriteScreen */,
+				84284FF626B40128002766CA /* ProfileScreen */,
 				84133A942687F04900EACD6A /* Assets.xcassets */,
 				84133A962687F04900EACD6A /* LaunchScreen.storyboard */,
 				84133A992687F04900EACD6A /* Info.plist */,
@@ -252,35 +248,6 @@
 				8428512326B49EF9002766CA /* FinalUiTest.swift */,
 			);
 			path = FinalProjectUITests;
-			sourceTree = "<group>";
-		};
-		84133AC52687F20600EACD6A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8428500026B401BF002766CA /* TabBar */,
-				84284FF426B400FB002766CA /* MainScreen */,
-				84284FF526B4011C002766CA /* FavoriteScreen */,
-				84284FF626B40128002766CA /* ProfileScreen */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		84133AC62687F20C00EACD6A /* View */ = {
-			isa = PBXGroup;
-			children = (
-				84DD688A2695F255007842CD /* MainViewDelegate.swift */,
-				84DD68A52696EA87007842CD /* PhotoCellView.swift */,
-				842A8ECF26B0127B008BA670 /* ImageScrollView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		84133AC72687F21400EACD6A /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		84284F4826B3131A002766CA /* SnapshotTest */ = {
@@ -354,6 +321,8 @@
 		84284FFB26B4017B002766CA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8428507026B4337D002766CA /* CustomButton.swift */,
+				842A8ECF26B0127B008BA670 /* ImageScrollView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,6 +332,7 @@
 			children = (
 				84AD843726A26CD200CAF493 /* FavoriteViewController.swift */,
 				842A8E4C26AF21A3008BA670 /* FavoritePhotoViewController.swift */,
+				842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -381,9 +351,8 @@
 		84284FFE26B401A7002766CA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				84DD688F2695F9A2007842CD /* MainPhotoView.swift */,
 				84DD68B526979117007842CD /* CustomMainLayout.swift */,
-				8428507026B4337D002766CA /* CustomButton.swift */,
+				84DD68A52696EA87007842CD /* PhotoCellView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -410,7 +379,6 @@
 				84DD69A9269D37ED007842CD /* NetworkService.swift */,
 				84284F8526B3A9EF002766CA /* ImageCacheService.swift */,
 				842A8F4726B15EAD008BA670 /* UserDefaultsService.swift */,
-				84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -430,8 +398,9 @@
 		84DD69A4269C9FFE007842CD /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8428501526B40305002766CA /* Services */,
 				84AD841A26A0D1AD00CAF493 /* GetPhotosResponse.swift */,
+				84AD840F269E701D00CAF493 /* NetworkConstants.swift */,
+				84AD841426A0C2C200CAF493 /* NetworkServiceError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -606,7 +575,6 @@
 				842A8F2126B1001D008BA670 /* CoreDataService.swift in Sources */,
 				8428507126B4337D002766CA /* CustomButton.swift in Sources */,
 				84DD68A62696EA87007842CD /* PhotoCellView.swift in Sources */,
-				84DD68902695F9A2007842CD /* MainPhotoView.swift in Sources */,
 				8428507726B444D5002766CA /* BaseViewController.swift in Sources */,
 				84133A892687F04500EACD6A /* AppDelegate.swift in Sources */,
 				842A8DC826AA7508008BA670 /* Photo+CoreDataClass.swift in Sources */,
@@ -615,7 +583,6 @@
 				842A8EC826B002F9008BA670 /* BottomInfoListViewController.swift in Sources */,
 				84AD842B26A1245A00CAF493 /* Cursor.swift in Sources */,
 				84133A932687F04500EACD6A /* FinalProject.xcdatamodeld in Sources */,
-				84DD688B2695F255007842CD /* MainViewDelegate.swift in Sources */,
 				8428507D26B44506002766CA /* SpinnerViewController.swift in Sources */,
 				842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */,
 				842A8E3F26AE631F008BA670 /* FinalTabBarController.swift in Sources */,
@@ -646,7 +613,6 @@
 				8428504426B405E1002766CA /* Cursor.swift in Sources */,
 				8428509126B45070002766CA /* SpinnerViewController.swift in Sources */,
 				842850AE26B45AAA002766CA /* NetworkService.swift in Sources */,
-				842850FB26B47DB9002766CA /* MainViewDelegate.swift in Sources */,
 				84284FC826B3DC6A002766CA /* GetPhotosResponse.swift in Sources */,
 				842850C426B47D81002766CA /* CoreDataStack.swift in Sources */,
 				842850E726B47DA6002766CA /* MainPhotoViewController.swift in Sources */,

@@ -14,37 +14,30 @@ final class MainPhotoViewController: BaseViewController {
     private let photo: PhotoDTO
     private let coreDataService = CoreDataService()
     
-    lazy var mainPhotoView: MainPhotoView = {
-        let v = MainPhotoView(frame: view.frame)
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
+    private lazy var shareButton: CustomButton = {
+        let btm = CustomButton(name: "square.and.arrow.up")
+        btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        return btm
     }()
 
-//    private lazy var shareButton: CustomButton = {
-//        let btm = CustomButton(name: "square.and.arrow.up")
-//        btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-//        return btm
-//    }()
-//
-//    private lazy var saveButton: CustomButton = {
-//        let btm = CustomButton(name: "square.and.arrow.down")
-//        btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-//        return btm
-//    }()
-//
-//    private lazy var likeButton: CustomButton = {
-//        let btm = CustomButton(name: "suit.heart.fill")
-//        btm.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
-//        return btm
-//    }()
-//
-//    private lazy var infoButton: CustomButton = {
-//        let btm = CustomButton(name: "info.circle")
-//        btm.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-//        return btm
-//    }()
-//
-//
+    private lazy var saveButton: CustomButton = {
+        let btm = CustomButton(name: "square.and.arrow.down")
+        btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        return btm
+    }()
+
+    private lazy var likeButton: CustomButton = {
+        let btm = CustomButton(name: "suit.heart.fill")
+        btm.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        return btm
+    }()
+
+    private lazy var infoButton: CustomButton = {
+        let btm = CustomButton(name: "info.circle")
+        btm.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+        return btm
+    }()
+
     private lazy var imageScrollView: ImageScrollView = {
         let i = ImageScrollView(frame: view.bounds)
         i.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +57,6 @@ final class MainPhotoViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
         imageScrollView.hideDelegate = self
-        mainPhotoView.delegate = self
         loadPhoto(url: photo.url, photoData: photo)
         setupView()
        
@@ -84,8 +76,6 @@ final class MainPhotoViewController: BaseViewController {
         }
     }
     
-
-
     @objc private func viewTapped() {
         hideInterface()
     }
@@ -112,7 +102,11 @@ final class MainPhotoViewController: BaseViewController {
     }
     
     private func hideAllInterface() {
-        mainPhotoView.hideAllInterface()
+        shareButton.isHidden = !shareButton.isHidden
+        saveButton.isHidden = !saveButton.isHidden
+        likeButton.isHidden = !likeButton.isHidden
+        infoButton.isHidden = !infoButton.isHidden
+        
         if let nv = navigationController {
             nv.navigationBar.isHidden = !nv.navigationBar.isHidden
         }
@@ -151,37 +145,36 @@ extension MainPhotoViewController: ViewProtocol {
     func setupView() {
 
         view.addSubview(imageScrollView)
-//        view.addSubview(shareButton)
-//        view.addSubview(saveButton)
-//        view.addSubview(likeButton)
-//        view.addSubview(infoButton)
+        view.addSubview(shareButton)
+        view.addSubview(saveButton)
+        view.addSubview(likeButton)
+        view.addSubview(infoButton)
         
         NSLayoutConstraint.activate([
-
             imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
             imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//
-//            shareButton.heightAnchor.constraint(equalToConstant: 55),
-//            shareButton.widthAnchor.constraint(equalToConstant: 55),
-//            shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
-//            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-//
-//            saveButton.heightAnchor.constraint(equalToConstant: 55),
-//            saveButton.widthAnchor.constraint(equalToConstant: 55),
-//            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40),
-//            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-//
-//            likeButton.heightAnchor.constraint(equalToConstant: 55),
-//            likeButton.widthAnchor.constraint(equalToConstant: 55),
-//            likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
-//            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-//
-//            infoButton.heightAnchor.constraint(equalToConstant: 55),
-//            infoButton.widthAnchor.constraint(equalToConstant: 55),
-//            infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
-//            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+
+            shareButton.heightAnchor.constraint(equalToConstant: 55),
+            shareButton.widthAnchor.constraint(equalToConstant: 55),
+            shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
+            shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+
+            saveButton.heightAnchor.constraint(equalToConstant: 55),
+            saveButton.widthAnchor.constraint(equalToConstant: 55),
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40),
+            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+
+            likeButton.heightAnchor.constraint(equalToConstant: 55),
+            likeButton.widthAnchor.constraint(equalToConstant: 55),
+            likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
+            likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+
+            infoButton.heightAnchor.constraint(equalToConstant: 55),
+            infoButton.widthAnchor.constraint(equalToConstant: 55),
+            infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
+            infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])
     }
 }
@@ -190,28 +183,6 @@ extension MainPhotoViewController: ImageScrollViewDelegate {
     func hideInterface() {
         hideAllInterface()
     }
-    
-    
-}
-
-extension MainPhotoViewController: MainPhotoViewProtocol {
-    func share() {
-        shareButtonTapped()
-    }
-    
-    func save() {
-        saveButtonTapped()
-    }
-    
-    func like() {
-        likeButtonTapped()
-    }
-    
-    func info() {
-        infoButtonTapped()
-    }
-    
-    
 }
 
 

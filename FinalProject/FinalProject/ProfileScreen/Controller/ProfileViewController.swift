@@ -82,9 +82,8 @@ final class ProfileViewController: UIViewController {
         view.addSubview(changeProfileButton)
         view.addSubview(defaultQueryTextField)
         view.addSubview(deleteDataFromUserDefaultsButton)
-        
         defaultQueryTextField.placeholder = setQuery()
-        
+       
         NSLayoutConstraint.activate([
             
             profileTextLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -111,10 +110,8 @@ final class ProfileViewController: UIViewController {
         guard let text = defaultQueryTextField.text else { return }
         
         userDefaultsService.addCurrentQuery(query: text)
-
         defaultQueryTextField.text = ""
         defaultQueryTextField.placeholder = userDefaultsService.getCurrentQuery()
-    
         view.endEditing(true)
     }
     

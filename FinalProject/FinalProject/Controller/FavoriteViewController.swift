@@ -181,6 +181,24 @@ final class FavoriteViewController: UIViewController {
         }
         coreDataService.delete(photos: willDelete)
     }
+    
+    private func loadPhoto(url: String, photoCell: PhotoCellView, index: Int, photoData: PhotoDTO) {
+        networkService.loadPhoto(imageUrl: url) { [weak self] response in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let image):
+                    photoCell.configure(with: photoData, image)
+                case .failure(let error):
+                    print(error)
+//                    self.showAlert(for: error)
+                }
+            }
+        }
+    }
+    
+    
+    
 }
 
 
@@ -247,30 +265,14 @@ extension FavoriteViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCellView.id, for: indexPath)
         let photo = coreDataService.fetchedResultsController.object(at: indexPath)
-        let photoDTO = PhotoDTO(with: photo)
+        let photoData = PhotoDTO(with: photo)
+        let imageUrl = photoData.url
         guard let photoCell = cell as? PhotoCellView else { return cell }
 
-//        networkService.loadPhoto(imageUrl: photo.url) { data in
-//               if let data = data, let image = UIImage(data: data) {
-//                   DispatchQueue.main.async {
-//                    photoCell.configure(with: photoDTO, image)
-//                   }
-//               }
-//           }
         
-        networkService.loadPhoto(imageUrl: photo.url) { [weak self] response in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-               switch response {
-               case .success(let image):
-                   photoCell.configure(with: photoDTO, image)
-               case .failure(let error):
-//                self.showAlert(for: error)
-               print(error)
-               }
-            }
-        }
+        loadPhoto(url: imageUrl, photoCell: photoCell, index: indexPath.item, photoData: photoData)
         photoCell.backgroundColor = .yellow
+        
         return photoCell
     }
     

@@ -132,12 +132,13 @@ final class FavoritePhotoViewController: UIViewController {
     
     private func configImage(with model: PhotoDTO) {
 
-        setupImage(str: photo.url)
+        loadPhoto(url: model.url, photoData: model)
+        
 //        imageView.contentMode = .scaleAspectFit
 //        MARK: Посмотреть оба вариант клипа
 //        imageScrollView.clipsToBounds = true
-        imageScrollView.isUserInteractionEnabled = true
-        imageScrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
+//        imageScrollView.isUserInteractionEnabled = true
+//        imageScrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
 //        imageScrollView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(viewPinched(_:))))
 //        imageScrollView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:))))
     }
@@ -208,6 +209,22 @@ final class FavoritePhotoViewController: UIViewController {
                 present(alert, animated: true)
             }
         }
+    
+    private func loadPhoto(url: String, photoData: PhotoDTO) {
+        networkService.loadPhoto(imageUrl: url) { [weak self] response in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let image):
+                    self.imageScrollView.set(image: image)
+                case .failure(let error):
+                    print(error)
+//                    self.showAlert(for: error)
+                }
+            }
+        }
+    }
+    
 }
 
 extension FavoritePhotoViewController: ViewProtocol {

@@ -106,29 +106,16 @@ final class MainPhotoViewController: UIViewController {
         }
     }
     
-    func setupImage(str url: String) {
-        networkService.loadPhoto(imageUrl: url) { [weak self] response in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-               switch response {
-               case .success(let image):
-                self.imageScrollView.set(image: image)
-               case .failure(let error):
-//                self.showAlert(for: error)
-               print(error)
-               }
-            }
-        }
-   }
-    
     private func configImage(with model: PhotoDTO) {
+        
+        loadPhoto(url: model.url, photoData: model)
 //        imageView.setupImage(str: model.url)
-        setupImage(str: photo.url)
+//        setupImage(str: photo.url)
 //        imageView.contentMode = .scaleAspectFit
 //        MARK: Посмотреть оба вариант клипа
 //        imageView.clipsToBounds = true
 //        imageView.isUserInteractionEnabled = true
-//        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
+
 
     }
 
@@ -201,6 +188,22 @@ final class MainPhotoViewController: UIViewController {
     @objc func infoCloseButtonTapped() {
 //        infoView.isHidden = true
     }
+    
+    private func loadPhoto(url: String, photoData: PhotoDTO) {
+        networkService.loadPhoto(imageUrl: url) { [weak self] response in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let image):
+                    self.imageScrollView.set(image: image)
+                case .failure(let error):
+                    print(error)
+//                    self.showAlert(for: error)
+                }
+            }
+        }
+    }
+    
     
 }
 

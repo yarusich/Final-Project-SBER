@@ -130,15 +130,16 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func loadPhoto(url: String, photoCell: PhotoCellView, index: Int) {
+    private func loadPhoto(url: String, photoCell: PhotoCellView, photoData: PhotoDTO) {
         networkService.loadPhoto(imageUrl: url) { [weak self] response in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch response {
                 case .success(let image):
-                    photoCell.configure(with: self.dataSource[index], image)
+                    photoCell.configure(with: photoData, image)
                 case .failure(let error):
-                    self.showAlert(for: error)
+                    print(error)
+//                    self.showAlert(for: error)
                 }
             }
         }
@@ -237,18 +238,9 @@ extension MainViewController: UICollectionViewDataSource {
         
         guard let photoCell = cell as? PhotoCellView else { return cell }
         let imageUrl = dataSource[indexPath.item].url
-//        networkService.loadPhoto(imageUrl: dataSource[indexPath.item].url) { [weak self] response in
-//            guard let self = self else { return }
-//            DispatchQueue.main.async {
-//               switch response {
-//               case .success(let image):
-//                   photoCell.configure(with: self.dataSource[indexPath.item], image)
-//               case .failure(let error):
-//                self.showAlert(for: error)
-//               }
-//            }
-//        }
-        loadPhoto(url: imageUrl, photoCell: photoCell, index: indexPath.item)
+        let photoData = dataSource[indexPath.item]
+
+        loadPhoto(url: imageUrl, photoCell: photoCell, photoData: photoData)
         photoCell.backgroundColor = .yellow
         
         return photoCell

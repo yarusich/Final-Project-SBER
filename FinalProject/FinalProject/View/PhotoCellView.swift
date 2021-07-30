@@ -31,7 +31,7 @@ final class PhotoCellView: UICollectionViewCell {
         didSet {
             if isSelected {
                 self.contentView.layer.borderWidth = 4
-                self.contentView.layer.borderColor = UIColor.red.cgColor
+                self.contentView.layer.borderColor = UIColor.orange.cgColor
             } else {
                 self.contentView.layer.borderWidth = 0
             }

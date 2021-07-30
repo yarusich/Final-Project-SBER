@@ -30,6 +30,7 @@ final class BottomInfoListViewController: UIViewController {
         let t = UILabel()
         t.text = "Автор"
         t.textAlignment = .left
+        t.font = UIFont.boldSystemFont(ofSize: 15.0)
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
     }()
@@ -37,7 +38,7 @@ final class BottomInfoListViewController: UIViewController {
     private let authorTextLabel: UILabel = {
         let t = UILabel()
         t.textAlignment = .left
-        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.font = UIFont.systemFont(ofSize: 17.0)
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
     }()
@@ -45,6 +46,7 @@ final class BottomInfoListViewController: UIViewController {
     private let dimensionHeadLabel: UILabel = {
         let t = UILabel()
         t.text = "Исходное разрешение"
+        t.font = UIFont.boldSystemFont(ofSize: 15.0)
         t.textAlignment = .left
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
@@ -53,7 +55,7 @@ final class BottomInfoListViewController: UIViewController {
     private let dimensionTextLabel: UILabel = {
         let t = UILabel()
         t.textAlignment = .left
-        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.font = UIFont.systemFont(ofSize: 17.0)
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
     }()
@@ -61,6 +63,7 @@ final class BottomInfoListViewController: UIViewController {
     private let descriptionsHeadLabel: UILabel = {
         let t = UILabel()
         t.text = "Описание"
+        t.font = UIFont.boldSystemFont(ofSize: 15.0)
         t.textAlignment = .left
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
@@ -69,12 +72,11 @@ final class BottomInfoListViewController: UIViewController {
     private let descriptionsTextLabel: UITextView = {
         let t = UITextView()
         t.textAlignment = .left
-        t.font = UIFont.systemFont(ofSize: 16.0)
+        t.font = UIFont.systemFont(ofSize: 17.0)
         t.translatesAutoresizingMaskIntoConstraints = false
         return t
     }()
     
-//    MARK: СТАК
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
         let stackView = UIStackView(arrangedSubviews: [infoHeadLabel, authorHeadLabel, authorTextLabel, dimensionHeadLabel, dimensionTextLabel, descriptionsHeadLabel, descriptionsTextLabel])
@@ -85,7 +87,7 @@ final class BottomInfoListViewController: UIViewController {
     
     lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         return view

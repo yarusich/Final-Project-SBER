@@ -34,7 +34,8 @@ final class ProfileViewController: UIViewController {
         let btm = UIButton(type: .system)
         btm.setTitle("Сменить запрос", for: .normal)
         btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .red
+        btm.backgroundColor = .systemOrange
+        btm.alpha = 0.75
         btm.layer.cornerRadius = 20.0
         btm.addTarget(self, action: #selector(changeQueryButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
@@ -43,9 +44,10 @@ final class ProfileViewController: UIViewController {
     
     private lazy var deleteDataFromUserDefaultsButton: UIButton = {
         let btm = UIButton(type: .system)
-        btm.setTitle("delele data", for: .normal)
+        btm.setTitle("Очистить запрос", for: .normal)
         btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .red
+        btm.alpha = 0.75
+        btm.backgroundColor = .systemRed
         btm.layer.cornerRadius = 20.0
         btm.addTarget(self, action: #selector(deleteDataFromUserDefaultsButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +56,6 @@ final class ProfileViewController: UIViewController {
     
     
     init() {
-
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,7 +66,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .brown
+        view.backgroundColor = .systemGray
         setView()
     }
     
@@ -90,19 +91,18 @@ final class ProfileViewController: UIViewController {
             profileTextLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40.0),
             
             defaultQueryTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            defaultQueryTextField.topAnchor.constraint(equalTo: profileTextLabel.bottomAnchor, constant: 40.0),
-            defaultQueryTextField.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 1),
+            defaultQueryTextField.topAnchor.constraint(equalTo: profileTextLabel.bottomAnchor, constant: 20.0),
+            defaultQueryTextField.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.9),
                         
             changeProfileButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            changeProfileButton.widthAnchor.constraint(equalToConstant: 200.0),
+            changeProfileButton.widthAnchor.constraint(equalToConstant: 150.0),
             changeProfileButton.heightAnchor.constraint(equalToConstant: 40.0),
             changeProfileButton.topAnchor.constraint(equalTo: defaultQueryTextField.bottomAnchor, constant: 40.0),
             
-            
             deleteDataFromUserDefaultsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            deleteDataFromUserDefaultsButton.widthAnchor.constraint(equalToConstant: 300.0),
+            deleteDataFromUserDefaultsButton.widthAnchor.constraint(equalToConstant: 150.0),
             deleteDataFromUserDefaultsButton.heightAnchor.constraint(equalToConstant: 40.0),
-            deleteDataFromUserDefaultsButton.topAnchor.constraint(equalTo: changeProfileButton.bottomAnchor, constant: 40.0),
+            deleteDataFromUserDefaultsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25.0),
         
         ])
     }

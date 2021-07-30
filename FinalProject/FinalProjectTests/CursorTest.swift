@@ -13,16 +13,16 @@ class CursorTest: XCTestCase {
     
     func testThatClassReturnCorrectValue() {
         //arrange
-        let returnedValue = "1"
+        let expectindValue = "1"
         //act
         let result = cursor.nextPage()
         //assert
-        XCTAssertEqual(result, returnedValue)
+        XCTAssertEqual(result, expectindValue)
     }
     
     func testThatClassClearsCurrentValue() {
         //arrange
-        let returnedValue = "1"
+        let expectindValue = "1"
         //act
         for _ in 0...2 {
             let _ = cursor.nextPage()
@@ -30,7 +30,7 @@ class CursorTest: XCTestCase {
         cursor.zeroPage()
         let result = cursor.nextPage()
         //assert
-        XCTAssertEqual(result, returnedValue)
+        XCTAssertEqual(result, expectindValue)
         
     }
 }

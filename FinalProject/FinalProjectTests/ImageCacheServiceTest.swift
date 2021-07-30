@@ -14,13 +14,13 @@ class ImageCacheServiceTest: XCTestCase {
         //arrange
         let key = "key"
         let image = UIImage(systemName: "heart")!
-        let returnedImage = UIImage(systemName: "heart")!
+        let expectindImage = UIImage(systemName: "heart")!
         
         //act
         imageCacheServiceTest.setImage(image: image, key: key)
         let result = imageCacheServiceTest.getImage(key: key)
         
         //assert
-        XCTAssertEqual(result, returnedImage)
+        XCTAssertEqual(result, expectindImage)
     }
 }

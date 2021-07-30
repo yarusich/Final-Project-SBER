@@ -7,54 +7,34 @@
 
 import UIKit
 
-final class MainPhotoViewController: UIViewController {
+final class MainPhotoViewController: BaseViewController {
     
     private let networkService = NetworkService()
     private let currentUserKey = "currentUser"
     private let photo: PhotoDTO
     private let coreDataService = CoreDataService()
 
-    private lazy var shareButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("share", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    private lazy var shareButton: CustomButton = {
+        let btm = CustomButton(name: "square.and.arrow.up")
         btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
     
-    private lazy var saveButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("save", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    private lazy var saveButton: CustomButton = {
+        let btm = CustomButton(name: "square.and.arrow.down")
         btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
     
-    private lazy var likeButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("like", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    private lazy var likeButton: CustomButton = {
+        let btm = CustomButton(name: "suit.heart.fill")
         btm.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
     
-    private lazy var infoButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("info", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    private lazy var infoButton: CustomButton = {
+        let btm = CustomButton(name: "info.circle")
         btm.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
   
@@ -80,7 +60,7 @@ final class MainPhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .green
+        view.backgroundColor = .systemGroupedBackground
         imageScrollView.hideDelegate = self
         loadPhoto(url: photo.url, photoData: photo)
         setupView()
@@ -101,6 +81,7 @@ final class MainPhotoViewController: UIViewController {
             tabBarController?.tabBar.isHidden = false
         }
     }
+    
 
 /// ОДИНАРНЫЙ ТАП
     @objc private func viewTapped() {
@@ -178,13 +159,11 @@ final class MainPhotoViewController: UIViewController {
                     self.imageScrollView.set(image: image)
                 case .failure(let error):
                     print(error)
-//                    self.showAlert(for: error)
+                    self.showAlert(for: error)
                 }
             }
         }
     }
-    
-    
 }
 
 extension MainPhotoViewController: ViewProtocol {
@@ -203,23 +182,23 @@ extension MainPhotoViewController: ViewProtocol {
             imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            shareButton.heightAnchor.constraint(equalToConstant: 50),
-            shareButton.widthAnchor.constraint(equalToConstant: 50),
+            shareButton.heightAnchor.constraint(equalToConstant: 55),
+            shareButton.widthAnchor.constraint(equalToConstant: 55),
             shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -120),
             shareButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
-            saveButton.heightAnchor.constraint(equalToConstant: 50),
-            saveButton.widthAnchor.constraint(equalToConstant: 50),
+            saveButton.heightAnchor.constraint(equalToConstant: 55),
+            saveButton.widthAnchor.constraint(equalToConstant: 55),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40),
             saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
-            likeButton.heightAnchor.constraint(equalToConstant: 50),
-            likeButton.widthAnchor.constraint(equalToConstant: 50),
+            likeButton.heightAnchor.constraint(equalToConstant: 55),
+            likeButton.widthAnchor.constraint(equalToConstant: 55),
             likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 40),
             likeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             
-            infoButton.heightAnchor.constraint(equalToConstant: 50),
-            infoButton.widthAnchor.constraint(equalToConstant: 50),
+            infoButton.heightAnchor.constraint(equalToConstant: 55),
+            infoButton.widthAnchor.constraint(equalToConstant: 55),
             infoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
             infoButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])

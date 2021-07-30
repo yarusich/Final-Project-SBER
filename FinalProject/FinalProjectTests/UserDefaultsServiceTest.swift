@@ -24,13 +24,13 @@ class UserDefaultsServiceTest: XCTestCase {
     func testThatServiceCleansData() {
     //arrange
         let value = "value"
-        let returnValue = ""
+        let expectindValue = ""
     //act
         userDefaultsServiceTest.addCurrentQuery(query: value)
         userDefaultsServiceTest.clearCurrentQuery()
         let result = userDefaultsServiceTest.getCurrentQuery()
     //assert
-        XCTAssertEqual(result, returnValue)
+        XCTAssertEqual(result, expectindValue)
     }
 }
 

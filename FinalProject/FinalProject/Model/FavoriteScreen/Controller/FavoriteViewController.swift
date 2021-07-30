@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-final class FavoriteViewController: UIViewController {
+final class FavoriteViewController: BaseViewController {
 
     private let networkService = NetworkService()
     private var selectIsActive: Bool = false
@@ -19,37 +19,29 @@ final class FavoriteViewController: UIViewController {
         return cds
     }()
     
+    
     private lazy var selectButton: UIButton = {
         let btm = UIButton(type: .system)
         btm.setTitle("Выбрать", for: .normal)
         btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
+        btm.backgroundColor = .systemOrange
         btm.layer.cornerRadius = 12.5
+        btm.alpha = 0.85
         btm.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
         btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
     
-    private lazy var shareButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("share", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    private lazy var shareButton: CustomButton = {
+        let btm = CustomButton(name: "square.and.arrow.up")
         btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         btm.isHidden = true
         return btm
     }()
     
-    private lazy var deleteButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("delete", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    private lazy var deleteButton: CustomButton = {
+        let btm = CustomButton(name: "square.and.arrow.up")
         btm.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         btm.isHidden = true
         return btm
     }()
@@ -64,7 +56,7 @@ final class FavoriteViewController: UIViewController {
         cv.register(PhotoCellView.self, forCellWithReuseIdentifier: PhotoCellView.id)
         cv.delegate = self
         cv.dataSource = self
-        cv.backgroundColor = .red
+        cv.backgroundColor = .systemBackground
         cv.showsVerticalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.allowsMultipleSelection = true
@@ -73,7 +65,7 @@ final class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .magenta
+        
         setupView()
     }
     
@@ -119,7 +111,7 @@ final class FavoriteViewController: UIViewController {
                         images.append(image)
                         photoDispatchGroup.leave()
                        case .failure(let error):
-//                        self.showAlert(for: error)
+                        self.showAlert(for: error)
                        print(error)
                        }
                 }
@@ -172,6 +164,7 @@ final class FavoriteViewController: UIViewController {
     }
     
     private func loadPhoto(url: String, photoCell: PhotoCellView, index: Int, photoData: PhotoDTO) {
+        isLoading = true
         networkService.loadPhoto(imageUrl: url) { [weak self] response in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -180,8 +173,9 @@ final class FavoriteViewController: UIViewController {
                     photoCell.configure(with: photoData, image)
                 case .failure(let error):
                     print(error)
-//                    self.showAlert(for: error)
+                    self.showAlert(for: error)
                 }
+                self.isLoading = false
             }
         }
     }
@@ -196,6 +190,7 @@ extension FavoriteViewController: ViewProtocol {
         view.addSubview(shareButton)
         view.addSubview(deleteButton)
         view.addSubview(selectButton)
+        navigationController?.navigationBar.barStyle = .black
         
         NSLayoutConstraint.activate([
             collectionPhotoView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -226,15 +221,10 @@ extension FavoriteViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        MARK: РАЗОБРАТЬСЯ ТУТ
         if selectIsActive {
-//            let selectedPhoto = fetchedResultsController.object(at: indexPath)
         } else {
             collectionView.deselectItem(at: indexPath, animated: true)
             selected(at: indexPath)
         }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
     }
 }
 
@@ -255,10 +245,8 @@ extension FavoriteViewController: UICollectionViewDataSource {
         let imageUrl = photoData.url
         guard let photoCell = cell as? PhotoCellView else { return cell }
 
-        
         loadPhoto(url: imageUrl, photoCell: photoCell, index: indexPath.item, photoData: photoData)
-        photoCell.backgroundColor = .yellow
-        
+                
         return photoCell
     }
     

@@ -14,15 +14,11 @@ protocol PhotoNetworkServiceProtocol {
 }
 
 final class NetworkService {
-    let perPage = "5"
+    let perPage = "20"
     let httpMethod = "GET"
     private let imageCacheService: ImageCacheService = .shared
     private let decoder = JSONDecoder()
     private let session = URLSession.shared
-    
-    deinit {
-        print("deinit NetworkService")
-    }
 }
 
 extension NetworkService: PhotoNetworkServiceProtocol {

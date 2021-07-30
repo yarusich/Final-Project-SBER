@@ -11,54 +11,39 @@ protocol FavoritePhotoViewControllerDelegate: AnyObject {
     func deletePhotoFromCoreData(_ photo: PhotoDTO)
 }
 
-final class FavoritePhotoViewController: UIViewController {
+final class FavoritePhotoViewController: BaseViewController {
     
     weak var delegate: FavoritePhotoViewControllerDelegate?
     private let networkService = NetworkService()
     private let currentUserKey = "currentUser"
     private let photo: PhotoDTO
  
-    private lazy var shareButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("share", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    
+    private lazy var shareButton: CustomButton = {
+        let btm = CustomButton(name: "square.and.arrow.up")
         btm.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
     
-    private lazy var saveButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("save", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+
+    
+    private lazy var saveButton: CustomButton = {
+        let btm = CustomButton(name: "square.and.arrow.down")
         btm.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
     
-    private lazy var deleteButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("del", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    
+    private lazy var deleteButton: CustomButton = {
+        let btm = CustomButton(name: "trash")
         btm.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
     
-    private lazy var infoButton: UIButton = {
-        let btm = UIButton(type: .system)
-        btm.setTitle("info", for: .normal)
-        btm.setTitleColor(.black, for: .normal)
-        btm.backgroundColor = .orange
-        btm.layer.cornerRadius = 15
+    
+    private lazy var infoButton: CustomButton = {
+        let btm = CustomButton(name: "info.circle")
         btm.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-        btm.translatesAutoresizingMaskIntoConstraints = false
         return btm
     }()
     
@@ -83,7 +68,7 @@ final class FavoritePhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .blue
+        view.backgroundColor = .systemGroupedBackground
         imageScrollView.hideDelegate = self
         
         loadPhoto(url: photo.url, photoData: photo)
@@ -112,7 +97,7 @@ final class FavoritePhotoViewController: UIViewController {
                case .success(let image):
                 self.imageScrollView.set(image: image)
                case .failure(let error):
-//                self.showAlert(for: error)
+                self.showAlert(for: error)
                print(error)
                }
             }

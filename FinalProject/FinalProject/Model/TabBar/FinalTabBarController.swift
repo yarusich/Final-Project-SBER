@@ -15,20 +15,20 @@ class FinalTabBarController: UITabBarController {
         setupController()
     }
     private func setupController() {
-        let item1 = UITabBarItem.init(tabBarSystemItem: .search, tag: 1)
-        let item2 = UITabBarItem.init(tabBarSystemItem: .favorites, tag: 1)
-        let item3 = UITabBarItem.init(tabBarSystemItem: .downloads, tag: 1)
+        let mainScreen = UITabBarItem.init(tabBarSystemItem: .search, tag: 1)
+        let favoriteScreen = UITabBarItem.init(tabBarSystemItem: .favorites, tag: 1)
+        let profileScreen = UITabBarItem.init(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 1)
         
         let networkService = NetworkService()
         
         let mainViewController = UINavigationController(rootViewController: MainViewController(networkService: networkService))
-        mainViewController.tabBarItem = item1
+        mainViewController.tabBarItem = mainScreen
         
         let favoriteViewController = UINavigationController(rootViewController: FavoriteViewController())
-        favoriteViewController.tabBarItem = item2
+        favoriteViewController.tabBarItem = favoriteScreen
         
         let profileViewController = ProfileViewController()
-        profileViewController.tabBarItem = item3
+        profileViewController.tabBarItem = profileScreen
         
         viewControllers = [mainViewController, favoriteViewController, profileViewController]
     }

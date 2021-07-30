@@ -8,29 +8,54 @@
 import XCTest
 
 class NetworkServiceTests: XCTestCase {
-    
-    func testThatServiceReturnsModelData() {
-        //arrange
-        let model = [PhotoDTO]()
-        
-        let getPhotosResponse = GetPhotosResponse(results: model)
-        
-        let resultImage = UIImage(systemName: "heart")!
-        let networkServiceMock: PhotoNetworkServiceProtocol
-        networkServiceMock = NetworkServiceMock(getPhotosResponse: getPhotosResponse, resultImage: resultImage, networkCompletion: .success)
-        
-        let networkService = NetworkService()
-        let expectationNetwork = expectation(description: "Success and network error")
-        let expectationCount = resultImage
-        //act
-        networkServiceMock.searchPhotos { result in
-            switch result {
-            case
-            }
-            
-        }
-        
-        //assert
+
+    var sut: PhotoNetworkServiceProtocol!
+    let testError = NetworkServiceError.network
+    var response: GetPhotosResponse!
+    var image: String!
+    var photo: [PhotoDTO]!
+
+    override func setUp() {
+        super.setUp()
+        photo = [PhotoDTO]()
+        response = GetPhotosResponse(results: photo)
+        image = "https://storage.googleapis.com/csgoassist/mirage.jpg"
+        sut = NetworkService()
     }
 
+    override func tearDown() {
+        sut = nil
+        super.tearDown()
+    }
+
+
+    func testResonce() {
+        let expectation1 = expectation(description: "Fail")
+
+        sut.searchPhotos(currentPage: "1", searching: "Cat") { result in
+            switch result {
+            case .success(let photo):
+                XCTAssertNotNil(photo)
+            case .failure(let error):
+                XCTAssertNotNil(error)
+            }
+            expectation1.fulfill()
+        }
+        waitForExpectations(timeout: 10,handler: nil)
+    }
+
+    func testLoadReturnError() {
+        let expectation2 = expectation(description: "Failur")
+
+        sut.loadPhoto(imageUrl: image) { result in
+            switch result {
+            case .success(let imageResult):
+                XCTAssertNotNil(imageResult)
+            case .failure(let error):
+                XCTAssertNotNil(error)
+            }
+            expectation2.fulfill()
+        }
+        waitForExpectations(timeout: 10,handler: nil)
+    }
 }

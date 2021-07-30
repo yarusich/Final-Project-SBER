@@ -44,27 +44,7 @@ class BaseViewControllerTest: XCTestCase {
         // assert
         XCTAssertFalse(result)
     }
-//    func showAlert(for error: NetworkServiceError) {
-//       let alert = UIAlertController(title: "Что-то пошло не так",
-//                                     message: message(for: error),
-//                                     preferredStyle: .alert)
-//       alert.addAction(UIAlertAction(title: "OK", style: .default))
-//       present(alert, animated: true)
-//   }
-//
-//   func message(for error: NetworkServiceError) -> String {
-//       switch error {
-//       case .network:
-//           return "Запрос упал"
-//       case .decodable:
-//           return "Не смогли распарсить"
-//       case .buildingURL:
-//           return "Ошибка в сборке url"
-//       case .unknown:
-//           return "Что-то неизвестное"
-//       }
-//   }
-//
+
     func testThatSendCorrectMessageForAlertWhenThereIsNetworkError() {
         //arrange
         let error = NetworkServiceError.network

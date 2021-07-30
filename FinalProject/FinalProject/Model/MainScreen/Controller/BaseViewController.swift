@@ -14,7 +14,7 @@ class BaseViewController: UIViewController {
     var isLoading = false {
         didSet {
             guard oldValue != isLoading else { return }
-            showSpinner(isShown: isLoading)
+            let _ = showSpinner(isShown: isLoading)
         }
     }
     

@@ -31,9 +31,7 @@ final class MainViewController: BaseViewController {
     }()
     
     private func setupPhotoSearchController() {
-        
         navigationItem.hidesSearchBarWhenScrolling = false
-        
         extendedLayoutIncludesOpaqueBars = true
         definesPresentationContext = true
         navigationItem.searchController = photoSearchController
@@ -64,9 +62,6 @@ final class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         query = userDefaultsService.getCurrentQuery()
-        
-        
-        
         setupView()
         loadData(with: query)
         setupPhotoSearchController()
@@ -75,8 +70,6 @@ final class MainViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        MARK: Скрыли наш нав бар
-//        navigationController?.navigationBar.isHidden = false
 //        MARK: Устанавливаем запрос по-умолчанию здесь
         photoSearchController.searchBar.placeholder = userDefaultsService.getCurrentQuery()
     }
@@ -88,7 +81,6 @@ final class MainViewController: BaseViewController {
         networkService.searchPhotos(currentPage: page, searching: query) { [weak self] response in
             guard let self = self else { return }
             self.process(response)
-            
         }
     }
     
@@ -124,12 +116,10 @@ extension MainViewController: ViewProtocol {
     
     func setupView() {
         view.addSubview(collectionPhotoView)
-        
-
-//        MARK: погуглить, можно ли сделать более прозрачным
         navigationController?.navigationBar.isTranslucent = true
-//        MARK: выбрать вариант:
         navigationController?.navigationBar.barStyle = .black
+        navigationController?.hidesBarsOnSwipe = true
+        
         NSLayoutConstraint.activate([
             collectionPhotoView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionPhotoView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -140,17 +130,12 @@ extension MainViewController: ViewProtocol {
 }
 
 extension MainViewController: UICollectionViewDelegate {
-//    MARK: Выбрали ячейку
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        
         collectionView.deselectItem(at: indexPath, animated: true)
-        
         selected(at: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        MARK: подгрузка
         let rowCount = 1
         if indexPath.item == dataSource.count - rowCount, !isLoading {
             loadData(with: query)
@@ -176,20 +161,16 @@ extension MainViewController: UICollectionViewDataSource {
 
         loadPhoto(url: imageUrl, photoCell: photoCell, photoData: photoData)
         
-        
         return photoCell
     }
-    
 }
 
-//  MARK: VIEW
 extension MainViewController {
     
     func selected(at index: IndexPath) {
         guard !photoSearchController.isActive else {
             return
         }
-        
         navigationController?.pushViewController(MainPhotoViewController(photo: dataSource[index.item]), animated: true)
     }
 //    MARK: Будет выводить лист настроек

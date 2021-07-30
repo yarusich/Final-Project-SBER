@@ -15,6 +15,7 @@
 		84133AAE2687F04900EACD6A /* FinalProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84133AAD2687F04900EACD6A /* FinalProjectUITests.swift */; };
 		84284F4A26B3131A002766CA /* SnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284F4926B3131A002766CA /* SnapshotTest.swift */; };
 		84284F5E26B3162F002766CA /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 84284F5D26B3162F002766CA /* SnapshotTesting */; };
+		84284F7526B324C2002766CA /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284F6F26B323F9002766CA /* NetworkServiceTests.swift */; };
 		842A8DC826AA7508008BA670 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */; };
 		842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */; };
 		842A8DD226AA7773008BA670 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DD126AA7773008BA670 /* CoreDataStack.swift */; };
@@ -86,6 +87,7 @@
 		84284F4726B3131A002766CA /* SnapshotTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapshotTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84284F4926B3131A002766CA /* SnapshotTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTest.swift; sourceTree = "<group>"; };
 		84284F4B26B3131A002766CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84284F6F26B323F9002766CA /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 		842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		842A8DD126AA7773008BA670 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				84133AA22687F04900EACD6A /* FinalProjectTests.swift */,
+				84284F6F26B323F9002766CA /* NetworkServiceTests.swift */,
 				84133AA42687F04900EACD6A /* Info.plist */,
 			);
 			path = FinalProjectTests;
@@ -484,6 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84284F7526B324C2002766CA /* NetworkServiceTests.swift in Sources */,
 				84133AA32687F04900EACD6A /* FinalProjectTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

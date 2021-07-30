@@ -174,6 +174,7 @@ extension MainViewController: ViewProtocol {
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.tintColor = .white
         
+//        navigationController?.navigationBar.
         
         
         

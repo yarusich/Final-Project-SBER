@@ -7,7 +7,23 @@
 
 import UIKit
 
+protocol ViewSpecificController {
+    associatedtype RootView: UIView
+}
+
+extension ViewSpecificController where Self: UIViewController {
+    var rootView: RootView {
+        guard let rootView = view as? RootView else {
+            fatalError("Ожидалось \(RootView.self), но вместо него будет \(type(of: view))")
+        }
+        return rootView
+    }
+        
+    
+}
+
 final class MainViewController: UIViewController {
+    
     
     private let networkService: PhotoNetworkServiceProtocol
     private let userDefaultsService = UserDefaultsService()

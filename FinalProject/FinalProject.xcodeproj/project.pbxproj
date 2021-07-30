@@ -52,6 +52,7 @@
 		8428510526B47DBE002766CA /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8ECF26B0127B008BA670 /* ImageScrollView.swift */; };
 		8428510A26B47DC0002766CA /* BottomInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8EC726B002F9008BA670 /* BottomInfoListViewController.swift */; };
 		8428511026B47E49002766CA /* MockCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428510F26B47E49002766CA /* MockCoreDataStack.swift */; };
+		8428512426B49EF9002766CA /* FinalUiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428512326B49EF9002766CA /* FinalUiTest.swift */; };
 		842A8DC826AA7508008BA670 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */; };
 		842A8DC926AA7508008BA670 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */; };
 		842A8DD226AA7773008BA670 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A8DD126AA7773008BA670 /* CoreDataStack.swift */; };
@@ -128,6 +129,7 @@
 		8428507C26B44506002766CA /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		8428508226B4502E002766CA /* BaseViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewControllerTest.swift; sourceTree = "<group>"; };
 		8428510F26B47E49002766CA /* MockCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataStack.swift; sourceTree = "<group>"; };
+		8428512326B49EF9002766CA /* FinalUiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalUiTest.swift; sourceTree = "<group>"; };
 		842A8DC626AA7508008BA670 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		842A8DC726AA7508008BA670 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		842A8DD126AA7773008BA670 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			children = (
 				84133AAD2687F04900EACD6A /* FinalProjectUITests.swift */,
 				84133AAF2687F04900EACD6A /* Info.plist */,
+				8428512326B49EF9002766CA /* FinalUiTest.swift */,
 			);
 			path = FinalProjectUITests;
 			sourceTree = "<group>";
@@ -676,6 +679,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8428512426B49EF9002766CA /* FinalUiTest.swift in Sources */,
 				84133AAE2687F04900EACD6A /* FinalProjectUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
